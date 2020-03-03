@@ -1,0 +1,22 @@
+<?php
+$lang["consignmenters_account_number"] = "Número de Cuenta";
+$lang["consignmenters_agency_name"] = "Nombre de Agencia";
+$lang["consignmenters_cannot_be_deleted"] = "No se puede borrar el/los Proveedor(es) seleccionado(s). Uno o más tienen Ventas.";
+$lang["consignmenters_category"] = "Categoría";
+$lang["consignmenters_company_name"] = "Nombre de la Compañía";
+$lang["consignmenters_company_name_required"] = "Nombre de la Compañía es un campo requerido.";
+$lang["consignmenters_confirm_delete"] = "¿Está seguro que quiere borrar al/los Proveedor(es) seleccionados?";
+$lang["consignmenters_confirm_restore"] = "¿Esá seguro que quiere restaurar al o los Proveedores seleccionados?";
+$lang["consignmenters_cost"] = "Costo del Proveedor";
+$lang["consignmenters_error_adding_updating"] = "Fallo al actualizar o agregar un Proveedor.";
+$lang["consignmenters_goods"] = "Proveedor de Materiales";
+$lang["consignmenters_new"] = "Nuevo Proveedor";
+$lang["consignmenters_none_selected"] = "No ha seleccionado Proveedor(es) para borrar.";
+$lang["consignmenters_one_or_multiple"] = "Proveedor(es)";
+$lang["consignmenters_successful_adding"] = "Usted ha agregado un Proveedor exitosamente";
+$lang["consignmenters_successful_deleted"] = "Ha borrado con éxito";
+$lang["consignmenters_successful_updating"] = "Ha actualizado un Proveedor con éxito";
+$lang["consignmenters_consignmenter"] = "Proveedor";
+$lang["consignmenters_consignmenter_id"] = "Id";
+$lang["consignmenters_tax_id"] = "Id Impuesto";
+$lang["consignmenters_update"] = "Actualizar Proveedor";

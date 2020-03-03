@@ -25,35 +25,35 @@
 		</div>
 
 		<div class="form-group form-group-sm">
-			<?php echo form_label($this->lang->line('expenses_supplier_name'), 'supplier_name', array('class'=>'control-label col-xs-3')); ?>
+			<?php echo form_label($this->lang->line('expenses_consignmenter_name'), 'consignmenter_name', array('class'=>'control-label col-xs-3')); ?>
 			<div class='col-xs-6'>
 				<?php echo form_input(array(
-						'name'=>'supplier_name',
-						'id'=>'supplier_name',
+						'name'=>'consignmenter_name',
+						'id'=>'consignmenter_name',
 						'class'=>'form-control input-sm',
-						'value'=>$this->lang->line('expenses_start_typing_supplier_name'))
+						'value'=>$this->lang->line('expenses_start_typing_consignmenter_name'))
 					);
 					echo form_input(array(
 						'type'=>'hidden',
-						'name'=>'supplier_id',
-						'id'=>'supplier_id')
+						'name'=>'consignmenter_id',
+						'id'=>'consignmenter_id')
 						);?>
 			</div>
 			<div class="col-xs-2">
-				<a id="remove_supplier_button" class="btn btn-danger btn-sm" title="Remove Consignmenter">
+				<a id="remove_consignmenter_button" class="btn btn-danger btn-sm" title="Remove Consignmenter">
 					<span class="glyphicon glyphicon-remove"></span>
 				</a>
 			</div>
 		</div>
 
 		<div class="form-group form-group-sm">
-			<?php echo form_label($this->lang->line('expenses_supplier_tax_code'), 'supplier_tax_code', array('class'=>'control-label col-xs-3')); ?>
+			<?php echo form_label($this->lang->line('expenses_consignmenter_tax_code'), 'consignmenter_tax_code', array('class'=>'control-label col-xs-3')); ?>
 			<div class='col-xs-6'>
 				<?php echo form_input(array(
-						'name'=>'supplier_tax_code',
-						'id'=>'supplier_tax_code',
+						'name'=>'consignmenter_tax_code',
+						'id'=>'consignmenter_tax_code',
 						'class'=>'form-control input-sm',
-						'value'=>$expenses_info->supplier_tax_code)
+						'value'=>$expenses_info->consignmenter_tax_code)
 						);?>
 			</div>
 		</div>
@@ -169,33 +169,33 @@ $(document).ready(function()
 		}
 	}
 
-	$('#supplier_name').click(function() {
+	$('#consignmenter_name').click(function() {
 		$(this).attr('value', '');
 	});
 
-	$('#supplier_name').autocomplete({
+	$('#consignmenter_name').autocomplete({
 		source: '<?php echo site_url("consignmenters/suggest"); ?>',
 		minChars:0,
 		delay:10,
 		select: function (event, ui) {
-			$('#supplier_id').val(ui.item.value);
+			$('#consignmenter_id').val(ui.item.value);
 			$(this).val(ui.item.label);
 			$(this).attr('readonly', 'readonly');
-			$('#remove_supplier_button').css('display', 'inline-block');
+			$('#remove_consignmenter_button').css('display', 'inline-block');
 			return false;
 		}
 	});
 
-	$('#supplier_name').blur(function() {
-		$(this).attr('value',"<?php echo $this->lang->line('expenses_start_typing_supplier_name'); ?>");
+	$('#consignmenter_name').blur(function() {
+		$(this).attr('value',"<?php echo $this->lang->line('expenses_start_typing_consignmenter_name'); ?>");
 	});
 
-	$('#remove_supplier_button').css('display', 'none');
+	$('#remove_consignmenter_button').css('display', 'none');
 
-	$('#remove_supplier_button').click(function() {
-		$('#supplier_id').val('');
-		$('#supplier_name').removeAttr('readonly');
-		$('#supplier_name').val('');
+	$('#remove_consignmenter_button').click(function() {
+		$('#consignmenter_id').val('');
+		$('#consignmenter_name').removeAttr('readonly');
+		$('#consignmenter_name').val('');
 		$(this).css('display', 'none');
 	});
 
@@ -203,9 +203,9 @@ $(document).ready(function()
 	if(!empty($expenses_info->expense_id))
 	{
 	?>
-		$('#supplier_id').val('<?php echo $expenses_info->supplier_id ?>');
-		$('#supplier_name').val('<?php echo $expenses_info->supplier_name ?>').attr('readonly', 'readonly');
-		$('#remove_supplier_button').css('display', 'inline-block');
+		$('#consignmenter_id').val('<?php echo $expenses_info->consignmenter_id ?>');
+		$('#consignmenter_name').val('<?php echo $expenses_info->consignmenter_name ?>').attr('readonly', 'readonly');
+		$('#remove_consignmenter_button').css('display', 'inline-block');
 	<?php
 	}
 	?>

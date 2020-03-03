@@ -385,7 +385,7 @@ ALTER TABLE ospos_sales_reward_points CONVERT TO CHARACTER SET utf8 COLLATE utf8
 ALTER TABLE ospos_sales_taxes CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE ospos_sessions CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE ospos_stock_locations CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
-ALTER TABLE ospos_suppliers CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE ospos_consignmenters CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE ospos_tax_categories CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE ospos_tax_code_rates CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 ALTER TABLE ospos_tax_codes CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;

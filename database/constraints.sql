@@ -27,7 +27,7 @@ ALTER TABLE `ospos_inventory`
 -- Constraints for table `ospos_items`
 --
 ALTER TABLE `ospos_items`
-  ADD CONSTRAINT `ospos_items_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `ospos_suppliers` (`person_id`);
+  ADD CONSTRAINT `ospos_items_ibfk_1` FOREIGN KEY (`consignmenter_id`) REFERENCES `ospos_consignmenters` (`person_id`);
 
 --
 -- Constraints for table `ospos_items_taxes`
@@ -61,7 +61,7 @@ ALTER TABLE `ospos_grants`
 --
 ALTER TABLE `ospos_receivings`
   ADD CONSTRAINT `ospos_receivings_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `ospos_employees` (`person_id`),
-  ADD CONSTRAINT `ospos_receivings_ibfk_2` FOREIGN KEY (`supplier_id`) REFERENCES `ospos_suppliers` (`person_id`);
+  ADD CONSTRAINT `ospos_receivings_ibfk_2` FOREIGN KEY (`consignmenter_id`) REFERENCES `ospos_consignmenters` (`person_id`);
 
 --
 -- Constraints for table `ospos_receivings_items`
@@ -107,10 +107,10 @@ ALTER TABLE `ospos_item_quantities`
   ADD CONSTRAINT `ospos_item_quantities_ibfk_2` FOREIGN KEY (`location_id`) REFERENCES `ospos_stock_locations` (`location_id`);
 
 --
--- Constraints for table `ospos_suppliers`
+-- Constraints for table `ospos_consignmenters`
 --
-ALTER TABLE `ospos_suppliers`
-  ADD CONSTRAINT `ospos_suppliers_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `ospos_people` (`person_id`);
+ALTER TABLE `ospos_consignmenters`
+  ADD CONSTRAINT `ospos_consignmenters_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `ospos_people` (`person_id`);
   
 --
 -- Constraints for table `ospos_giftcards`

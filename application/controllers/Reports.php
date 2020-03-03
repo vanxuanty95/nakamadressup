@@ -177,12 +177,12 @@ class Reports extends Secure_Controller
 	}
 
 	//Summary Consignmenters report
-	public function summary_suppliers($start_date, $end_date, $sale_type, $location_id = 'all')
+	public function summary_consignmenters($start_date, $end_date, $sale_type, $location_id = 'all')
 	{
 		$inputs = array('start_date' => $start_date, 'end_date' => $end_date, 'sale_type' => $sale_type, 'location_id' => $location_id);
 
-		$this->load->model('reports/Summary_suppliers');
-		$model = $this->Summary_suppliers;
+		$this->load->model('reports/Summary_consignmenters');
+		$model = $this->Summary_consignmenters;
 
 		$report_data = $model->getData($inputs);
 		$summary = $this->xss_clean($model->getSummaryData($inputs));
@@ -191,7 +191,7 @@ class Reports extends Secure_Controller
 		foreach($report_data as $row)
 		{
 			$tabular_data[] = $this->xss_clean(array(
-				'supplier_name' => $row['consignmenter'],
+				'consignmenter_name' => $row['consignmenter'],
 				'quantity' => to_quantity_decimals($row['quantity_purchased']),
 				'subtotal' => to_currency($row['subtotal']),
 				'tax' => to_currency_tax($row['tax']),
@@ -202,7 +202,7 @@ class Reports extends Secure_Controller
 		}
 
 		$data = array(
-			'title' => $this->lang->line('reports_suppliers_summary_report'),
+			'title' => $this->lang->line('reports_consignmenters_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $this->xss_clean($model->getDataColumns()),
 			'data' => $tabular_data,
@@ -642,12 +642,12 @@ class Reports extends Secure_Controller
 	}
 
 	//Graphical summary consignmenters report
-	public function graphical_summary_suppliers($start_date, $end_date, $sale_type, $location_id = 'all')
+	public function graphical_summary_consignmenters($start_date, $end_date, $sale_type, $location_id = 'all')
 	{
 		$inputs = array('start_date' => $start_date, 'end_date' => $end_date, 'sale_type' => $sale_type, 'location_id' => $location_id);
 
-		$this->load->model('reports/Summary_suppliers');
-		$model = $this->Summary_suppliers;
+		$this->load->model('reports/Summary_consignmenters');
+		$model = $this->Summary_consignmenters;
 
 		$report_data = $model->getData($inputs);
 		$summary = $this->xss_clean($model->getSummaryData($inputs));
@@ -663,7 +663,7 @@ class Reports extends Secure_Controller
 		}
 
 		$data = array(
-			'title' => $this->lang->line('reports_suppliers_summary_report'),
+			'title' => $this->lang->line('reports_consignmenters_summary_report'),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'chart_type' => 'reports/graphs/pie',
 			'labels_1' => $labels,
@@ -1399,7 +1399,7 @@ class Reports extends Secure_Controller
 			'receiving_date' => to_date(strtotime($report_data['receiving_date'])),
 			'quantity' => to_quantity_decimals($report_data['items_purchased']),
 			'employee_name' => $report_data['employee_name'],
-			'supplier_name' => $report_data['supplier_name'],
+			'consignmenter_name' => $report_data['consignmenter_name'],
 			'total' => to_currency($report_data['total']),
 			'payment_type' => $report_data['payment_type'],
 			'reference' => $report_data['reference'],
@@ -1441,7 +1441,7 @@ class Reports extends Secure_Controller
 				'receiving_date' => to_date(strtotime($row['receiving_date'])),
 				'quantity' => to_quantity_decimals($row['items_purchased']),
 				'employee_name' => $row['employee_name'],
-				'supplier_name' => $row['supplier_name'],
+				'consignmenter_name' => $row['consignmenter_name'],
 				'total' => to_currency($row['total']),
 				'profit' => to_currency($row['profit']),
 				'payment_type' => $row['payment_type'],

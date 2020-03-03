@@ -262,7 +262,7 @@ class Items extends Secure_Controller
 			$consignmenters[$this->xss_clean($row['person_id'])] = $this->xss_clean($row['company_name']);
 		}
 		$data['consignmenters'] = $consignmenters;
-		$data['selected_supplier'] = $item_info->supplier_id;
+		$data['selected_consignmenter'] = $item_info->consignmenter_id;
 
 		if($data['include_hsn'])
 		{
@@ -495,7 +495,7 @@ class Items extends Secure_Controller
 			'category' => $this->input->post('category'),
 			'item_type' => $item_type,
 			'stock_type' => $this->input->post('stock_type') == NULL ? HAS_STOCK : $this->input->post('stock_type'),
-			'supplier_id' => $this->input->post('supplier_id') == '' ? NULL : $this->input->post('supplier_id'),
+			'consignmenter_id' => $this->input->post('consignmenter_id') == '' ? NULL : $this->input->post('consignmenter_id'),
 			'item_number' => $this->input->post('item_number') == '' ? NULL : $this->input->post('item_number'),
 			'cost_price' => parse_decimals($this->input->post('cost_price')),
 			'unit_price' => parse_decimals($this->input->post('unit_price')),
@@ -728,7 +728,7 @@ class Items extends Secure_Controller
 		foreach($_POST as $key => $value)
 		{
 			//This field is nullable, so treat it differently
-			if($key == 'supplier_id' && $value != '')
+			if($key == 'consignmenter_id' && $value != '')
 			{
 				$item_data["$key"] = $value;
 			}
@@ -833,7 +833,7 @@ class Items extends Secure_Controller
 							'cost_price'			=> $line['Cost Price'],
 							'unit_price'			=> $line['Unit Price'],
 							'reorder_level'			=> $line['Reorder Level'],
-							'supplier_id'			=> $this->Consignmenter->exists($line['Consignmenter ID']) ? $line['Consignmenter ID'] : NULL,
+							'consignmenter_id'			=> $this->Consignmenter->exists($line['Consignmenter ID']) ? $line['Consignmenter ID'] : NULL,
 							'allow_alt_description'	=> $line['Allow Alt Description'] != '' ? '1' : '0',
 							'is_serialized'			=> $line['Item has Serial Number'] != '' ? '1' : '0',
 							'hsn_code'				=> $line['HSN'],
@@ -922,7 +922,7 @@ class Items extends Secure_Controller
 			$item_data['cost_price'],
 			$item_data['unit_price'],
 			$item_data['reorder_level'],
-			$item_data['supplier_id'],
+			$item_data['consignmenter_id'],
 			$line['Tax 1 Percent'],
 			$line['Tax 2 Percent']
 		);

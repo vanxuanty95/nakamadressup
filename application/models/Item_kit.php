@@ -63,7 +63,7 @@ class Item_kit extends CI_Model
 		price_option,
 		print_option,
 		category,
-		supplier_id,
+		consignmenter_id,
 		item_number,
 		cost_price,
 		unit_price,

@@ -1,0 +1,22 @@
+<?php
+$lang["consignmenters_account_number"] = "Hesap No";
+$lang["consignmenters_agency_name"] = "Ajans Adı";
+$lang["consignmenters_cannot_be_deleted"] = "Sağlayıcı silinemedi, bazı sağlayıcıların satışı var.";
+$lang["consignmenters_category"] = "Kategori";
+$lang["consignmenters_company_name"] = "Şirket Adı";
+$lang["consignmenters_company_name_required"] = "Şirket Adı zorunlu alandır.";
+$lang["consignmenters_confirm_delete"] = "Seçili sağlayıcıları silmek istiyor musunuz?";
+$lang["consignmenters_confirm_restore"] = "Seçili sağlayıcıları onarmak istiyor musunuz?";
+$lang["consignmenters_cost"] = "Maliyet Tedarikçisi";
+$lang["consignmenters_error_adding_updating"] = "Sağlayıcı ekleme/düzenleme hatası.";
+$lang["consignmenters_goods"] = "Mal Tedarikçisi";
+$lang["consignmenters_new"] = "Yeni Sağlayıcı";
+$lang["consignmenters_none_selected"] = "Silmek için sağlayıcı seçmediniz.";
+$lang["consignmenters_one_or_multiple"] = "sağlayıcılar";
+$lang["consignmenters_successful_adding"] = "Sağlayıcı eklendi";
+$lang["consignmenters_successful_deleted"] = "Sağlayıcı silindi";
+$lang["consignmenters_successful_updating"] = "Sağlayıcı güncellendi";
+$lang["consignmenters_consignmenter"] = "Sağlayıcı";
+$lang["consignmenters_consignmenter_id"] = "Kimlik";
+$lang["consignmenters_tax_id"] = "Vergi numarası";
+$lang["consignmenters_update"] = "Sağlayıcıyı Düzenle";

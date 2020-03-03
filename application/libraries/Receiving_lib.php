@@ -35,24 +35,24 @@ class Receiving_lib
 		$this->CI->session->unset_userdata('recv_cart');
 	}
 
-	public function get_supplier()
+	public function get_consignmenter()
 	{
-		if(!$this->CI->session->userdata('recv_supplier'))
+		if(!$this->CI->session->userdata('recv_consignmenter'))
 		{
-			$this->set_supplier(-1);
+			$this->set_consignmenter(-1);
 		}
 
-		return $this->CI->session->userdata('recv_supplier');
+		return $this->CI->session->userdata('recv_consignmenter');
 	}
 
-	public function set_supplier($supplier_id)
+	public function set_consignmenter($consignmenter_id)
 	{
-		$this->CI->session->set_userdata('recv_supplier', $supplier_id);
+		$this->CI->session->set_userdata('recv_consignmenter', $consignmenter_id);
 	}
 
-	public function remove_supplier()
+	public function remove_consignmenter()
 	{
-		$this->CI->session->unset_userdata('recv_supplier');
+		$this->CI->session->unset_userdata('recv_consignmenter');
 	}
 
 	public function get_mode()
@@ -318,7 +318,7 @@ class Receiving_lib
 		}
 
 		$this->empty_cart();
-		$this->remove_supplier();
+		$this->remove_consignmenter();
 		$this->clear_comment();
 
 		foreach($this->CI->Receiving->get_receiving_items($receiving_id)->result() as $row)
@@ -326,7 +326,7 @@ class Receiving_lib
 			$this->add_item($row->item_id, -$row->quantity_purchased, $row->item_location, $row->discount, $row->discount_type, $row->item_unit_price, $row->description, $row->serialnumber, $receiving_id, $row->receiving_quantity, TRUE);
 		}
 
-		$this->set_supplier($this->CI->Receiving->get_supplier($receiving_id)->person_id);
+		$this->set_consignmenter($this->CI->Receiving->get_consignmenter($receiving_id)->person_id);
 	}
 
 	public function add_item_kit($external_item_kit_id, $item_location, $discount, $discount_type)
@@ -344,14 +344,14 @@ class Receiving_lib
 	public function copy_entire_receiving($receiving_id)
 	{
 		$this->empty_cart();
-		$this->remove_supplier();
+		$this->remove_consignmenter();
 
 		foreach($this->CI->Receiving->get_receiving_items($receiving_id)->result() as $row)
 		{
 			$this->add_item($row->item_id, $row->quantity_purchased, $row->item_location, $row->discount, $row->discount_type, $row->item_unit_price, $row->description, $row->serialnumber, $row->receiving_quantity, $receiving_id, TRUE);
 		}
 
-		$this->set_supplier($this->CI->Receiving->get_supplier($receiving_id)->person_id);
+		$this->set_consignmenter($this->CI->Receiving->get_consignmenter($receiving_id)->person_id);
 		//$this->set_reference($this->CI->Receiving->get_info($receiving_id)->row()->reference);
 	}
 
@@ -359,7 +359,7 @@ class Receiving_lib
 	{
 		$this->clear_mode();
 		$this->empty_cart();
-		$this->remove_supplier();
+		$this->remove_consignmenter();
 		$this->clear_comment();
 		$this->clear_reference();
 	}

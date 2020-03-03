@@ -47,7 +47,7 @@
 		if(isset($consignmenter))
 		{
 		?>
-			<div id="customer"><?php echo $this->lang->line('suppliers_supplier').": ".$consignmenter; ?></div>
+			<div id="customer"><?php echo $this->lang->line('consignmenters_consignmenter').": ".$consignmenter; ?></div>
 		<?php
 		}
 		?>

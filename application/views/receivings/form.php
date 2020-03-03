@@ -17,10 +17,10 @@
 		</div>
 		
 		<div class="form-group form-group-sm">
-			<?php echo form_label($this->lang->line('receivings_supplier'), 'consignmenter', array('class'=>'control-label col-xs-3')); ?>
+			<?php echo form_label($this->lang->line('receivings_consignmenter'), 'consignmenter', array('class'=>'control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
-				<?php echo form_input(array('name' => 'supplier_name', 'value' => $selected_supplier_name, 'id' => 'supplier_name', 'class'=>'form-control input-sm'));?>
-				<?php echo form_hidden('supplier_id', $selected_supplier_id);?>
+				<?php echo form_input(array('name' => 'consignmenter_name', 'value' => $selected_consignmenter_name, 'id' => 'consignmenter_name', 'class'=>'form-control input-sm'));?>
+				<?php echo form_hidden('consignmenter_id', $selected_consignmenter_id);?>
 			</div>
 		</div>
 
@@ -56,11 +56,11 @@ $(document).ready(function()
 
 	var fill_value = function(event, ui) {
 		event.preventDefault();
-		$("input[name='supplier_id']").val(ui.item.value);
-		$("input[name='supplier_name']").val(ui.item.label);
+		$("input[name='consignmenter_id']").val(ui.item.value);
+		$("input[name='consignmenter_name']").val(ui.item.label);
 	};
 
-	$('#supplier_name').autocomplete({
+	$('#consignmenter_name').autocomplete({
 		source: "<?php echo site_url('consignmenters/suggest'); ?>",
 		minChars: 0,
 		delay: 15, 

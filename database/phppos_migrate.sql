@@ -76,8 +76,8 @@ SELECT `trans_id`, `trans_items`, `trans_user`, `trans_date`, `trans_comment`, 1
 -- Copy data to table `ospos_items`
 --
 
-INSERT INTO `ospos_items` (`name`, `category`, `supplier_id`, `item_number`, `description`, `cost_price`, `unit_price`, `reorder_level`, `receiving_quantity`, `item_id`, `pic_id`, `allow_alt_description`, `is_serialized`, `deleted`, `custom1`, `custom2`, `custom3`, `custom4`, `custom5`, `custom6`, `custom7`, `custom8`, `custom9`, `custom10`)
-SELECT `name`, `category`, `supplier_id`, `item_number`, `description`, `cost_price`, `unit_price`, `reorder_level`, 1, `item_id`, NULL, `allow_alt_description`, `is_serialized`, `deleted`, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 FROM `phppos`.phppos_items;
+INSERT INTO `ospos_items` (`name`, `category`, `consignmenter_id`, `item_number`, `description`, `cost_price`, `unit_price`, `reorder_level`, `receiving_quantity`, `item_id`, `pic_id`, `allow_alt_description`, `is_serialized`, `deleted`, `custom1`, `custom2`, `custom3`, `custom4`, `custom5`, `custom6`, `custom7`, `custom8`, `custom9`, `custom10`)
+SELECT `name`, `category`, `consignmenter_id`, `item_number`, `description`, `cost_price`, `unit_price`, `reorder_level`, 1, `item_id`, NULL, `allow_alt_description`, `is_serialized`, `deleted`, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 FROM `phppos`.phppos_items;
 
 --
 -- Copy data to table `ospos_items_taxes`
@@ -111,8 +111,8 @@ SELECT `name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state
 -- Copy data to table `ospos_receivings`
 --
 
-INSERT INTO `ospos_receivings` (`receiving_time`, `supplier_id`, `employee_id`, `comment`, `receiving_id`, `payment_type`, `reference`) 
-SELECT `receiving_time`, `supplier_id`, `employee_id`, `comment`, `receiving_id`, `payment_type`, NULL FROM `phppos`.phppos_receivings;
+INSERT INTO `ospos_receivings` (`receiving_time`, `consignmenter_id`, `employee_id`, `comment`, `receiving_id`, `payment_type`, `reference`) 
+SELECT `receiving_time`, `consignmenter_id`, `employee_id`, `comment`, `receiving_id`, `payment_type`, NULL FROM `phppos`.phppos_receivings;
 
 --
 -- Copy data to table `ospos_receivings_items`
@@ -157,11 +157,11 @@ INSERT INTO  `ospos_item_quantities` (`item_id`, `location_id`, `quantity`)
 SELECT `item_id`, 1, `quantity` FROM `phppos`.`phppos_items`;
 
 --
--- Copy data to table `ospos_suppliers`
+-- Copy data to table `ospos_consignmenters`
 --
 
-INSERT INTO `ospos_suppliers` (`person_id`, `company_name`, `account_number`, `deleted`)
-SELECT `person_id`, `company_name`, `account_number`, `deleted` FROM `phppos`.phppos_suppliers;
+INSERT INTO `ospos_consignmenters` (`person_id`, `company_name`, `account_number`, `deleted`)
+SELECT `person_id`, `company_name`, `account_number`, `deleted` FROM `phppos`.phppos_consignmenters;
 
 -- 
 -- Copy data to table `ospos_dinner_tables`

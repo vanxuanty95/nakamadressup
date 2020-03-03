@@ -229,7 +229,7 @@ CREATE TABLE `ospos_inventory` (
 CREATE TABLE `ospos_items` (
   `name` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL,
-  `supplier_id` int(11) DEFAULT NULL,
+  `consignmenter_id` int(11) DEFAULT NULL,
   `item_number` varchar(255) DEFAULT NULL,
   `description` varchar(255) NOT NULL,
   `cost_price` decimal(15,2) NOT NULL,
@@ -255,7 +255,7 @@ CREATE TABLE `ospos_items` (
   `custom10` VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (`item_id`),
   KEY `item_number` (`item_number`),
-  KEY `supplier_id` (`supplier_id`)
+  KEY `consignmenter_id` (`consignmenter_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -370,7 +370,7 @@ INSERT INTO `ospos_modules` (`name_lang_key`, `desc_lang_key`, `sort`, `module_i
 ('module_receivings', 'module_receivings_desc', 60, 'receivings'),
 ('module_reports', 'module_reports_desc', 50, 'reports'),
 ('module_sales', 'module_sales_desc', 70, 'sales'),
-('module_suppliers', 'module_suppliers_desc', 40, 'consignmenters'),
+('module_consignmenters', 'module_consignmenters_desc', 40, 'consignmenters'),
 ('module_taxes', 'module_taxes_desc', 105, 'taxes');
 
 -- --------------------------------------------------------
@@ -426,7 +426,7 @@ INSERT INTO `ospos_permissions` (`permission_id`, `module_id`) VALUES
 ('reports_receivings', 'reports'),
 ('reports_items', 'reports'),
 ('reports_employees', 'reports'),
-('reports_suppliers', 'reports'),
+('reports_consignmenters', 'reports'),
 ('reports_sales', 'reports'),
 ('reports_discounts', 'reports'),
 ('reports_taxes', 'reports'),
@@ -479,7 +479,7 @@ INSERT INTO `ospos_grants` (`permission_id`, `person_id`, `menu_group`) VALUES
 ('reports_items', 1, 'home'),
 ('reports_inventory', 1, 'home'),
 ('reports_employees', 1, 'home'),
-('reports_suppliers', 1, 'home'),
+('reports_consignmenters', 1, 'home'),
 ('reports_sales', 1, 'home'),
 ('reports_discounts', 1, 'home'),
 ('reports_taxes', 1, 'home'),
@@ -509,14 +509,14 @@ INSERT INTO `ospos_grants` (`permission_id`, `person_id`, `menu_group`) VALUES
 
 CREATE TABLE `ospos_receivings` (
   `receiving_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `supplier_id` int(10) DEFAULT NULL,
+  `consignmenter_id` int(10) DEFAULT NULL,
   `employee_id` int(10) NOT NULL DEFAULT '0',
   `comment` text DEFAULT NULL,
   `receiving_id` int(10) NOT NULL AUTO_INCREMENT,
   `payment_type` varchar(20) DEFAULT NULL,
   `reference` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`receiving_id`),
-  KEY `supplier_id` (`supplier_id`),
+  KEY `consignmenter_id` (`consignmenter_id`),
   KEY `employee_id` (`employee_id`),
   KEY `reference` (`reference`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -727,10 +727,10 @@ INSERT INTO `ospos_stock_locations` (`location_name` ) VALUES ('stock');
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_suppliers`
+-- Table structure for table `ospos_consignmenters`
 --
 
-CREATE TABLE `ospos_suppliers` (
+CREATE TABLE `ospos_consignmenters` (
   `person_id` int(10) NOT NULL,
   `company_name` varchar(255) NOT NULL,
   `agency_name` varchar(255) NOT NULL,
@@ -952,8 +952,8 @@ SELECT `trans_id`, `trans_items`, `trans_user`, `trans_date`, `trans_comment`, 1
 -- Copy data to table `ospos_items`
 --
 
-INSERT INTO `ospos_items` (`name`, `category`, `supplier_id`, `item_number`, `description`, `cost_price`, `unit_price`, `reorder_level`, `receiving_quantity`, `item_id`, `pic_id`, `allow_alt_description`, `is_serialized`, `deleted`, `custom1`, `custom2`, `custom3`, `custom4`, `custom5`, `custom6`, `custom7`, `custom8`, `custom9`, `custom10`)
-SELECT `name`, `category`, `supplier_id`, `item_number`, `description`, `cost_price`, `unit_price`, `reorder_level`, 1, `item_id`, NULL, `allow_alt_description`, `is_serialized`, `deleted`, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 FROM `phppos`.phppos_items;
+INSERT INTO `ospos_items` (`name`, `category`, `consignmenter_id`, `item_number`, `description`, `cost_price`, `unit_price`, `reorder_level`, `receiving_quantity`, `item_id`, `pic_id`, `allow_alt_description`, `is_serialized`, `deleted`, `custom1`, `custom2`, `custom3`, `custom4`, `custom5`, `custom6`, `custom7`, `custom8`, `custom9`, `custom10`)
+SELECT `name`, `category`, `consignmenter_id`, `item_number`, `description`, `cost_price`, `unit_price`, `reorder_level`, 1, `item_id`, NULL, `allow_alt_description`, `is_serialized`, `deleted`, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 FROM `phppos`.phppos_items;
 
 --
 -- Copy data to table `ospos_items_taxes`
@@ -987,8 +987,8 @@ SELECT `name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state
 -- Copy data to table `ospos_receivings`
 --
 
-INSERT INTO `ospos_receivings` (`receiving_time`, `supplier_id`, `employee_id`, `comment`, `receiving_id`, `payment_type`, `reference`) 
-SELECT `receiving_time`, `supplier_id`, `employee_id`, `comment`, `receiving_id`, `payment_type`, NULL FROM `phppos`.phppos_receivings;
+INSERT INTO `ospos_receivings` (`receiving_time`, `consignmenter_id`, `employee_id`, `comment`, `receiving_id`, `payment_type`, `reference`) 
+SELECT `receiving_time`, `consignmenter_id`, `employee_id`, `comment`, `receiving_id`, `payment_type`, NULL FROM `phppos`.phppos_receivings;
 
 --
 -- Copy data to table `ospos_receivings_items`
@@ -1033,11 +1033,11 @@ INSERT INTO  `ospos_item_quantities` (`item_id`, `location_id`, `quantity`)
 SELECT `item_id`, 1, `quantity` FROM `phppos`.`phppos_items`;
 
 --
--- Copy data to table `ospos_suppliers`
+-- Copy data to table `ospos_consignmenters`
 --
 
-INSERT INTO `ospos_suppliers` (`person_id`, `company_name`, `account_number`, `deleted`)
-SELECT `person_id`, `company_name`, `account_number`, `deleted` FROM `phppos`.phppos_suppliers;
+INSERT INTO `ospos_consignmenters` (`person_id`, `company_name`, `account_number`, `deleted`)
+SELECT `person_id`, `company_name`, `account_number`, `deleted` FROM `phppos`.phppos_consignmenters;
 
 -- 
 -- Copy data to table `ospos_dinner_tables`
@@ -1074,7 +1074,7 @@ ALTER TABLE `ospos_inventory`
 -- Constraints for table `ospos_items`
 --
 ALTER TABLE `ospos_items`
-  ADD CONSTRAINT `ospos_items_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `ospos_suppliers` (`person_id`);
+  ADD CONSTRAINT `ospos_items_ibfk_1` FOREIGN KEY (`consignmenter_id`) REFERENCES `ospos_consignmenters` (`person_id`);
 
 --
 -- Constraints for table `ospos_items_taxes`
@@ -1108,7 +1108,7 @@ ALTER TABLE `ospos_grants`
 --
 ALTER TABLE `ospos_receivings`
   ADD CONSTRAINT `ospos_receivings_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `ospos_employees` (`person_id`),
-  ADD CONSTRAINT `ospos_receivings_ibfk_2` FOREIGN KEY (`supplier_id`) REFERENCES `ospos_suppliers` (`person_id`);
+  ADD CONSTRAINT `ospos_receivings_ibfk_2` FOREIGN KEY (`consignmenter_id`) REFERENCES `ospos_consignmenters` (`person_id`);
 
 --
 -- Constraints for table `ospos_receivings_items`
@@ -1154,10 +1154,10 @@ ALTER TABLE `ospos_item_quantities`
   ADD CONSTRAINT `ospos_item_quantities_ibfk_2` FOREIGN KEY (`location_id`) REFERENCES `ospos_stock_locations` (`location_id`);
 
 --
--- Constraints for table `ospos_suppliers`
+-- Constraints for table `ospos_consignmenters`
 --
-ALTER TABLE `ospos_suppliers`
-  ADD CONSTRAINT `ospos_suppliers_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `ospos_people` (`person_id`);
+ALTER TABLE `ospos_consignmenters`
+  ADD CONSTRAINT `ospos_consignmenters_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `ospos_people` (`person_id`);
   
 --
 -- Constraints for table `ospos_giftcards`

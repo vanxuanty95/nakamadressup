@@ -9,8 +9,8 @@ class Receiving extends CI_Model
 	public function get_info($receiving_id)
 	{
 		$this->db->from('receivings');
-		$this->db->join('people', 'people.person_id = receivings.supplier_id', 'LEFT');
-		$this->db->join('consignmenters', 'consignmenters.person_id = receivings.supplier_id', 'LEFT');
+		$this->db->join('people', 'people.person_id = receivings.consignmenter_id', 'LEFT');
+		$this->db->join('consignmenters', 'consignmenters.person_id = receivings.consignmenter_id', 'LEFT');
 		$this->db->where('receiving_id', $receiving_id);
 
 		return $this->db->get();
@@ -59,7 +59,7 @@ class Receiving extends CI_Model
 		return $this->db->update('receivings', $receiving_data);
 	}
 
-	public function save($items, $supplier_id, $employee_id, $comment, $reference, $payment_type, $receiving_id = FALSE)
+	public function save($items, $consignmenter_id, $employee_id, $comment, $reference, $payment_type, $receiving_id = FALSE)
 	{
 		if(count($items) == 0)
 		{
@@ -68,7 +68,7 @@ class Receiving extends CI_Model
 
 		$receivings_data = array(
 			'receiving_time' => date('Y-m-d H:i:s'),
-			'supplier_id' => $this->Consignmenter->exists($supplier_id) ? $supplier_id : NULL,
+			'consignmenter_id' => $this->Consignmenter->exists($consignmenter_id) ? $consignmenter_id : NULL,
 			'employee_id' => $employee_id,
 			'payment_type' => $payment_type,
 			'comment' => $comment,
@@ -129,7 +129,7 @@ class Receiving extends CI_Model
 
 			$this->Attribute->copy_attribute_links($item['item_id'], 'receiving_id', $receiving_id);
 
-			$consignmenter = $this->Consignmenter->get_info($supplier_id);
+			$consignmenter = $this->Consignmenter->get_info($consignmenter_id);
 		}
 
 		$this->db->trans_complete();
@@ -210,12 +210,12 @@ class Receiving extends CI_Model
 		return $this->db->get();
 	}
 	
-	public function get_supplier($receiving_id)
+	public function get_consignmenter($receiving_id)
 	{
 		$this->db->from('receivings');
 		$this->db->where('receiving_id', $receiving_id);
 
-		return $this->Consignmenter->get_info($this->db->get()->row()->supplier_id);
+		return $this->Consignmenter->get_info($this->db->get()->row()->consignmenter_id);
 	}
 
 	public function get_payment_options()
@@ -263,7 +263,7 @@ class Receiving extends CI_Model
 					MAX(payment_type) AS payment_type,
 					MAX(employee_id) AS employee_id, 
 					items.item_id,
-					MAX(receivings.supplier_id) AS supplier_id,
+					MAX(receivings.consignmenter_id) AS consignmenter_id,
 					MAX(quantity_purchased) AS quantity_purchased,
 					MAX(receivings_items.receiving_quantity) AS receiving_quantity,
 					MAX(item_cost_price) AS item_cost_price,

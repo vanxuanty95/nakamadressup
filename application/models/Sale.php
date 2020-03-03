@@ -1171,7 +1171,7 @@ class Sale extends CI_Model
 					MAX(' . $this->Item->get_item_name() . ') AS name,
 					MAX(items.item_number) AS item_number,
 					MAX(items.category) AS category,
-					MAX(items.supplier_id) AS supplier_id,
+					MAX(items.consignmenter_id) AS consignmenter_id,
 					MAX(sales_items.quantity_purchased) AS quantity_purchased,
 					MAX(sales_items.item_cost_price) AS item_cost_price,
 					MAX(sales_items.item_unit_price) AS item_unit_price,
@@ -1198,7 +1198,7 @@ class Sale extends CI_Model
 				LEFT OUTER JOIN ' . $this->db->dbprefix('sales_payments_temp') . ' AS payments
 					ON sales_items.sale_id = payments.sale_id
 				LEFT OUTER JOIN ' . $this->db->dbprefix('consignmenters') . ' AS consignmenter
-					ON items.supplier_id = consignmenter.person_id
+					ON items.consignmenter_id = consignmenter.person_id
 				LEFT OUTER JOIN ' . $this->db->dbprefix('people') . ' AS customer_p
 					ON sales.customer_id = customer_p.person_id
 				LEFT OUTER JOIN ' . $this->db->dbprefix('customers') . ' AS customer

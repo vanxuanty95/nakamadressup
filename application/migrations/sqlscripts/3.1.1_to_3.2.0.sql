@@ -194,8 +194,8 @@ ALTER TABLE `ospos_expenses`
 -- Add extra columns to `ospos_expenses`
 
 ALTER TABLE `ospos_expenses`
-  ADD COLUMN `supplier_name` varchar(255) DEFAULT NULL,
-  ADD COLUMN `supplier_tax_code` varchar(255) DEFAULT NULL,
+  ADD COLUMN `consignmenter_name` varchar(255) DEFAULT NULL,
+  ADD COLUMN `consignmenter_tax_code` varchar(255) DEFAULT NULL,
   ADD COLUMN `tax_amount` decimal(15,2) DEFAULT NULL;
 
 

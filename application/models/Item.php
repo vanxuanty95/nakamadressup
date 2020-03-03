@@ -118,7 +118,7 @@ class Item extends CI_Model
 			$this->db->select('items.item_id AS item_id');
 			$this->db->select('MAX(items.name) AS name');
 			$this->db->select('MAX(items.category) AS category');
-			$this->db->select('MAX(items.supplier_id) AS supplier_id');
+			$this->db->select('MAX(items.consignmenter_id) AS consignmenter_id');
 			$this->db->select('MAX(items.item_number) AS item_number');
 			$this->db->select('MAX(items.description) AS description');
 			$this->db->select('MAX(items.cost_price) AS cost_price');
@@ -155,7 +155,7 @@ class Item extends CI_Model
 		}
 
 		$this->db->from('items AS items');
-		$this->db->join('consignmenters AS consignmenters', 'consignmenters.person_id = items.supplier_id', 'left');
+		$this->db->join('consignmenters AS consignmenters', 'consignmenters.person_id = items.consignmenter_id', 'left');
 		$this->db->join('inventory AS inventory', 'inventory.trans_items = items.item_id');
 
 		if($filters['stock_location_id'] > -1)
@@ -256,7 +256,7 @@ class Item extends CI_Model
 	public function get_all($stock_location_id = -1, $rows = 0, $limit_from = 0)
 	{
 		$this->db->from('items');
-		$this->db->join('consignmenters', 'consignmenters.person_id = items.supplier_id', 'left');
+		$this->db->join('consignmenters', 'consignmenters.person_id = items.consignmenter_id', 'left');
 
 		if($stock_location_id > -1)
 		{
@@ -288,7 +288,7 @@ class Item extends CI_Model
 		$this->db->select('GROUP_CONCAT(attribute_date SEPARATOR \'|\') AS attribute_dtvalues');
 		$this->db->select('consignmenters.company_name');
 		$this->db->from('items');
-		$this->db->join('consignmenters', 'consignmenters.person_id = items.supplier_id', 'left');
+		$this->db->join('consignmenters', 'consignmenters.person_id = items.consignmenter_id', 'left');
 		$this->db->join('attribute_links', 'attribute_links.item_id = items.item_id', 'left');
 		$this->db->join('attribute_values', 'attribute_links.attribute_id = attribute_values.attribute_id', 'left');
 		$this->db->where('items.item_id', $item_id);
@@ -359,7 +359,7 @@ class Item extends CI_Model
 	public function get_item_id($item_number, $ignore_deleted = FALSE, $deleted = FALSE)
 	{
 		$this->db->from('items');
-		$this->db->join('consignmenters', 'consignmenters.person_id = items.supplier_id', 'left');
+		$this->db->join('consignmenters', 'consignmenters.person_id = items.consignmenter_id', 'left');
 		$this->db->where('item_number', $item_number);
 		if($ignore_deleted == FALSE)
 		{
@@ -389,7 +389,7 @@ class Item extends CI_Model
 		$this->db->select('GROUP_CONCAT(DISTINCT CONCAT_WS(\'_\', definition_id, attribute_decimal) ORDER BY definition_id SEPARATOR \'|\') AS attribute_dvalues');
 		$this->db->select('quantity');
 		$this->db->from('items');
-		$this->db->join('consignmenters', 'consignmenters.person_id = items.supplier_id', 'left');
+		$this->db->join('consignmenters', 'consignmenters.person_id = items.consignmenter_id', 'left');
 		$this->db->join('item_quantities', 'item_quantities.item_id = items.item_id', 'left');
 		$this->db->join('attribute_links', 'attribute_links.item_id = items.item_id AND sale_id IS NULL AND receiving_id IS NULL', 'left');
 		$this->db->join('attribute_values', 'attribute_links.attribute_id = attribute_values.attribute_id', 'left');

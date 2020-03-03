@@ -267,15 +267,15 @@ function get_customer_data_row($person, $stats)
 /*
 Get the header for the consignmenters tabular view
 */
-function get_suppliers_manage_table_headers()
+function get_consignmenters_manage_table_headers()
 {
 	$CI =& get_instance();
 
 	$headers = array(
 		array('people.person_id' => $CI->lang->line('common_id')),
-		array('company_name' => $CI->lang->line('suppliers_company_name')),
-		array('agency_name' => $CI->lang->line('suppliers_agency_name')),
-		array('category' => $CI->lang->line('suppliers_category')),
+		array('company_name' => $CI->lang->line('consignmenters_company_name')),
+		array('agency_name' => $CI->lang->line('consignmenters_agency_name')),
+		array('category' => $CI->lang->line('consignmenters_category')),
 		array('name' => $CI->lang->line('common_name')),
 		array('email' => $CI->lang->line('common_email')),
 		array('phone_number' => $CI->lang->line('common_phone_number'))
@@ -292,7 +292,7 @@ function get_suppliers_manage_table_headers()
 /*
 Get the html data row for the consignmenter
 */
-function get_supplier_data_row($consignmenter)
+function get_consignmenter_data_row($consignmenter)
 {
 	$CI =& get_instance();
 
@@ -328,7 +328,7 @@ function get_items_manage_table_headers()
 		array('item_number' => $CI->lang->line('items_item_number')),
 		array('name' => $CI->lang->line('items_name')),
 		array('category' => $CI->lang->line('items_category')),
-		array('company_name' => $CI->lang->line('suppliers_company_name')),
+		array('company_name' => $CI->lang->line('consignmenters_company_name')),
 		array('cost_price' => $CI->lang->line('items_cost_price')),
 		array('unit_price' => $CI->lang->line('items_unit_price')),
 		array('quantity' => $CI->lang->line('items_quantity'))
@@ -656,8 +656,8 @@ function get_expenses_manage_table_headers()
 	$headers = array(
 		array('expense_id' => $CI->lang->line('expenses_expense_id')),
 		array('date' => $CI->lang->line('expenses_date')),
-		array('supplier_name' => $CI->lang->line('expenses_supplier_name')),
-		array('supplier_tax_code' => $CI->lang->line('expenses_supplier_tax_code')),
+		array('consignmenter_name' => $CI->lang->line('expenses_consignmenter_name')),
+		array('consignmenter_tax_code' => $CI->lang->line('expenses_consignmenter_tax_code')),
 		array('amount' => $CI->lang->line('expenses_amount')),
 		array('tax_amount' => $CI->lang->line('expenses_tax_amount')),
 		array('payment_type' => $CI->lang->line('expenses_payment')),
@@ -681,8 +681,8 @@ function get_expenses_data_row($expense)
 	return array (
 		'expense_id' => $expense->expense_id,
 		'date' => to_datetime(strtotime($expense->date)),
-		'supplier_name' => $expense->supplier_name,
-		'supplier_tax_code' => $expense->supplier_tax_code,
+		'consignmenter_name' => $expense->consignmenter_name,
+		'consignmenter_tax_code' => $expense->consignmenter_tax_code,
 		'amount' => to_currency($expense->amount),
 		'tax_amount' => to_currency($expense->tax_amount),
 		'payment_type' => $expense->payment_type,

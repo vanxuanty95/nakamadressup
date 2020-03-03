@@ -1,0 +1,22 @@
+<?php
+$lang["consignmenters_account_number"] = "Nomor Akun Pemasok";
+$lang["consignmenters_agency_name"] = "Nama";
+$lang["consignmenters_cannot_be_deleted"] = "Tidak bisa dihapus pemasok yang dipilih, satu atau lebih dari pemasok yang dipilih memiliki penjualan.";
+$lang["consignmenters_category"] = "Kategori";
+$lang["consignmenters_company_name"] = "Nama Perusahaan";
+$lang["consignmenters_company_name_required"] = "Nama Perusahaan wajib diisi.";
+$lang["consignmenters_confirm_delete"] = "Apakah Anda yakin ingin menghapus pemasok yang dipilih?";
+$lang["consignmenters_confirm_restore"] = "Anda yakin ingin mengembalikan Pemasok terpilih?";
+$lang["consignmenters_cost"] = "Biaya Pemasok";
+$lang["consignmenters_error_adding_updating"] = "Kesalahan Menambah / memperbarui data pemasok.";
+$lang["consignmenters_goods"] = "Pemasok Barang";
+$lang["consignmenters_new"] = "Pemasok Baru";
+$lang["consignmenters_none_selected"] = "Anda belum memilih pemasok untuk dihapus.";
+$lang["consignmenters_one_or_multiple"] = "Pemasok";
+$lang["consignmenters_successful_adding"] = "Anda telah berhasil menambahkan data pemasok";
+$lang["consignmenters_successful_deleted"] = "Anda telah berhasil menghapus data pemasok";
+$lang["consignmenters_successful_updating"] = "Anda telah berhasil memperbarui data pemasok";
+$lang["consignmenters_consignmenter"] = "Pemasok";
+$lang["consignmenters_consignmenter_id"] = "ID";
+$lang["consignmenters_tax_id"] = "ID Pajak";
+$lang["consignmenters_update"] = "Ubah data Pemasok";

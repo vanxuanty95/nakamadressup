@@ -238,59 +238,59 @@ if (isset($success))
 		?>
 			<table class="sales_table_100">
 				<tr>
-					<th style='width: 55%;'><?php echo $this->lang->line("receivings_supplier"); ?></th>
+					<th style='width: 55%;'><?php echo $this->lang->line("receivings_consignmenter"); ?></th>
 					<th style="width: 45%; text-align: right;"><?php echo $consignmenter; ?></th>
 				</tr>
 				<?php
-				if(!empty($supplier_email))
+				if(!empty($consignmenter_email))
 				{
 				?>
 					<tr>
-						<th style='width: 55%;'><?php echo $this->lang->line("receivings_supplier_email"); ?></th>
-						<th style="width: 45%; text-align: right;"><?php echo $supplier_email; ?></th>
+						<th style='width: 55%;'><?php echo $this->lang->line("receivings_consignmenter_email"); ?></th>
+						<th style="width: 45%; text-align: right;"><?php echo $consignmenter_email; ?></th>
 					</tr>
 				<?php
 				}
 				?>
 				<?php
-				if(!empty($supplier_address))
+				if(!empty($consignmenter_address))
 				{
 				?>
 					<tr>
-						<th style='width: 55%;'><?php echo $this->lang->line("receivings_supplier_address"); ?></th>
-						<th style="width: 45%; text-align: right;"><?php echo $supplier_address; ?></th>
+						<th style='width: 55%;'><?php echo $this->lang->line("receivings_consignmenter_address"); ?></th>
+						<th style="width: 45%; text-align: right;"><?php echo $consignmenter_address; ?></th>
 					</tr>
 				<?php
 				}
 				?>
 				<?php
-				if(!empty($supplier_location))
+				if(!empty($consignmenter_location))
 				{
 				?>
 					<tr>
-						<th style='width: 55%;'><?php echo $this->lang->line("receivings_supplier_location"); ?></th>
-						<th style="width: 45%; text-align: right;"><?php echo $supplier_location; ?></th>
+						<th style='width: 55%;'><?php echo $this->lang->line("receivings_consignmenter_location"); ?></th>
+						<th style="width: 45%; text-align: right;"><?php echo $consignmenter_location; ?></th>
 					</tr>
 				<?php
 				}
 				?>
 			</table>
 			
-			<?php echo anchor($controller_name."/remove_supplier", '<span class="glyphicon glyphicon-remove">&nbsp</span>' . $this->lang->line('common_remove').' '.$this->lang->line('suppliers_supplier'),
-								array('class'=>'btn btn-danger btn-sm', 'id'=>'remove_supplier_button', 'title'=>$this->lang->line('common_remove').' '.$this->lang->line('suppliers_supplier'))); ?>
+			<?php echo anchor($controller_name."/remove_consignmenter", '<span class="glyphicon glyphicon-remove">&nbsp</span>' . $this->lang->line('common_remove').' '.$this->lang->line('consignmenters_consignmenter'),
+								array('class'=>'btn btn-danger btn-sm', 'id'=>'remove_consignmenter_button', 'title'=>$this->lang->line('common_remove').' '.$this->lang->line('consignmenters_consignmenter'))); ?>
 		<?php
 		}
 		else
 		{
 		?>
-			<?php echo form_open($controller_name."/select_supplier", array('id'=>'select_supplier_form', 'class'=>'form-horizontal')); ?>
+			<?php echo form_open($controller_name."/select_consignmenter", array('id'=>'select_consignmenter_form', 'class'=>'form-horizontal')); ?>
 				<div class="form-group" id="select_customer">
-					<label id="supplier_label" for="consignmenter" class="control-label" style="margin-bottom: 1em; margin-top: -1em;"><?php echo $this->lang->line('receivings_select_supplier'); ?></label>
-					<?php echo form_input(array('name'=>'consignmenter', 'id'=>'consignmenter', 'class'=>'form-control input-sm', 'value'=>$this->lang->line('receivings_start_typing_supplier_name'))); ?>
+					<label id="consignmenter_label" for="consignmenter" class="control-label" style="margin-bottom: 1em; margin-top: -1em;"><?php echo $this->lang->line('receivings_select_consignmenter'); ?></label>
+					<?php echo form_input(array('name'=>'consignmenter', 'id'=>'consignmenter', 'class'=>'form-control input-sm', 'value'=>$this->lang->line('receivings_start_typing_consignmenter_name'))); ?>
 
-					<button id='new_supplier_button' class='btn btn-info btn-sm modal-dlg' data-btn-submit='<?php echo $this->lang->line('common_submit') ?>' data-href='<?php echo site_url("consignmenters/view"); ?>'
-							title='<?php echo $this->lang->line('receivings_new_supplier'); ?>'>
-						<span class="glyphicon glyphicon-user">&nbsp</span><?php echo $this->lang->line('receivings_new_supplier'); ?>
+					<button id='new_consignmenter_button' class='btn btn-info btn-sm modal-dlg' data-btn-submit='<?php echo $this->lang->line('common_submit') ?>' data-href='<?php echo site_url("consignmenters/view"); ?>'
+							title='<?php echo $this->lang->line('receivings_new_consignmenter'); ?>'>
+						<span class="glyphicon glyphicon-user">&nbsp</span><?php echo $this->lang->line('receivings_new_consignmenter'); ?>
 					</button>
 
 				</div>
@@ -456,7 +456,7 @@ $(document).ready(function()
 		delay:10,
 		select: function (a, ui) {
 			$(this).val(ui.item.value);
-			$("#select_supplier_form").submit();
+			$("#select_consignmenter_form").submit();
 		}
 	});
 
@@ -464,7 +464,7 @@ $(document).ready(function()
 
 	$('#consignmenter').blur(function()
 	{
-		$(this).attr('value',"<?php echo $this->lang->line('receivings_start_typing_supplier_name'); ?>");
+		$(this).attr('value',"<?php echo $this->lang->line('receivings_start_typing_consignmenter_name'); ?>");
 	});
 
 	$("#finish_receiving_button").click(function()
@@ -496,7 +496,7 @@ $(document).ready(function()
 			if (resource.match(/consignmenters$/))
 			{
 				$("#consignmenter").val(response.id);
-				$("#select_supplier_form").submit();
+				$("#select_consignmenter_form").submit();
 			}
 			else
 			{

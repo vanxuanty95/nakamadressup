@@ -37,12 +37,12 @@ class Receivings extends Secure_Controller
 		echo json_encode($suggestions);
 	}
 
-	public function select_supplier()
+	public function select_consignmenter()
 	{
-		$supplier_id = $this->input->post('consignmenter');
-		if($this->Consignmenter->exists($supplier_id))
+		$consignmenter_id = $this->input->post('consignmenter');
+		if($this->Consignmenter->exists($consignmenter_id))
 		{
-			$this->receiving_lib->set_supplier($supplier_id);
+			$this->receiving_lib->set_consignmenter($consignmenter_id);
 		}
 
 		$this->_reload();
@@ -158,8 +158,8 @@ class Receivings extends Secure_Controller
 		}
 	
 		$receiving_info = $this->xss_clean($this->Receiving->get_info($receiving_id)->row_array());
-		$data['selected_supplier_name'] = !empty($receiving_info['supplier_id']) ? $receiving_info['company_name'] : '';
-		$data['selected_supplier_id'] = $receiving_info['supplier_id'];
+		$data['selected_consignmenter_name'] = !empty($receiving_info['consignmenter_id']) ? $receiving_info['company_name'] : '';
+		$data['selected_consignmenter_id'] = $receiving_info['consignmenter_id'];
 		$data['receiving_info'] = $receiving_info;
 	
 		$this->load->view('receivings/form', $data);
@@ -188,10 +188,10 @@ class Receivings extends Secure_Controller
 		}
 	}
 
-	public function remove_supplier()
+	public function remove_consignmenter()
 	{
 		$this->receiving_lib->clear_reference();
-		$this->receiving_lib->remove_supplier();
+		$this->receiving_lib->remove_consignmenter();
 
 		$this->_reload();
 	}
@@ -219,27 +219,27 @@ class Receivings extends Secure_Controller
 		$employee_info = $this->Employee->get_info($employee_id);
 		$data['employee'] = $employee_info->name;
 
-		$supplier_info = '';
-		$supplier_id = $this->receiving_lib->get_supplier();
-		if($supplier_id != -1)
+		$consignmenter_info = '';
+		$consignmenter_id = $this->receiving_lib->get_consignmenter();
+		if($consignmenter_id != -1)
 		{
-			$supplier_info = $this->Consignmenter->get_info($supplier_id);
-			$data['consignmenter'] = $supplier_info->company_name;
-			$data['name'] = $supplier_info->name;
-			$data['supplier_email'] = $supplier_info->email;
-			$data['supplier_address'] = $supplier_info->address_1;
-			if(!empty($supplier_info->zip) or !empty($supplier_info->city))
+			$consignmenter_info = $this->Consignmenter->get_info($consignmenter_id);
+			$data['consignmenter'] = $consignmenter_info->company_name;
+			$data['name'] = $consignmenter_info->name;
+			$data['consignmenter_email'] = $consignmenter_info->email;
+			$data['consignmenter_address'] = $consignmenter_info->address_1;
+			if(!empty($consignmenter_info->zip) or !empty($consignmenter_info->city))
 			{
-				$data['supplier_location'] = $supplier_info->zip . ' ' . $supplier_info->city;				
+				$data['consignmenter_location'] = $consignmenter_info->zip . ' ' . $consignmenter_info->city;				
 			}
 			else
 			{
-				$data['supplier_location'] = '';
+				$data['consignmenter_location'] = '';
 			}
 		}
 
 		//SAVE receiving to database
-		$data['receiving_id'] = 'RECV ' . $this->Receiving->save($data['cart'], $supplier_id, $employee_id, $data['comment'], $data['reference'], $data['payment_type'], $data['stock_location']);
+		$data['receiving_id'] = 'RECV ' . $this->Receiving->save($data['cart'], $consignmenter_id, $employee_id, $data['comment'], $data['reference'], $data['payment_type'], $data['stock_location']);
 
 		$data = $this->xss_clean($data);
 
@@ -296,21 +296,21 @@ class Receivings extends Secure_Controller
 		$employee_info = $this->Employee->get_info($receiving_info['employee_id']);
 		$data['employee'] = $employee_info->name;
 
-		$supplier_id = $this->receiving_lib->get_supplier();
-		if($supplier_id != -1)
+		$consignmenter_id = $this->receiving_lib->get_consignmenter();
+		if($consignmenter_id != -1)
 		{
-			$supplier_info = $this->Consignmenter->get_info($supplier_id);
-			$data['consignmenter'] = $supplier_info->company_name;
-			$data['name'] = $supplier_info->name;
-			$data['supplier_email'] = $supplier_info->email;
-			$data['supplier_address'] = $supplier_info->address_1;
-			if(!empty($supplier_info->zip) or !empty($supplier_info->city))
+			$consignmenter_info = $this->Consignmenter->get_info($consignmenter_id);
+			$data['consignmenter'] = $consignmenter_info->company_name;
+			$data['name'] = $consignmenter_info->name;
+			$data['consignmenter_email'] = $consignmenter_info->email;
+			$data['consignmenter_address'] = $consignmenter_info->address_1;
+			if(!empty($consignmenter_info->zip) or !empty($consignmenter_info->city))
 			{
-				$data['supplier_location'] = $supplier_info->zip . ' ' . $supplier_info->city;				
+				$data['consignmenter_location'] = $consignmenter_info->zip . ' ' . $consignmenter_info->city;				
 			}
 			else
 			{
-				$data['supplier_location'] = '';
+				$data['consignmenter_location'] = '';
 			}
 		}
 
@@ -343,22 +343,22 @@ class Receivings extends Secure_Controller
 		$data['reference'] = $this->receiving_lib->get_reference();
 		$data['payment_options'] = $this->Receiving->get_payment_options();
 
-		$supplier_id = $this->receiving_lib->get_supplier();
-		$supplier_info = '';
-		if($supplier_id != -1)
+		$consignmenter_id = $this->receiving_lib->get_consignmenter();
+		$consignmenter_info = '';
+		if($consignmenter_id != -1)
 		{
-			$supplier_info = $this->Consignmenter->get_info($supplier_id);
-			$data['consignmenter'] = $supplier_info->company_name;
-			$data['name'] = $supplier_info->name;
-			$data['supplier_email'] = $supplier_info->email;
-			$data['supplier_address'] = $supplier_info->address_1;
-			if(!empty($supplier_info->zip) or !empty($supplier_info->city))
+			$consignmenter_info = $this->Consignmenter->get_info($consignmenter_id);
+			$data['consignmenter'] = $consignmenter_info->company_name;
+			$data['name'] = $consignmenter_info->name;
+			$data['consignmenter_email'] = $consignmenter_info->email;
+			$data['consignmenter_address'] = $consignmenter_info->address_1;
+			if(!empty($consignmenter_info->zip) or !empty($consignmenter_info->city))
 			{
-				$data['supplier_location'] = $supplier_info->zip . ' ' . $supplier_info->city;				
+				$data['consignmenter_location'] = $consignmenter_info->zip . ' ' . $consignmenter_info->city;				
 			}
 			else
 			{
-				$data['supplier_location'] = '';
+				$data['consignmenter_location'] = '';
 			}
 		}
 		
@@ -377,7 +377,7 @@ class Receivings extends Secure_Controller
 
 		$receiving_data = array(
 			'receiving_time' => $date_formatter->format('Y-m-d H:i:s'),
-			'supplier_id' => $this->input->post('supplier_id') ? $this->input->post('supplier_id') : NULL,
+			'consignmenter_id' => $this->input->post('consignmenter_id') ? $this->input->post('consignmenter_id') : NULL,
 			'employee_id' => $this->input->post('employee_id'),
 			'comment' => $this->input->post('comment'),
 			'reference' => $this->input->post('reference') != '' ? $this->input->post('reference') : NULL

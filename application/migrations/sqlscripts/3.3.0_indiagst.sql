@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `ospos_tax_jurisdictions` (
 	PRIMARY KEY (`jurisdiction_id`)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
-ALTER TABLE `ospos_suppliers`
+ALTER TABLE `ospos_consignmenters`
 	ADD COLUMN `tax_id` varchar(32) DEFAULT NULL AFTER `account_number`;
 
 ALTER TABLE `ospos_tax_categories`

@@ -106,10 +106,10 @@ ALTER TABLE `ospos_cash_up`
 -- Add Consignmenters category
 --
 
-ALTER TABLE `ospos_suppliers`
+ALTER TABLE `ospos_consignmenters`
   ADD COLUMN `category` TINYINT NOT NULL;
 
-UPDATE `ospos_suppliers`
+UPDATE `ospos_consignmenters`
   SET `category` = 0;
 
 
@@ -120,30 +120,30 @@ UPDATE `ospos_suppliers`
 -- Add consignmenter id
 
 ALTER TABLE `ospos_expenses`
-  ADD COLUMN `supplier_id` int(10) NULL;
+  ADD COLUMN `consignmenter_id` int(10) NULL;
 
 -- Link consignmenters
 
 UPDATE `ospos_expenses`
-  INNER JOIN `ospos_suppliers`
-    ON `ospos_expenses`.`supplier_name` = `ospos_suppliers`.`company_name`
-SET `ospos_expenses`.`supplier_id` = `ospos_suppliers`.`person_id`;
+  INNER JOIN `ospos_consignmenters`
+    ON `ospos_expenses`.`consignmenter_name` = `ospos_consignmenters`.`company_name`
+SET `ospos_expenses`.`consignmenter_id` = `ospos_consignmenters`.`person_id`;
 
 -- Save name in description for those expenses whose consignmenter isn't registered
 
 UPDATE `ospos_expenses`
-  SET `description` = CONCAT(`description`, CONCAT('\nSupplier name: ', `supplier_name`))
-  WHERE `supplier_id` is NULL;
+  SET `description` = CONCAT(`description`, CONCAT('\nConsignmenter name: ', `consignmenter_name`))
+  WHERE `consignmenter_id` is NULL;
 
 -- Add foreign key
 
 ALTER TABLE `ospos_expenses`
-  ADD CONSTRAINT `ospos_expenses_ibfk_3` FOREIGN KEY (`supplier_id`) REFERENCES `ospos_suppliers` (`person_id`);
+  ADD CONSTRAINT `ospos_expenses_ibfk_3` FOREIGN KEY (`consignmenter_id`) REFERENCES `ospos_consignmenters` (`person_id`);
 
 -- Delete consignmenter name
 
 ALTER TABLE `ospos_expenses`
-  DROP COLUMN `supplier_name`;
+  DROP COLUMN `consignmenter_name`;
 
 INSERT INTO `ospos_app_config` (`key`, `value`) VALUES
   ('default_receivings_discount_type', '0'),

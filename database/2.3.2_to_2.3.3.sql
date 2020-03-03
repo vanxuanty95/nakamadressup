@@ -1,4 +1,4 @@
-ALTER TABLE `ospos_suppliers`
+ALTER TABLE `ospos_consignmenters`
    ADD COLUMN `agency_name` VARCHAR(255) NOT NULL;
 
 INSERT INTO `ospos_app_config` (`key`, `value`) VALUES

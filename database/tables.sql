@@ -229,7 +229,7 @@ CREATE TABLE `ospos_inventory` (
 CREATE TABLE `ospos_items` (
   `name` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL,
-  `supplier_id` int(11) DEFAULT NULL,
+  `consignmenter_id` int(11) DEFAULT NULL,
   `item_number` varchar(255) DEFAULT NULL,
   `description` varchar(255) NOT NULL,
   `cost_price` decimal(15,2) NOT NULL,
@@ -255,7 +255,7 @@ CREATE TABLE `ospos_items` (
   `custom10` VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (`item_id`),
   KEY `item_number` (`item_number`),
-  KEY `supplier_id` (`supplier_id`)
+  KEY `consignmenter_id` (`consignmenter_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -370,7 +370,7 @@ INSERT INTO `ospos_modules` (`name_lang_key`, `desc_lang_key`, `sort`, `module_i
 ('module_receivings', 'module_receivings_desc', 60, 'receivings'),
 ('module_reports', 'module_reports_desc', 50, 'reports'),
 ('module_sales', 'module_sales_desc', 70, 'sales'),
-('module_suppliers', 'module_suppliers_desc', 40, 'consignmenters'),
+('module_consignmenters', 'module_consignmenters_desc', 40, 'consignmenters'),
 ('module_taxes', 'module_taxes_desc', 105, 'taxes');
 
 -- --------------------------------------------------------
@@ -426,7 +426,7 @@ INSERT INTO `ospos_permissions` (`permission_id`, `module_id`) VALUES
 ('reports_receivings', 'reports'),
 ('reports_items', 'reports'),
 ('reports_employees', 'reports'),
-('reports_suppliers', 'reports'),
+('reports_consignmenters', 'reports'),
 ('reports_sales', 'reports'),
 ('reports_discounts', 'reports'),
 ('reports_taxes', 'reports'),
@@ -479,7 +479,7 @@ INSERT INTO `ospos_grants` (`permission_id`, `person_id`, `menu_group`) VALUES
 ('reports_items', 1, 'home'),
 ('reports_inventory', 1, 'home'),
 ('reports_employees', 1, 'home'),
-('reports_suppliers', 1, 'home'),
+('reports_consignmenters', 1, 'home'),
 ('reports_sales', 1, 'home'),
 ('reports_discounts', 1, 'home'),
 ('reports_taxes', 1, 'home'),
@@ -509,14 +509,14 @@ INSERT INTO `ospos_grants` (`permission_id`, `person_id`, `menu_group`) VALUES
 
 CREATE TABLE `ospos_receivings` (
   `receiving_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `supplier_id` int(10) DEFAULT NULL,
+  `consignmenter_id` int(10) DEFAULT NULL,
   `employee_id` int(10) NOT NULL DEFAULT '0',
   `comment` text DEFAULT NULL,
   `receiving_id` int(10) NOT NULL AUTO_INCREMENT,
   `payment_type` varchar(20) DEFAULT NULL,
   `reference` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`receiving_id`),
-  KEY `supplier_id` (`supplier_id`),
+  KEY `consignmenter_id` (`consignmenter_id`),
   KEY `employee_id` (`employee_id`),
   KEY `reference` (`reference`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -727,10 +727,10 @@ INSERT INTO `ospos_stock_locations` (`location_name` ) VALUES ('stock');
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_suppliers`
+-- Table structure for table `ospos_consignmenters`
 --
 
-CREATE TABLE `ospos_suppliers` (
+CREATE TABLE `ospos_consignmenters` (
   `person_id` int(10) NOT NULL,
   `company_name` varchar(255) NOT NULL,
   `agency_name` varchar(255) NOT NULL,

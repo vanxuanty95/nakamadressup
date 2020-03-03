@@ -1,0 +1,22 @@
+<?php
+$lang["consignmenters_account_number"] = "Αριθμός Λογαριασμού";
+$lang["consignmenters_agency_name"] = "Όνομα Πρακτορείου";
+$lang["consignmenters_cannot_be_deleted"] = "Αδυναμία διαγραφής Προμηθευτή/ων. Ένας οι περισσότεροι έχουν Πωλήσεις.";
+$lang["consignmenters_category"] = "Κατηγορία";
+$lang["consignmenters_company_name"] = "Όνομα Εταιρείας";
+$lang["consignmenters_company_name_required"] = "Όνομα Εταιρείας είναι απαραίτητο πεδίο.";
+$lang["consignmenters_confirm_delete"] = "Είστε σίγουροι πως θέλετε να διαγράψετε τον/τους επιλεγμένο/ους Προμηθευτή/ες?";
+$lang["consignmenters_confirm_restore"] = "Είστε σίγουροι πως θέλετε να επαναφέρετε το/τους επιλεγμένο/ους Προμηθευτή/ες?";
+$lang["consignmenters_cost"] = "Κόστος Προμηθευτή";
+$lang["consignmenters_error_adding_updating"] = "Ανεπιτυχής προσθήκη ή ενημέρωση Προμηθευτή.";
+$lang["consignmenters_goods"] = "Προμηθευτής εμπορευμάτων";
+$lang["consignmenters_new"] = "Νέος Προμηθευτής";
+$lang["consignmenters_none_selected"] = "Δεν έχετε επιλέξει Προμηθευτή/ες προς διαγραφή.";
+$lang["consignmenters_one_or_multiple"] = "Προμηθευτής/ες";
+$lang["consignmenters_successful_adding"] = "Προσθήκη Προμηθευτή επιτυχής";
+$lang["consignmenters_successful_deleted"] = "Έχετε διαγράψει επιτυχώς";
+$lang["consignmenters_successful_updating"] = "Έχετε ενημερώσει επιτυχώς τον Προμηθευτή";
+$lang["consignmenters_consignmenter"] = "Προμηθευτής";
+$lang["consignmenters_consignmenter_id"] = "Id";
+$lang["consignmenters_tax_id"] = "Id Φόρου";
+$lang["consignmenters_update"] = "Ενημέρωση Προμηθευτή";
