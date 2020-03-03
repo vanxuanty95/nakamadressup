@@ -274,10 +274,7 @@ function get_consignmenters_manage_table_headers()
 	$headers = array(
 		array('people.person_id' => $CI->lang->line('common_id')),
 		array('consignmenter_name' => $CI->lang->line('consignmenters_consignmenter')),
-		array('agency_name' => $CI->lang->line('consignmenters_agency_name')),
-		array('category' => $CI->lang->line('consignmenters_category')),
 		array('name' => $CI->lang->line('common_name')),
-		array('email' => $CI->lang->line('common_email')),
 		array('phone_number' => $CI->lang->line('common_phone_number'))
 	);
 

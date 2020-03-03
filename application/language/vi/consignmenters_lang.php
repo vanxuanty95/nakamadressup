@@ -1,6 +1,6 @@
 <?php 
 
-$lang["consignmenters_account_number"] = "Số hiệu tài khoản";
+$lang["consignmenters_account_number"] = "Số tài khoản";
 $lang["consignmenters_agency_name"] = "Tên đại lý";
 $lang["consignmenters_cannot_be_deleted"] = "Không thể xóa các Người ký gửi đã chọn. Một hay nhiều có Bán hàng.";
 $lang["consignmenters_category"] = "";
