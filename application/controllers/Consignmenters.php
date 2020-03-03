@@ -114,7 +114,6 @@ class Consignmenters extends Persons
 			'agency_name' => $this->input->post('agency_name'),
 			'category' => $this->input->post('category'),
 			'account_number' => $this->input->post('account_number') == '' ? NULL : $this->input->post('account_number'),
-			'tax_id' => $this->input->post('tax_id')
 		);
 
 		if($this->Consignmenter->save_consignmenter($person_data, $consignmenter_data, $consignmenter_id))
