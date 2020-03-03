@@ -126,7 +126,7 @@ ALTER TABLE `ospos_expenses`
 
 UPDATE `ospos_expenses`
   INNER JOIN `ospos_consignmenters`
-    ON `ospos_expenses`.`consignmenter_name` = `ospos_consignmenters`.`company_name`
+    ON `ospos_expenses`.`consignmenter_name` = `ospos_consignmenters`.`consignmenter_name`
 SET `ospos_expenses`.`consignmenter_id` = `ospos_consignmenters`.`person_id`;
 
 -- Save name in description for those expenses whose consignmenter isn't registered

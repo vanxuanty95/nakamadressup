@@ -130,7 +130,7 @@
 								'category' => $this->lang->line('items_category'),
 								'cost_price' => $this->lang->line('items_cost_price'),
 								'unit_price' => $this->lang->line('items_unit_price'),
-								'company_name' => $this->lang->line('consignmenters_company_name')
+								'consignmenter_name' => $this->lang->line('consignmenters_consignmenter_name')
 							),
 							$this->config->item('barcode_first_row'), array('class' => 'form-control input-sm')); ?>
 						</div>
@@ -143,7 +143,7 @@
 								'cost_price' => $this->lang->line('items_cost_price'),
 								'unit_price' => $this->lang->line('items_unit_price'),
 								'item_code' => $this->lang->line('items_item_number'),
-								'company_name' => $this->lang->line('consignmenters_company_name')
+								'consignmenter_name' => $this->lang->line('consignmenters_consignmenter_name')
 							),
 							$this->config->item('barcode_second_row'), array('class' => 'form-control input-sm')); ?>
 						</div>
@@ -156,7 +156,7 @@
 								'cost_price' => $this->lang->line('items_cost_price'),
 								'unit_price' => $this->lang->line('items_unit_price'),
 								'item_code' => $this->lang->line('items_item_number'),
-								'company_name' => $this->lang->line('consignmenters_company_name')
+								'consignmenter_name' => $this->lang->line('consignmenters_consignmenter_name')
 							),
 							$this->config->item('barcode_third_row'), array('class' => 'form-control input-sm')); ?>
 						</div>

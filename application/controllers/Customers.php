@@ -254,7 +254,7 @@ class Customers extends Persons
 			'consent' => $this->input->post('consent') != NULL,
 			'account_number' => $this->input->post('account_number') == '' ? NULL : $this->input->post('account_number'),
 			'tax_id' => $this->input->post('tax_id'),
-			'company_name' => $this->input->post('company_name') == '' ? NULL : $this->input->post('company_name'),
+			'consignmenter_name' => $this->input->post('consignmenter_name') == '' ? NULL : $this->input->post('consignmenter_name'),
 			'discount' => $this->input->post('discount') == '' ? 0.00 : $this->input->post('discount'),
 			'discount_type' => $this->input->post('discount_type') == NULL ? PERCENT : $this->input->post('discount_type'),
 			'package_id' => $this->input->post('package_id') == '' ? NULL : $this->input->post('package_id'),
@@ -400,7 +400,7 @@ class Customers extends Persons
 
 						$customer_data = array(
 							'consent'			=> $consent,
-							'company_name'		=> $data[12],
+							'consignmenter_name'		=> $data[12],
 							'discount'			=> $data[14],
 							'discount_type'		=> $data[15],
 							'taxable'			=> $data[16] == '' ? 0 : 1,

@@ -68,10 +68,10 @@ if(isset($error_message))
 			?>
 			<div>&nbsp</div>
 			<?php
-			if($this->Appconfig->get('receipt_show_company_name'))
+			if($this->Appconfig->get('receipt_show_consignmenter_name'))
 			{
 			?>
-				<div id="company_name"><?php echo $this->config->item('company'); ?></div>
+				<div id="consignmenter_name"><?php echo $this->config->item('company'); ?></div>
 			<?php
 			}
 			?>

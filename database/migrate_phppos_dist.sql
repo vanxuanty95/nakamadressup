@@ -42,7 +42,7 @@ INSERT INTO `ospos_app_config` (`key`, `value`) VALUES
 ('barcode_page_width', '100'),      
 ('barcode_page_cellspacing', '20'),
 ('barcode_generate_if_empty', '0'),
-('receipt_show_company_name', '1'),
+('receipt_show_consignmenter_name', '1'),
 ('receipt_show_taxes', '0'),
 ('receipt_show_total_discount', '1'),
 ('receipt_show_description', '1'),
@@ -129,7 +129,7 @@ INSERT INTO `ospos_app_config` (`key`, `value`) VALUES
 
 CREATE TABLE `ospos_customers` (
   `person_id` int(10) NOT NULL,
-  `company_name` varchar(255) DEFAULT NULL,
+  `consignmenter_name` varchar(255) DEFAULT NULL,
   `account_number` varchar(255) DEFAULT NULL,
   `taxable` int(1) NOT NULL DEFAULT '1',
   `sales_tax_code` varchar(32) NOT NULL DEFAULT '1',
@@ -732,7 +732,7 @@ INSERT INTO `ospos_stock_locations` (`location_name` ) VALUES ('stock');
 
 CREATE TABLE `ospos_consignmenters` (
   `person_id` int(10) NOT NULL,
-  `company_name` varchar(255) NOT NULL,
+  `consignmenter_name` varchar(255) NOT NULL,
   `agency_name` varchar(255) NOT NULL,
   `account_number` varchar(255) DEFAULT NULL,
   `deleted` int(1) NOT NULL DEFAULT '0',
@@ -1036,8 +1036,8 @@ SELECT `item_id`, 1, `quantity` FROM `phppos`.`phppos_items`;
 -- Copy data to table `ospos_consignmenters`
 --
 
-INSERT INTO `ospos_consignmenters` (`person_id`, `company_name`, `account_number`, `deleted`)
-SELECT `person_id`, `company_name`, `account_number`, `deleted` FROM `phppos`.phppos_consignmenters;
+INSERT INTO `ospos_consignmenters` (`person_id`, `consignmenter_name`, `account_number`, `deleted`)
+SELECT `person_id`, `consignmenter_name`, `account_number`, `deleted` FROM `phppos`.phppos_consignmenters;
 
 -- 
 -- Copy data to table `ospos_dinner_tables`

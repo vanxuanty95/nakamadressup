@@ -8,13 +8,13 @@
 	text-align:center;
 }
 
-#company_name
+#consignmenter_name
 {
 	font-size:150%;
 	font-weight:bold;
 }
 
-#company_name img
+#consignmenter_name img
 {
 	max-width: 150px;
 	max-height: 150px;

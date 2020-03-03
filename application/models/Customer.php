@@ -248,7 +248,7 @@ class Customer extends Person
 
 			$result &= $this->db->update('customers', array(
 					'consent'			=> 0,
-					'company_name'		=> NULL,
+					'consignmenter_name'		=> NULL,
 					'account_number'	=> NULL,
 					'tax_id'			=> '',
 					'taxable'			=> 0,
@@ -296,14 +296,14 @@ class Customer extends Person
 			{
 				$this->db->or_like('email', $search);
 				$this->db->or_like('phone_number', $search);
-				$this->db->or_like('company_name', $search);
+				$this->db->or_like('consignmenter_name', $search);
 			}
 		$this->db->group_end();
 		$this->db->where('deleted', 0);
 		$this->db->order_by('name', 'asc');
 		foreach($this->db->get()->result() as $row)
 		{
-			$suggestions[] = array('value' => $row->person_id, 'label' => $row->name . (!empty($row->company_name) ? ' [' . $row->company_name . ']' : ''). (!empty($row->phone_number) ? ' [' . $row->phone_number . ']' : ''));
+			$suggestions[] = array('value' => $row->person_id, 'label' => $row->name . (!empty($row->consignmenter_name) ? ' [' . $row->consignmenter_name . ']' : ''). (!empty($row->phone_number) ? ' [' . $row->phone_number . ']' : ''));
 		}
 
 		if(!$unique)
@@ -340,11 +340,11 @@ class Customer extends Person
 			$this->db->from('customers');
 			$this->db->join('people', 'customers.person_id = people.person_id');
 			$this->db->where('deleted', 0);
-			$this->db->like('company_name', $search);
-			$this->db->order_by('company_name', 'asc');
+			$this->db->like('consignmenter_name', $search);
+			$this->db->order_by('consignmenter_name', 'asc');
 			foreach($this->db->get()->result() as $row)
 			{
-				$suggestions[] = array('value' => $row->person_id, 'label' => $row->company_name);
+				$suggestions[] = array('value' => $row->person_id, 'label' => $row->consignmenter_name);
 			}
 		}
 
@@ -383,7 +383,7 @@ class Customer extends Person
 			$this->db->or_like('email', $search);
 			$this->db->or_like('phone_number', $search);
 			$this->db->or_like('account_number', $search);
-			$this->db->or_like('company_name', $search);
+			$this->db->or_like('consignmenter_name', $search);
 			$this->db->or_like('CONCAT(name, " ", name)', $search);
 		$this->db->group_end();
 		$this->db->where('deleted', 0);

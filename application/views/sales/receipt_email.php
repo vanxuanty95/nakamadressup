@@ -4,7 +4,7 @@
 		if($this->config->item('company_logo') != '')
 		{
 		?>
-			<div id="company_name">
+			<div id="consignmenter_name">
 				<img id="image" src="data:image/png;base64,<?php echo base64_encode(file_get_contents('uploads/' . $this->config->item('company_logo'))); ?>" alt="company_logo" />
 			</div>
 		<?php
@@ -12,10 +12,10 @@
 		?>
 
 		<?php
-		if($this->config->item('receipt_show_company_name'))
+		if($this->config->item('receipt_show_consignmenter_name'))
 		{
 		?>
-			<div id="company_name" style="font-size:150%; font-weight:bold;"><?php echo $this->config->item('company'); ?></div>
+			<div id="consignmenter_name" style="font-size:150%; font-weight:bold;"><?php echo $this->config->item('company'); ?></div>
 		<?php
 		}
 		?>

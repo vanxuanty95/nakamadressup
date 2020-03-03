@@ -105,13 +105,13 @@
 			</div>
 
 			<div class="form-group form-group-sm">
-				<?php echo form_label($this->lang->line('config_receipt_show_company_name'), 'receipt_show_company_name', array('class' => 'control-label col-xs-2')); ?>
+				<?php echo form_label($this->lang->line('config_receipt_show_consignmenter_name'), 'receipt_show_consignmenter_name', array('class' => 'control-label col-xs-2')); ?>
 				<div class='col-xs-1'>
 					<?php echo form_checkbox(array(
-						'name' => 'receipt_show_company_name',
-						'value' => 'receipt_show_company_name',
-						'id' => 'receipt_show_company_name',
-						'checked' => $this->config->item('receipt_show_company_name'))); ?>
+						'name' => 'receipt_show_consignmenter_name',
+						'value' => 'receipt_show_consignmenter_name',
+						'id' => 'receipt_show_consignmenter_name',
+						'checked' => $this->config->item('receipt_show_consignmenter_name'))); ?>
 				</div>
 			</div>
 

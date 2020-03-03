@@ -219,7 +219,7 @@ class Barcode_lib
 		{
 			$result = $this->CI->lang->line('items_unit_price') . " " . to_currency($item['unit_price']);
 		}
-		elseif($layout_type == 'company_name')
+		elseif($layout_type == 'consignmenter_name')
 		{
 			$result = $barcode_config['company'];
 		}

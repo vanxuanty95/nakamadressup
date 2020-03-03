@@ -231,7 +231,7 @@ INSERT INTO `ospos_app_config` (`key`, `value`) VALUES
 -- add option to print company name in receipt
 
 INSERT INTO `ospos_app_config` (`key`, `value`) VALUES
-('receipt_show_company_name', '1');
+('receipt_show_consignmenter_name', '1');
 
 -- add support for sales tax history migration
 

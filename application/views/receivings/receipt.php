@@ -22,16 +22,16 @@
 		if ($this->config->item('company_logo') != '') 
 		{ 
 		?>
-			<div id="company_name"><img id="image" src="<?php echo base_url('uploads/' . $this->config->item('company_logo')); ?>" alt="company_logo" /></div>
+			<div id="consignmenter_name"><img id="image" src="<?php echo base_url('uploads/' . $this->config->item('company_logo')); ?>" alt="company_logo" /></div>
 		<?php
 		}
 		?>
 
 		<?php
-		if ($this->config->item('receipt_show_company_name')) 
+		if ($this->config->item('receipt_show_consignmenter_name')) 
 		{ 
 		?>
-			<div id="company_name"><?php echo $this->config->item('company'); ?></div>
+			<div id="consignmenter_name"><?php echo $this->config->item('company'); ?></div>
 		<?php
 		}
 		?>

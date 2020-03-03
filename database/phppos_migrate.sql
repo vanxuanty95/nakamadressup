@@ -160,8 +160,8 @@ SELECT `item_id`, 1, `quantity` FROM `phppos`.`phppos_items`;
 -- Copy data to table `ospos_consignmenters`
 --
 
-INSERT INTO `ospos_consignmenters` (`person_id`, `company_name`, `account_number`, `deleted`)
-SELECT `person_id`, `company_name`, `account_number`, `deleted` FROM `phppos`.phppos_consignmenters;
+INSERT INTO `ospos_consignmenters` (`person_id`, `consignmenter_name`, `account_number`, `deleted`)
+SELECT `person_id`, `consignmenter_name`, `account_number`, `deleted` FROM `phppos`.phppos_consignmenters;
 
 -- 
 -- Copy data to table `ospos_dinner_tables`

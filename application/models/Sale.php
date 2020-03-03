@@ -204,7 +204,7 @@ class Sale extends CI_Model
 					MAX(sales.quote_number) AS quote_number,
 					SUM(sales_items.quantity_purchased) AS items_purchased,
 					MAX(CONCAT(customer_p.name)) AS customer_name,
-					MAX(customer.company_name) AS company_name,
+					MAX(customer.consignmenter_name) AS consignmenter_name,
 					' . "
 					IFNULL($sale_subtotal, $sale_total) AS subtotal,
 					$tax AS tax,
@@ -245,7 +245,7 @@ class Sale extends CI_Model
 					// customer first and last name
 					$this->db->or_like('CONCAT(customer_p.name)', $search);
 					// customer company name
-					$this->db->or_like('customer.company_name', $search);
+					$this->db->or_like('customer.consignmenter_name', $search);
 				$this->db->group_end();
 			}
 		}
@@ -333,7 +333,7 @@ class Sale extends CI_Model
 					// customer first and last name
 					$this->db->or_like('CONCAT(customer_p.name)', $search);
 					// customer company name
-					$this->db->or_like('customer.company_name', $search);
+					$this->db->or_like('customer.consignmenter_name', $search);
 				$this->db->group_end();
 			}
 		}
@@ -428,7 +428,7 @@ class Sale extends CI_Model
 			$this->db->like('name', $search);
 			$this->db->or_like('name', $search);
 			$this->db->or_like('CONCAT(name)', $search);
-			$this->db->or_like('company_name', $search);
+			$this->db->or_like('consignmenter_name', $search);
 			$this->db->order_by('name', 'asc');
 
 			foreach($this->db->get()->result_array() as $result)
@@ -1164,7 +1164,7 @@ class Sale extends CI_Model
 					MAX(customer_p.name) AS customer_name,
 					MAX(customer_p.email) AS customer_email,
 					MAX(customer_p.comments) AS customer_comments,
-					MAX(customer.company_name) AS customer_company_name,
+					MAX(customer.consignmenter_name) AS customer_consignmenter_name,
 					MAX(sales.employee_id) AS employee_id,
 					MAX(CONCAT(employee.name)) AS employee_name,
 					items.item_id AS item_id,

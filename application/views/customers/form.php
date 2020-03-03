@@ -80,13 +80,13 @@
 				</div>
 
 				<div class="form-group form-group-sm">
-					<?php echo form_label($this->lang->line('customers_company_name'), 'company_name', array('class' => 'control-label col-xs-3')); ?>
+					<?php echo form_label($this->lang->line('customers_consignmenter_name'), 'consignmenter_name', array('class' => 'control-label col-xs-3')); ?>
 					<div class='col-xs-8'>
 						<?php echo form_input(array(
-								'name'=>'company_name',
-								'id'=>'company_name',
+								'name'=>'consignmenter_name',
+								'id'=>'consignmenter_name',
 								'class'=>'form-control input-sm',
-								'value'=>$person_info->company_name)
+								'value'=>$person_info->consignmenter_name)
 								); ?>
 					</div>
 				</div>

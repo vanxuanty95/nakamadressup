@@ -47,7 +47,7 @@ ALTER TABLE `ospos_sales`
     ADD INDEX `sale_time` (`sale_time`);
    
 ALTER TABLE `ospos_customers`
-    ADD COLUMN `company_name` varchar(255) DEFAULT NULL;
+    ADD COLUMN `consignmenter_name` varchar(255) DEFAULT NULL;
 
 ALTER TABLE `ospos_giftcards`
     MODIFY `person_id` int(10) DEFAULT NULL;

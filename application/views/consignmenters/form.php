@@ -5,13 +5,13 @@
 <?php echo form_open($controller_name . '/save/' . $person_info->person_id, array('id'=>'consignmenter_form', 'class'=>'form-horizontal')); ?>
 	<fieldset id="consignmenter_basic_info">
 		<div class="form-group form-group-sm">
-			<?php echo form_label($this->lang->line('consignmenters_company_name'), 'company_name', array('class'=>'required control-label col-xs-3')); ?>
+			<?php echo form_label($this->lang->line('consignmenters_consignmenter_name'), 'consignmenter_name', array('class'=>'required control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
 				<?php echo form_input(array(
-					'name'=>'company_name',
-					'id'=>'company_name_input',
+					'name'=>'consignmenter_name',
+					'id'=>'consignmenter_name_input',
 					'class'=>'form-control input-sm',
-					'value'=>$person_info->company_name)
+					'value'=>$person_info->consignmenter_name)
 					);?>
 			</div>
 		</div>
@@ -83,14 +83,14 @@ $(document).ready(function()
  
 		rules:
 		{
-			company_name: 'required',
+			consignmenter_name: 'required',
 			name: 'required',
 			email: 'email'
    		},
 
 		messages: 
 		{
-			company_name: "<?php echo $this->lang->line('consignmenters_company_name_required'); ?>",
+			consignmenter_name: "<?php echo $this->lang->line('consignmenters_consignmenter_name_required'); ?>",
 			name: "<?php echo $this->lang->line('common_name_required'); ?>",
 			email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>"
 		}

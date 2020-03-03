@@ -759,7 +759,7 @@ class Config extends Secure_Controller
 			'print_delay_autoreturn' => $this->input->post('print_delay_autoreturn'),
 			'email_receipt_check_behaviour' => $this->input->post('email_receipt_check_behaviour'),
 			'print_receipt_check_behaviour' => $this->input->post('print_receipt_check_behaviour'),
-			'receipt_show_company_name' => $this->input->post('receipt_show_company_name') != NULL,
+			'receipt_show_consignmenter_name' => $this->input->post('receipt_show_consignmenter_name') != NULL,
 			'receipt_show_taxes' => ($this->input->post('receipt_show_taxes') != NULL),
 			'receipt_show_tax_ind' => ($this->input->post('receipt_show_tax_ind') != NULL),
 			'receipt_show_total_discount' => $this->input->post('receipt_show_total_discount') != NULL,

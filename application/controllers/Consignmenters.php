@@ -110,7 +110,7 @@ class Consignmenters extends Persons
 		);
 
 		$consignmenter_data = array(
-			'company_name' => $this->input->post('company_name'),
+			'consignmenter_name' => $this->input->post('consignmenter_name'),
 			'agency_name' => $this->input->post('agency_name'),
 			'category' => $this->input->post('category'),
 			'account_number' => $this->input->post('account_number') == '' ? NULL : $this->input->post('account_number'),
@@ -125,13 +125,13 @@ class Consignmenters extends Persons
 			if($consignmenter_id == -1)
 			{
 				echo json_encode(array('success' => TRUE,
-								'message' => $this->lang->line('consignmenters_successful_adding') . ' ' . $consignmenter_data['company_name'],
+								'message' => $this->lang->line('consignmenters_successful_adding') . ' ' . $consignmenter_data['consignmenter_name'],
 								'id' => $consignmenter_data['person_id']));
 			}
 			else //Existing consignmenter
 			{
 				echo json_encode(array('success' => TRUE,
-								'message' => $this->lang->line('consignmenters_successful_updating') . ' ' . $consignmenter_data['company_name'],
+								'message' => $this->lang->line('consignmenters_successful_updating') . ' ' . $consignmenter_data['consignmenter_name'],
 								'id' => $consignmenter_id));
 			}
 		}
@@ -140,7 +140,7 @@ class Consignmenters extends Persons
 			$consignmenter_data = $this->xss_clean($consignmenter_data);
 
 			echo json_encode(array('success' => FALSE,
-							'message' => $this->lang->line('consignmenters_error_adding_updating') . ' ' . 	$consignmenter_data['company_name'],
+							'message' => $this->lang->line('consignmenters_error_adding_updating') . ' ' . 	$consignmenter_data['consignmenter_name'],
 							'id' => -1));
 		}
 	}
