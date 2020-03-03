@@ -611,7 +611,7 @@ class Item extends CI_Model
 				$suggestions[] = array('label' => $row->category);
 			}
 
-			//Search by supplier
+			//Search by consignmenter
 			$this->db->select('company_name');
 			$this->db->from('suppliers');
 			$this->db->like('company_name', $search);
@@ -713,7 +713,7 @@ class Item extends CI_Model
 				$suggestions[] = array('label' => $row->category);
 			}
 
-			//Search by supplier
+			//Search by consignmenter
 			$this->db->select('company_name');
 			$this->db->from('suppliers');
 			$this->db->like('company_name', $search);
@@ -811,7 +811,7 @@ class Item extends CI_Model
 				$suggestions[] = array('label' => $row->category);
 			}
 
-			//Search by supplier
+			//Search by consignmenter
 			$this->db->select('company_name');
 			$this->db->from('suppliers');
 			$this->db->like('company_name', $search);

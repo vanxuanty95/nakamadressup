@@ -191,7 +191,7 @@ class Reports extends Secure_Controller
 		foreach($report_data as $row)
 		{
 			$tabular_data[] = $this->xss_clean(array(
-				'supplier_name' => $row['supplier'],
+				'supplier_name' => $row['consignmenter'],
 				'quantity' => to_quantity_decimals($row['quantity_purchased']),
 				'subtotal' => to_currency($row['subtotal']),
 				'tax' => to_currency_tax($row['tax']),
@@ -658,8 +658,8 @@ class Reports extends Secure_Controller
 		{
 			$row = $this->xss_clean($row);
 
-			$labels[] = $row['supplier'];
-			$series[] = array('meta' => $row['supplier'] . ' ' . round($row['total'] / $summary['total'] * 100, 2) . '%', 'value' => $row['total']);
+			$labels[] = $row['consignmenter'];
+			$series[] = array('meta' => $row['consignmenter'] . ' ' . round($row['total'] / $summary['total'] * 100, 2) . '%', 'value' => $row['total']);
 		}
 
 		$data = array(

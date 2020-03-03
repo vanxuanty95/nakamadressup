@@ -257,7 +257,7 @@ class Items extends Secure_Controller
 		$data['item_info'] = $item_info;
 
 		$suppliers = array('' => $this->lang->line('items_none'));
-		foreach($this->Supplier->get_all()->result_array() as $row)
+		foreach($this->Consignmenter->get_all()->result_array() as $row)
 		{
 			$suppliers[$this->xss_clean($row['person_id'])] = $this->xss_clean($row['company_name']);
 		}
@@ -454,7 +454,7 @@ class Items extends Secure_Controller
 	public function bulk_edit()
 	{
 		$suppliers = array('' => $this->lang->line('items_none'));
-		foreach($this->Supplier->get_all()->result_array() as $row)
+		foreach($this->Consignmenter->get_all()->result_array() as $row)
 		{
 			$row = $this->xss_clean($row);
 
@@ -833,7 +833,7 @@ class Items extends Secure_Controller
 							'cost_price'			=> $line['Cost Price'],
 							'unit_price'			=> $line['Unit Price'],
 							'reorder_level'			=> $line['Reorder Level'],
-							'supplier_id'			=> $this->Supplier->exists($line['Supplier ID']) ? $line['Supplier ID'] : NULL,
+							'supplier_id'			=> $this->Consignmenter->exists($line['Consignmenter ID']) ? $line['Consignmenter ID'] : NULL,
 							'allow_alt_description'	=> $line['Allow Alt Description'] != '' ? '1' : '0',
 							'is_serialized'			=> $line['Item has Serial Number'] != '' ? '1' : '0',
 							'hsn_code'				=> $line['HSN'],

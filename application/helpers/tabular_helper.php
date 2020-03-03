@@ -290,25 +290,25 @@ function get_suppliers_manage_table_headers()
 }
 
 /*
-Get the html data row for the supplier
+Get the html data row for the consignmenter
 */
-function get_supplier_data_row($supplier)
+function get_supplier_data_row($consignmenter)
 {
 	$CI =& get_instance();
 
 	$controller_name = strtolower(get_class($CI));
 
 	return array (
-		'people.person_id' => $supplier->person_id,
-		'company_name' => $supplier->company_name,
-		'agency_name' => $supplier->agency_name,
-		'category' => $supplier->category,
-		'name' => $supplier->name,
-		'email' => empty($supplier->email) ? '' : mailto($supplier->email, $supplier->email),
-		'phone_number' => $supplier->phone_number,
-		'messages' => empty($supplier->phone_number) ? '' : anchor("Messages/view/$supplier->person_id", '<span class="glyphicon glyphicon-phone"></span>',
+		'people.person_id' => $consignmenter->person_id,
+		'company_name' => $consignmenter->company_name,
+		'agency_name' => $consignmenter->agency_name,
+		'category' => $consignmenter->category,
+		'name' => $consignmenter->name,
+		'email' => empty($consignmenter->email) ? '' : mailto($consignmenter->email, $consignmenter->email),
+		'phone_number' => $consignmenter->phone_number,
+		'messages' => empty($consignmenter->phone_number) ? '' : anchor("Messages/view/$consignmenter->person_id", '<span class="glyphicon glyphicon-phone"></span>',
 			array('class'=>"modal-dlg", 'data-btn-submit' => $CI->lang->line('common_submit'), 'title'=>$CI->lang->line('messages_sms_send'))),
-		'edit' => anchor($controller_name."/view/$supplier->person_id", '<span class="glyphicon glyphicon-edit"></span>',
+		'edit' => anchor($controller_name."/view/$consignmenter->person_id", '<span class="glyphicon glyphicon-edit"></span>',
 			array('class'=>"modal-dlg", 'data-btn-submit' => $CI->lang->line('common_submit'), 'title'=>$CI->lang->line($controller_name.'_update')))
 	);
 }

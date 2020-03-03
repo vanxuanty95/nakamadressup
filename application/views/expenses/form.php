@@ -40,7 +40,7 @@
 						);?>
 			</div>
 			<div class="col-xs-2">
-				<a id="remove_supplier_button" class="btn btn-danger btn-sm" title="Remove Supplier">
+				<a id="remove_supplier_button" class="btn btn-danger btn-sm" title="Remove Consignmenter">
 					<span class="glyphicon glyphicon-remove"></span>
 				</a>
 			</div>

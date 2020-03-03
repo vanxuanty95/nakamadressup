@@ -68,7 +68,7 @@ class Receiving extends CI_Model
 
 		$receivings_data = array(
 			'receiving_time' => date('Y-m-d H:i:s'),
-			'supplier_id' => $this->Supplier->exists($supplier_id) ? $supplier_id : NULL,
+			'supplier_id' => $this->Consignmenter->exists($supplier_id) ? $supplier_id : NULL,
 			'employee_id' => $employee_id,
 			'payment_type' => $payment_type,
 			'comment' => $comment,
@@ -129,7 +129,7 @@ class Receiving extends CI_Model
 
 			$this->Attribute->copy_attribute_links($item['item_id'], 'receiving_id', $receiving_id);
 
-			$supplier = $this->Supplier->get_info($supplier_id);
+			$consignmenter = $this->Consignmenter->get_info($supplier_id);
 		}
 
 		$this->db->trans_complete();
@@ -215,7 +215,7 @@ class Receiving extends CI_Model
 		$this->db->from('receivings');
 		$this->db->where('receiving_id', $receiving_id);
 
-		return $this->Supplier->get_info($this->db->get()->row()->supplier_id);
+		return $this->Consignmenter->get_info($this->db->get()->row()->supplier_id);
 	}
 
 	public function get_payment_options()

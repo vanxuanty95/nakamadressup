@@ -17,17 +17,17 @@ class Suppliers extends Persons
 	}
 
 	/*
-	Gets one row for a supplier manage table. This is called using AJAX to update one row.
+	Gets one row for a consignmenter manage table. This is called using AJAX to update one row.
 	*/
 	public function get_row($row_id)
 	{
-		$data_row = $this->xss_clean(get_supplier_data_row($this->Supplier->get_info($row_id)));
+		$data_row = $this->xss_clean(get_supplier_data_row($this->Consignmenter->get_info($row_id)));
 
 		echo json_encode($data_row);
 	}
 	
 	/*
-	Returns Supplier table data rows. This will be called with AJAX.
+	Returns Consignmenter table data rows. This will be called with AJAX.
 	*/
 	public function search()
 	{
@@ -37,14 +37,14 @@ class Suppliers extends Persons
 		$sort   = $this->input->get('sort');
 		$order  = $this->input->get('order');
 
-		$suppliers = $this->Supplier->search($search, $limit, $offset, $sort, $order);
-		$total_rows = $this->Supplier->get_found_rows($search);
+		$suppliers = $this->Consignmenter->search($search, $limit, $offset, $sort, $order);
+		$total_rows = $this->Consignmenter->get_found_rows($search);
 
 		$data_rows = array();
-		foreach($suppliers->result() as $supplier)
+		foreach($suppliers->result() as $consignmenter)
 		{
-			$row = $this->xss_clean(get_supplier_data_row($supplier));
-			$row['category'] = $this->Supplier->get_category_name($row['category']);
+			$row = $this->xss_clean(get_supplier_data_row($consignmenter));
+			$row['category'] = $this->Consignmenter->get_category_name($row['category']);
 			$data_rows[] = $row;
 		}
 
@@ -56,36 +56,36 @@ class Suppliers extends Persons
 	*/
 	public function suggest()
 	{
-		$suggestions = $this->xss_clean($this->Supplier->get_search_suggestions($this->input->get('term'), TRUE));
+		$suggestions = $this->xss_clean($this->Consignmenter->get_search_suggestions($this->input->get('term'), TRUE));
 
 		echo json_encode($suggestions);
 	}
 
 	public function suggest_search()
 	{
-		$suggestions = $this->xss_clean($this->Supplier->get_search_suggestions($this->input->post('term'), FALSE));
+		$suggestions = $this->xss_clean($this->Consignmenter->get_search_suggestions($this->input->post('term'), FALSE));
 
 		echo json_encode($suggestions);
 	}
 	
 	/*
-	Loads the supplier edit form
+	Loads the consignmenter edit form
 	*/
 	public function view($supplier_id = -1)
 	{
-		$info = $this->Supplier->get_info($supplier_id);
+		$info = $this->Consignmenter->get_info($supplier_id);
 		foreach(get_object_vars($info) as $property => $value)
 		{
 			$info->$property = $this->xss_clean($value);
 		}
 		$data['person_info'] = $info;
-		$data['categories'] = $this->Supplier->get_categories();
+		$data['categories'] = $this->Consignmenter->get_categories();
 
 		$this->load->view("suppliers/form", $data);
 	}
 	
 	/*
-	Inserts/updates a supplier
+	Inserts/updates a consignmenter
 	*/
 	public function save($supplier_id = -1)
 	{
@@ -117,18 +117,18 @@ class Suppliers extends Persons
 			'tax_id' => $this->input->post('tax_id')
 		);
 
-		if($this->Supplier->save_supplier($person_data, $supplier_data, $supplier_id))
+		if($this->Consignmenter->save_supplier($person_data, $supplier_data, $supplier_id))
 		{
 			$supplier_data = $this->xss_clean($supplier_data);
 
-			//New supplier
+			//New consignmenter
 			if($supplier_id == -1)
 			{
 				echo json_encode(array('success' => TRUE,
 								'message' => $this->lang->line('suppliers_successful_adding') . ' ' . $supplier_data['company_name'],
 								'id' => $supplier_data['person_id']));
 			}
-			else //Existing supplier
+			else //Existing consignmenter
 			{
 				echo json_encode(array('success' => TRUE,
 								'message' => $this->lang->line('suppliers_successful_updating') . ' ' . $supplier_data['company_name'],
@@ -152,7 +152,7 @@ class Suppliers extends Persons
 	{
 		$suppliers_to_delete = $this->xss_clean($this->input->post('ids'));
 
-		if($this->Supplier->delete_list($suppliers_to_delete))
+		if($this->Consignmenter->delete_list($suppliers_to_delete))
 		{
 			echo json_encode(array('success' => TRUE,'message' => $this->lang->line('suppliers_successful_deleted').' '.
 							count($suppliers_to_delete).' '.$this->lang->line('suppliers_one_or_multiple')));

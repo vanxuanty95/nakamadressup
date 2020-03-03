@@ -21,7 +21,7 @@ class Summary_suppliers extends Summary_report
 		parent::_select($inputs);
 
 		$this->db->select('
-				MAX(CONCAT(supplier_c.company_name, " (", supplier_p.name, ")")) AS supplier,
+				MAX(CONCAT(supplier_c.company_name, " (", supplier_p.name, ")")) AS consignmenter,
 				SUM(sales_items.quantity_purchased) AS quantity_purchased
 		');
 	}

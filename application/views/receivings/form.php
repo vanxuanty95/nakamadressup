@@ -5,7 +5,7 @@
 <?php echo form_open("receivings/save/".$receiving_info['receiving_id'], array('id'=>'receivings_edit_form', 'class'=>'form-horizontal')); ?>
 	<fieldset id="receiving_basic_info">
 		<div class="form-group form-group-sm">
-			<?php echo form_label($this->lang->line('receivings_receipt_number'), 'supplier', array('class'=>'control-label col-xs-3')); ?>
+			<?php echo form_label($this->lang->line('receivings_receipt_number'), 'consignmenter', array('class'=>'control-label col-xs-3')); ?>
 			<?php echo anchor('receivings/receipt/'.$receiving_info['receiving_id'], 'RECV ' . $receiving_info['receiving_id'], array('target'=>'_blank', 'class'=>'control-label col-xs-8', "style"=>"text-align:left"));?>
 		</div>
 		
@@ -17,7 +17,7 @@
 		</div>
 		
 		<div class="form-group form-group-sm">
-			<?php echo form_label($this->lang->line('receivings_supplier'), 'supplier', array('class'=>'control-label col-xs-3')); ?>
+			<?php echo form_label($this->lang->line('receivings_supplier'), 'consignmenter', array('class'=>'control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
 				<?php echo form_input(array('name' => 'supplier_name', 'value' => $selected_supplier_name, 'id' => 'supplier_name', 'class'=>'form-control input-sm'));?>
 				<?php echo form_hidden('supplier_id', $selected_supplier_id);?>

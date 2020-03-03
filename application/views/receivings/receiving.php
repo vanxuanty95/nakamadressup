@@ -233,13 +233,13 @@ if (isset($success))
 <div id="overall_sale" class="panel panel-default">
 	<div class="panel-body">
 		<?php
-		if(isset($supplier))
+		if(isset($consignmenter))
 		{
 		?>
 			<table class="sales_table_100">
 				<tr>
 					<th style='width: 55%;'><?php echo $this->lang->line("receivings_supplier"); ?></th>
-					<th style="width: 45%; text-align: right;"><?php echo $supplier; ?></th>
+					<th style="width: 45%; text-align: right;"><?php echo $consignmenter; ?></th>
 				</tr>
 				<?php
 				if(!empty($supplier_email))
@@ -285,8 +285,8 @@ if (isset($success))
 		?>
 			<?php echo form_open($controller_name."/select_supplier", array('id'=>'select_supplier_form', 'class'=>'form-horizontal')); ?>
 				<div class="form-group" id="select_customer">
-					<label id="supplier_label" for="supplier" class="control-label" style="margin-bottom: 1em; margin-top: -1em;"><?php echo $this->lang->line('receivings_select_supplier'); ?></label>
-					<?php echo form_input(array('name'=>'supplier', 'id'=>'supplier', 'class'=>'form-control input-sm', 'value'=>$this->lang->line('receivings_start_typing_supplier_name'))); ?>
+					<label id="supplier_label" for="consignmenter" class="control-label" style="margin-bottom: 1em; margin-top: -1em;"><?php echo $this->lang->line('receivings_select_supplier'); ?></label>
+					<?php echo form_input(array('name'=>'consignmenter', 'id'=>'consignmenter', 'class'=>'form-control input-sm', 'value'=>$this->lang->line('receivings_start_typing_supplier_name'))); ?>
 
 					<button id='new_supplier_button' class='btn btn-info btn-sm modal-dlg' data-btn-submit='<?php echo $this->lang->line('common_submit') ?>' data-href='<?php echo site_url("suppliers/view"); ?>'
 							title='<?php echo $this->lang->line('receivings_new_supplier'); ?>'>
@@ -444,12 +444,12 @@ $(document).ready(function()
 		$.post('<?php echo site_url($controller_name."/set_print_after_sale");?>', {recv_print_after_sale: $(this).is(":checked")});
 	});
 
-	$('#item,#supplier').click(function()
+	$('#item,#consignmenter').click(function()
 	{
 		$(this).attr('value','');
 	});
 
-	$("#supplier").autocomplete(
+	$("#consignmenter").autocomplete(
 	{
 		source: '<?php echo site_url("suppliers/suggest"); ?>',
 		minChars:0,
@@ -462,7 +462,7 @@ $(document).ready(function()
 
 	dialog_support.init("a.modal-dlg, button.modal-dlg");
 
-	$('#supplier').blur(function()
+	$('#consignmenter').blur(function()
 	{
 		$(this).attr('value',"<?php echo $this->lang->line('receivings_start_typing_supplier_name'); ?>");
 	});
@@ -495,7 +495,7 @@ $(document).ready(function()
 		{
 			if (resource.match(/suppliers$/))
 			{
-				$("#supplier").val(response.id);
+				$("#consignmenter").val(response.id);
 				$("#select_supplier_form").submit();
 			}
 			else

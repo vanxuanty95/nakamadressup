@@ -117,7 +117,7 @@ UPDATE `ospos_suppliers`
 -- Link Expenses with Suppliers
 --
 
--- Add supplier id
+-- Add consignmenter id
 
 ALTER TABLE `ospos_expenses`
   ADD COLUMN `supplier_id` int(10) NULL;
@@ -129,7 +129,7 @@ UPDATE `ospos_expenses`
     ON `ospos_expenses`.`supplier_name` = `ospos_suppliers`.`company_name`
 SET `ospos_expenses`.`supplier_id` = `ospos_suppliers`.`person_id`;
 
--- Save name in description for those expenses whose supplier isn't registered
+-- Save name in description for those expenses whose consignmenter isn't registered
 
 UPDATE `ospos_expenses`
   SET `description` = CONCAT(`description`, CONCAT('\nSupplier name: ', `supplier_name`))
@@ -140,7 +140,7 @@ UPDATE `ospos_expenses`
 ALTER TABLE `ospos_expenses`
   ADD CONSTRAINT `ospos_expenses_ibfk_3` FOREIGN KEY (`supplier_id`) REFERENCES `ospos_suppliers` (`person_id`);
 
--- Delete supplier name
+-- Delete consignmenter name
 
 ALTER TABLE `ospos_expenses`
   DROP COLUMN `supplier_name`;

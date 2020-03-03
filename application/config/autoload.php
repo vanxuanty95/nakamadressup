@@ -141,7 +141,7 @@ $autoload['model'] = array(
 	'Item',
 	'Item_taxes',
 	'Sale',
-	'Supplier',
+	'Consignmenter',
 	'Inventory',
 	'Receiving',
 	'Giftcard',

@@ -1,10 +1,10 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * Supplier class
+ * Consignmenter class
  */
 
-class Supplier extends Person
+class Consignmenter extends Person
 {
 	const GOODS_SUPPLIER = 0;
 	const COST_SUPPLIER = 1;
@@ -51,7 +51,7 @@ class Supplier extends Person
 	}
 	
 	/*
-	Gets information about a particular supplier
+	Gets information about a particular consignmenter
 	*/
 	public function get_info($supplier_id)
 	{
@@ -66,10 +66,10 @@ class Supplier extends Person
 		}
 		else
 		{
-			//Get empty base parent object, as $supplier_id is NOT an supplier
+			//Get empty base parent object, as $supplier_id is NOT an consignmenter
 			$person_obj = parent::get_info(-1);
 			
-			//Get all the fields from supplier table		
+			//Get all the fields from consignmenter table		
 			//append those fields to base parent object, we we have a complete empty object
 			foreach($this->db->list_fields('suppliers') as $field)
 			{
@@ -125,7 +125,7 @@ class Supplier extends Person
 	}
 	
 	/*
-	Deletes one supplier
+	Deletes one consignmenter
 	*/
 	public function delete($supplier_id)
 	{
@@ -278,7 +278,7 @@ class Supplier extends Person
 	}
 
 	/*
-	Return supplier categories
+	Return consignmenter categories
 	*/
 	public function get_categories()
 	{

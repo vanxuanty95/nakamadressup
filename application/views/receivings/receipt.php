@@ -44,10 +44,10 @@
 
 	<div id="receipt_general_info">
 		<?php
-		if(isset($supplier))
+		if(isset($consignmenter))
 		{
 		?>
-			<div id="customer"><?php echo $this->lang->line('suppliers_supplier').": ".$supplier; ?></div>
+			<div id="customer"><?php echo $this->lang->line('suppliers_supplier').": ".$consignmenter; ?></div>
 		<?php
 		}
 		?>

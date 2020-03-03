@@ -39,8 +39,8 @@ class Receivings extends Secure_Controller
 
 	public function select_supplier()
 	{
-		$supplier_id = $this->input->post('supplier');
-		if($this->Supplier->exists($supplier_id))
+		$supplier_id = $this->input->post('consignmenter');
+		if($this->Consignmenter->exists($supplier_id))
 		{
 			$this->receiving_lib->set_supplier($supplier_id);
 		}
@@ -145,10 +145,10 @@ class Receivings extends Secure_Controller
 	{
 		$data = array();
 
-		$data['suppliers'] = array('' => 'No Supplier');
-		foreach($this->Supplier->get_all()->result() as $supplier)
+		$data['suppliers'] = array('' => 'No Consignmenter');
+		foreach($this->Consignmenter->get_all()->result() as $consignmenter)
 		{
-			$data['suppliers'][$supplier->person_id] = $this->xss_clean($supplier->name);
+			$data['suppliers'][$consignmenter->person_id] = $this->xss_clean($consignmenter->name);
 		}
 	
 		$data['employees'] = array();
@@ -223,8 +223,8 @@ class Receivings extends Secure_Controller
 		$supplier_id = $this->receiving_lib->get_supplier();
 		if($supplier_id != -1)
 		{
-			$supplier_info = $this->Supplier->get_info($supplier_id);
-			$data['supplier'] = $supplier_info->company_name;
+			$supplier_info = $this->Consignmenter->get_info($supplier_id);
+			$data['consignmenter'] = $supplier_info->company_name;
 			$data['name'] = $supplier_info->name;
 			$data['supplier_email'] = $supplier_info->email;
 			$data['supplier_address'] = $supplier_info->address_1;
@@ -299,8 +299,8 @@ class Receivings extends Secure_Controller
 		$supplier_id = $this->receiving_lib->get_supplier();
 		if($supplier_id != -1)
 		{
-			$supplier_info = $this->Supplier->get_info($supplier_id);
-			$data['supplier'] = $supplier_info->company_name;
+			$supplier_info = $this->Consignmenter->get_info($supplier_id);
+			$data['consignmenter'] = $supplier_info->company_name;
 			$data['name'] = $supplier_info->name;
 			$data['supplier_email'] = $supplier_info->email;
 			$data['supplier_address'] = $supplier_info->address_1;
@@ -347,8 +347,8 @@ class Receivings extends Secure_Controller
 		$supplier_info = '';
 		if($supplier_id != -1)
 		{
-			$supplier_info = $this->Supplier->get_info($supplier_id);
-			$data['supplier'] = $supplier_info->company_name;
+			$supplier_info = $this->Consignmenter->get_info($supplier_id);
+			$data['consignmenter'] = $supplier_info->company_name;
 			$data['name'] = $supplier_info->name;
 			$data['supplier_email'] = $supplier_info->email;
 			$data['supplier_address'] = $supplier_info->address_1;

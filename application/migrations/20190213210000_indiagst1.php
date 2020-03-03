@@ -11,9 +11,9 @@ class Migration_IndiaGST1 extends CI_Migration
 	{
 		execute_script(APPPATH . 'migrations/sqlscripts/3.3.0_indiagst1.sql');
 
-		error_log('Fix definition of Supplier.Tax Id');
+		error_log('Fix definition of Consignmenter.Tax Id');
 
-		error_log('Definition of Supplier.Tax Id corrected');
+		error_log('Definition of Consignmenter.Tax Id corrected');
 	}
 
 	public function down()

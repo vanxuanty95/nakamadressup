@@ -156,8 +156,8 @@
 [27-Feb-2020 02:39:33 America/New_York] Migrating tax configuration completed
 [27-Feb-2020 02:39:33 America/New_York] Migrating to indiagst1
 [27-Feb-2020 02:39:33 America/New_York] Migrated to indiagst1
-[27-Feb-2020 02:39:33 America/New_York] Fix definition of Supplier.Tax Id
-[27-Feb-2020 02:39:33 America/New_York] Definition of Supplier.Tax Id corrected
+[27-Feb-2020 02:39:33 America/New_York] Fix definition of Consignmenter.Tax Id
+[27-Feb-2020 02:39:33 America/New_York] Definition of Consignmenter.Tax Id corrected
 [27-Feb-2020 02:39:33 America/New_York] Migrating to indiagst2
 [27-Feb-2020 02:39:33 America/New_York] Migrated to indiagst2
 [27-Feb-2020 02:39:33 America/New_York] Migrating to type

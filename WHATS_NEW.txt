@@ -12,7 +12,7 @@ Version 3.3.0
 + Cashup feature
 + Temporary items feature
 + Fixed Sales Discount
-+ Supplier category feature
++ Consignmenter category feature
 + Improved Items import and csv file generation (to contain additional attributes)
 + Improved Docker installation with nginx reverse proxy using Let's encrypt TLS certificate
 + Database performance improvements
@@ -151,7 +151,7 @@ Version 2.4.0
 + *CodeIgniter 3.0.5* Upgrade (please read UPGRADE.txt)
 + Fix for spurious logouts
 + Apache .htaccess mod_expiry caching and security optimizations
-+ Bulk item edit fixes (category, tax and supplier fields)
++ Bulk item edit fixes (category, tax and consignmenter fields)
 + Remove f-key shortcuts used for module navigation
 + Allow to use custom invoice numbers when suspending sale
 + PHP7 fixes
