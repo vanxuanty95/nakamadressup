@@ -16,14 +16,14 @@
 			</div>
 		</div>
 
-		<div class="form-group form-group-sm">
+		<div class="form-group form-group-sm" style="display: none;">
 			<?php echo form_label($this->lang->line('consignmenters_category'), 'category', array('class'=>'required control-label col-xs-3')); ?>
 			<div class='col-xs-6'>
 				<?php echo form_dropdown('category', $categories, $person_info->category, array('class'=>'form-control', 'id'=>'category'));?>
 			</div>
 		</div>
 
-		<div class="form-group form-group-sm">	
+		<div class="form-group form-group-sm" style="display: none;">	
 			<?php echo form_label($this->lang->line('consignmenters_agency_name'), 'agency_name', array('class'=>'control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
 				<?php echo form_input(array(
@@ -49,7 +49,7 @@
 			</div>
 		</div>
 
-		<div class="form-group form-group-sm">
+		<div class="form-group form-group-sm" style="display: none;">
 			<?php echo form_label($this->lang->line('consignmenters_tax_id'), 'tax_id', array('class'=>'control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
 				<?php echo form_input(array(
