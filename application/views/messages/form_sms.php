@@ -5,17 +5,11 @@
 <?php echo form_open("messages/send_form/".$person_info->person_id, array('id'=>'send_sms_form', 'class'=>'form-horizontal')); ?>
 	<fieldset>
 		<div class="form-group form-group-sm">
-			<?php echo form_label($this->lang->line('messages_first_name'), 'first_name_label', array('for'=>'first_name', 'class'=>'control-label col-xs-2')); ?>
+			<?php echo form_label($this->lang->line('messages_name'), 'name_label', array('for'=>'name', 'class'=>'control-label col-xs-2')); ?>
 			<div class="col-xs-10">
-				<?php echo form_input(array('class'=>'form-control input-sm', 'type'=>'text', 'name'=>'first_name', 'value'=>$person_info->first_name, 'readonly'=>'true'));?>
+				<?php echo form_input(array('class'=>'form-control input-sm', 'type'=>'text', 'name'=>'name', 'value'=>$person_info->name, 'readonly'=>'true'));?>
 			</div>
 		</div>
-		<div class="form-group form-group-sm">
-			<?php echo form_label($this->lang->line('messages_last_name'), 'last_name_label', array('for'=>'last_name', 'class'=>'control-label col-xs-2')); ?>
-			<div class="col-xs-10">
-				<?php echo form_input(array('class'=>'form-control input-sm', 'type'=>'text', 'name'=>'last_name', 'value'=>$person_info->last_name, 'readonly'=>'true'));?>
-			</div>
-		</div> 
 		<div class="form-group form-group-sm">
 			<?php echo form_label($this->lang->line('messages_phone'), 'phone_label', array('for'=>'phone', 'class'=>'control-label col-xs-2 required')); ?>
 			<div class="col-xs-10">

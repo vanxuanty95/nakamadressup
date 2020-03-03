@@ -71,10 +71,8 @@ class Cashup extends CI_Model
 			MAX(cash_up.note) AS note,
 			MAX(cash_up.open_employee_id) AS open_employee_id,
 			MAX(cash_up.close_employee_id) AS close_employee_id,
-			MAX(open_employees.first_name) AS open_first_name,
-			MAX(open_employees.last_name) AS open_last_name,
-			MAX(close_employees.first_name) AS close_first_name,
-			MAX(close_employees.last_name) AS close_last_name
+			MAX(open_employees.name) AS open_name,
+			MAX(close_employees.name) AS close_name,
 		');
 		$this->db->from('cash_up AS cash_up');
 		$this->db->join('people AS open_employees', 'open_employees.person_id = cash_up.open_employee_id', 'LEFT');
@@ -82,13 +80,9 @@ class Cashup extends CI_Model
 
 		$this->db->group_start();
 			$this->db->like('cash_up.open_date', $search);
-			$this->db->or_like('open_employees.first_name', $search);
-			$this->db->or_like('open_employees.last_name', $search);
-			$this->db->or_like('close_employees.first_name', $search);
-			$this->db->or_like('close_employees.last_name', $search);
+			$this->db->or_like('open_employees.name', $search);
+			$this->db->or_like('close_employees.name', $search);
 			$this->db->or_like('cash_up.closed_amount_total', $search);
-			$this->db->or_like('CONCAT(open_employees.first_name, " ", open_employees.last_name)', $search);
-			$this->db->or_like('CONCAT(close_employees.first_name, " ", close_employees.last_name)', $search);
 		$this->db->group_end();
 
 		$this->db->where('cash_up.deleted', $filters['is_deleted']);
@@ -141,10 +135,8 @@ class Cashup extends CI_Model
 			cash_up.open_employee_id AS open_employee_id,
 			cash_up.close_employee_id AS close_employee_id,
 			cash_up.deleted AS deleted,
-			open_employees.first_name AS open_first_name,
-			open_employees.last_name AS open_last_name,
-			close_employees.first_name AS close_first_name,
-			close_employees.last_name AS close_last_name
+			open_employees.name AS open_name,
+			close_employees.name AS close_name,
 		');
 		$this->db->from('cash_up AS cash_up');
 		$this->db->join('people AS open_employees', 'open_employees.person_id = cash_up.open_employee_id', 'LEFT');

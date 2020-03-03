@@ -77,8 +77,7 @@ class Expense extends CI_Model
 				MAX(expenses.tax_amount) AS tax_amount,
 				MAX(expenses.payment_type) AS payment_type,
 				MAX(expenses.description) AS description,
-				MAX(employees.first_name) AS first_name,
-				MAX(employees.last_name) AS last_name,
+				MAX(employees.name) AS name,
 				MAX(expense_categories.category_name) AS category_name
 			');
 		}
@@ -89,13 +88,12 @@ class Expense extends CI_Model
 		$this->db->join('suppliers AS suppliers', 'suppliers.person_id = expenses.supplier_id', 'LEFT');
 
 		$this->db->group_start();
-			$this->db->like('employees.first_name', $search);
+			$this->db->like('employees.name', $search);
 			$this->db->or_like('expenses.date', $search);
-			$this->db->or_like('employees.last_name', $search);
 			$this->db->or_like('expenses.payment_type', $search);
 			$this->db->or_like('expenses.amount', $search);
 			$this->db->or_like('expense_categories.category_name', $search);
-			$this->db->or_like('CONCAT(employees.first_name, " ", employees.last_name)', $search);
+			$this->db->or_like('CONCAT(employees.name)', $search);
 		$this->db->group_end();
 
 		$this->db->where('expenses.deleted', $filters['is_deleted']);
@@ -172,8 +170,7 @@ class Expense extends CI_Model
 			expenses.description AS description,
 			expenses.employee_id AS employee_id,
 			expenses.deleted AS deleted,
-			employees.first_name AS first_name,
-			employees.last_name AS last_name,
+			employees.name AS name,
 			expense_categories.expense_category_id AS expense_category_id,
 			expense_categories.category_name AS category_name
 		');

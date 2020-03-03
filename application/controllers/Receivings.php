@@ -148,13 +148,13 @@ class Receivings extends Secure_Controller
 		$data['suppliers'] = array('' => 'No Supplier');
 		foreach($this->Supplier->get_all()->result() as $supplier)
 		{
-			$data['suppliers'][$supplier->person_id] = $this->xss_clean($supplier->first_name . ' ' . $supplier->last_name);
+			$data['suppliers'][$supplier->person_id] = $this->xss_clean($supplier->name);
 		}
 	
 		$data['employees'] = array();
 		foreach($this->Employee->get_all()->result() as $employee)
 		{
-			$data['employees'][$employee->person_id] = $this->xss_clean($employee->first_name . ' '. $employee->last_name);
+			$data['employees'][$employee->person_id] = $this->xss_clean($employee->name);
 		}
 	
 		$receiving_info = $this->xss_clean($this->Receiving->get_info($receiving_id)->row_array());
@@ -217,7 +217,7 @@ class Receivings extends Secure_Controller
 		
 		$employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
 		$employee_info = $this->Employee->get_info($employee_id);
-		$data['employee'] = $employee_info->first_name . ' ' . $employee_info->last_name;
+		$data['employee'] = $employee_info->name;
 
 		$supplier_info = '';
 		$supplier_id = $this->receiving_lib->get_supplier();
@@ -225,8 +225,7 @@ class Receivings extends Secure_Controller
 		{
 			$supplier_info = $this->Supplier->get_info($supplier_id);
 			$data['supplier'] = $supplier_info->company_name;
-			$data['first_name'] = $supplier_info->first_name;
-			$data['last_name'] = $supplier_info->last_name;
+			$data['name'] = $supplier_info->name;
 			$data['supplier_email'] = $supplier_info->email;
 			$data['supplier_address'] = $supplier_info->address_1;
 			if(!empty($supplier_info->zip) or !empty($supplier_info->city))
@@ -295,15 +294,14 @@ class Receivings extends Secure_Controller
 		$data['receiving_id'] = 'RECV ' . $receiving_id;
 		$data['barcode'] = $this->barcode_lib->generate_receipt_barcode($data['receiving_id']);
 		$employee_info = $this->Employee->get_info($receiving_info['employee_id']);
-		$data['employee'] = $employee_info->first_name . ' ' . $employee_info->last_name;
+		$data['employee'] = $employee_info->name;
 
 		$supplier_id = $this->receiving_lib->get_supplier();
 		if($supplier_id != -1)
 		{
 			$supplier_info = $this->Supplier->get_info($supplier_id);
 			$data['supplier'] = $supplier_info->company_name;
-			$data['first_name'] = $supplier_info->first_name;
-			$data['last_name'] = $supplier_info->last_name;
+			$data['name'] = $supplier_info->name;
 			$data['supplier_email'] = $supplier_info->email;
 			$data['supplier_address'] = $supplier_info->address_1;
 			if(!empty($supplier_info->zip) or !empty($supplier_info->city))
@@ -351,8 +349,7 @@ class Receivings extends Secure_Controller
 		{
 			$supplier_info = $this->Supplier->get_info($supplier_id);
 			$data['supplier'] = $supplier_info->company_name;
-			$data['first_name'] = $supplier_info->first_name;
-			$data['last_name'] = $supplier_info->last_name;
+			$data['name'] = $supplier_info->name;
 			$data['supplier_email'] = $supplier_info->email;
 			$data['supplier_address'] = $supplier_info->address_1;
 			if(!empty($supplier_info->zip) or !empty($supplier_info->city))

@@ -104,8 +104,8 @@ SELECT `item_kit_id`, `item_id`, `quantity` FROM `phppos`.phppos_item_kit_items;
 -- Copy data to table `ospos_people`
 --
 
-INSERT INTO `ospos_people` (`first_name`, `last_name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`, `person_id`)
-SELECT `first_name`, `last_name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`, `person_id` FROM `phppos`.phppos_people;
+INSERT INTO `ospos_people` (`name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`, `person_id`)
+SELECT `name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`, `person_id` FROM `phppos`.phppos_people;
 
 --
 -- Copy data to table `ospos_receivings`

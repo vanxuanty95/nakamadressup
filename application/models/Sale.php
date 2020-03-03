@@ -84,9 +84,8 @@ class Sale extends CI_Model
 				MAX(sales.quote_number) AS quote_number,
 				MAX(sales.employee_id) AS employee_id,
 				MAX(sales.customer_id) AS customer_id,
-				MAX(CONCAT(customer_p.first_name, " ", customer_p.last_name)) AS customer_name,
-				MAX(customer_p.first_name) AS first_name,
-				MAX(customer_p.last_name) AS last_name,
+				MAX(CONCAT(customer_p.name)) AS customer_name,
+				MAX(customer_p.name) AS name,
 				MAX(customer_p.email) AS email,
 				MAX(customer_p.comments) AS comments,
 				' . "
@@ -204,7 +203,7 @@ class Sale extends CI_Model
 					MAX(sales.invoice_number) AS invoice_number,
 					MAX(sales.quote_number) AS quote_number,
 					SUM(sales_items.quantity_purchased) AS items_purchased,
-					MAX(CONCAT(customer_p.first_name, " ", customer_p.last_name)) AS customer_name,
+					MAX(CONCAT(customer_p.name)) AS customer_name,
 					MAX(customer.company_name) AS company_name,
 					' . "
 					IFNULL($sale_subtotal, $sale_total) AS subtotal,
@@ -241,12 +240,10 @@ class Sale extends CI_Model
 			else
 			{
 				$this->db->group_start();
-					// customer last name
-					$this->db->like('customer_p.last_name', $search);
-					// customer first name
-					$this->db->or_like('customer_p.first_name', $search);
+					// customer name
+					$this->db->like('customer_p.name', $search);
 					// customer first and last name
-					$this->db->or_like('CONCAT(customer_p.first_name, " ", customer_p.last_name)', $search);
+					$this->db->or_like('CONCAT(customer_p.name)', $search);
 					// customer company name
 					$this->db->or_like('customer.company_name', $search);
 				$this->db->group_end();
@@ -331,12 +328,10 @@ class Sale extends CI_Model
 			else
 			{
 				$this->db->group_start();
-					// customer last name
-					$this->db->like('customer_p.last_name', $search);
-					// customer first name
-					$this->db->or_like('customer_p.first_name', $search);
+					// customer name
+					$this->db->like('customer_p.name', $search);
 					// customer first and last name
-					$this->db->or_like('CONCAT(customer_p.first_name, " ", customer_p.last_name)', $search);
+					$this->db->or_like('CONCAT(customer_p.name)', $search);
 					// customer company name
 					$this->db->or_like('customer.company_name', $search);
 				$this->db->group_end();
@@ -427,18 +422,18 @@ class Sale extends CI_Model
 		if(!$this->is_valid_receipt($search))
 		{
 			$this->db->distinct();
-			$this->db->select('first_name, last_name');
+			$this->db->select('name, name');
 			$this->db->from('sales');
 			$this->db->join('people', 'people.person_id = sales.customer_id');
-			$this->db->like('last_name', $search);
-			$this->db->or_like('first_name', $search);
-			$this->db->or_like('CONCAT(first_name, " ", last_name)', $search);
+			$this->db->like('name', $search);
+			$this->db->or_like('name', $search);
+			$this->db->or_like('CONCAT(name)', $search);
 			$this->db->or_like('company_name', $search);
-			$this->db->order_by('last_name', 'asc');
+			$this->db->order_by('name', 'asc');
 
 			foreach($this->db->get()->result_array() as $result)
 			{
-				$suggestions[] = array('label' => $result['first_name'] . ' ' . $result['last_name']);
+				$suggestions[] = array('label' => $result['name']);
 			}
 		}
 		else
@@ -1165,14 +1160,13 @@ class Sale extends CI_Model
 					MAX(sales.invoice_number) AS invoice_number,
 					MAX(sales.quote_number) AS quote_number,
 					MAX(sales.customer_id) AS customer_id,
-					MAX(CONCAT(customer_p.first_name, " ", customer_p.last_name)) AS customer_name,
-					MAX(customer_p.first_name) AS customer_first_name,
-					MAX(customer_p.last_name) AS customer_last_name,
+					MAX(CONCAT(customer_p.name)) AS customer_name,
+					MAX(customer_p.name) AS customer_name,
 					MAX(customer_p.email) AS customer_email,
 					MAX(customer_p.comments) AS customer_comments,
 					MAX(customer.company_name) AS customer_company_name,
 					MAX(sales.employee_id) AS employee_id,
-					MAX(CONCAT(employee.first_name, " ", employee.last_name)) AS employee_name,
+					MAX(CONCAT(employee.name)) AS employee_name,
 					items.item_id AS item_id,
 					MAX(' . $this->Item->get_item_name() . ') AS name,
 					MAX(items.item_number) AS item_number,

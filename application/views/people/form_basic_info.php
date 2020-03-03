@@ -1,23 +1,11 @@
 <div class="form-group form-group-sm">	
-	<?php echo form_label($this->lang->line('common_first_name'), 'first_name', array('class'=>'required control-label col-xs-3')); ?>
+	<?php echo form_label($this->lang->line('common_name'), 'name', array('class'=>'required control-label col-xs-3')); ?>
 	<div class='col-xs-8'>
 		<?php echo form_input(array(
-				'name'=>'first_name',
-				'id'=>'first_name',
+				'name'=>'name',
+				'id'=>'name',
 				'class'=>'form-control input-sm',
-				'value'=>$person_info->first_name)
-				);?>
-	</div>
-</div>
-
-<div class="form-group form-group-sm">	
-	<?php echo form_label($this->lang->line('common_last_name'), 'last_name', array('class'=>'required control-label col-xs-3')); ?>
-	<div class='col-xs-8'>
-		<?php echo form_input(array(
-				'name'=>'last_name',
-				'id'=>'last_name',
-				'class'=>'form-control input-sm',
-				'value'=>$person_info->last_name)
+				'value'=>$person_info->name)
 				);?>
 	</div>
 </div>

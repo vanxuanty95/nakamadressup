@@ -1,7 +1,6 @@
 <?php 
 
-$lang["messages_first_name"] = "Jméno";
-$lang["messages_last_name"] = "Příjmení";
+$lang["messages_name"] = "Jméno";
 $lang["messages_message"] = "Zpráva";
 $lang["messages_message_placeholder"] = "Zde napište zprávu...";
 $lang["messages_message_required"] = "Zprávu je nutno napsat";

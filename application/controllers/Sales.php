@@ -531,7 +531,7 @@ class Sales extends Secure_Controller
 		$data['comments'] = $this->sale_lib->get_comment();
 		$employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
 		$employee_info = $this->Employee->get_info($employee_id);
-		$data['employee'] = $employee_info->first_name . ' ' . mb_substr($employee_info->last_name, 0, 1);
+		$data['employee'] = $employee_info->name;
 
 		$data['company_info'] = implode("\n", array(
 			$this->config->item('address'),
@@ -889,10 +889,9 @@ class Sales extends Secure_Controller
 			}
 			else
 			{
-				$data['customer'] = $customer_info->first_name . ' ' . $customer_info->last_name;
+				$data['customer'] = $customer_info->name;
 			}
-			$data['first_name'] = $customer_info->first_name;
-			$data['last_name'] = $customer_info->last_name;
+			$data['name'] = $customer_info->name;
 			$data['customer_email'] = $customer_info->email;
 			$data['customer_address'] = $customer_info->address_1;
 			if(!empty($customer_info->zip) || !empty($customer_info->city))
@@ -988,7 +987,7 @@ class Sales extends Secure_Controller
 		$data['amount_change'] = $data['amount_due'] * -1;
 
 		$employee_info = $this->Employee->get_info($this->sale_lib->get_employee());
-		$data['employee'] = $employee_info->first_name . ' ' . mb_substr($employee_info->last_name, 0, 1);
+		$data['employee'] = $employee_info->name;
 		$this->_load_customer_data($this->sale_lib->get_customer(), $data);
 
 		$data['sale_id_num'] = $sale_id;
@@ -1186,7 +1185,7 @@ class Sales extends Secure_Controller
 				$employee->$property = $this->xss_clean($value);
 			}
 
-			$data['employees'][$employee->person_id] = $employee->first_name . ' ' . $employee->last_name;
+			$data['employees'][$employee->person_id] = $employee->name;
 		}
 
 		$sale_info = $this->xss_clean($this->Sale->get_info($sale_id)->row_array());

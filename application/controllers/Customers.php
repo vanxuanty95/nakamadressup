@@ -123,7 +123,7 @@ class Customers extends Persons
 		}
 
 		$employee_info = $this->Employee->get_info($info->employee_id);
-		$data['employee'] = $this->xss_clean($employee_info->first_name . ' ' . $employee_info->last_name);
+		$data['employee'] = $this->xss_clean($employee_info->name . ' ' . $employee_info->name);
 
 		$tax_code_info = $this->Tax_code->get_info($info->sales_tax_code_id);
 		$tax_code_id = $tax_code_info->tax_code_id;
@@ -228,17 +228,14 @@ class Customers extends Persons
 	*/
 	public function save($customer_id = -1)
 	{
-		$first_name = $this->xss_clean($this->input->post('first_name'));
-		$last_name = $this->xss_clean($this->input->post('last_name'));
+		$name = $this->xss_clean($this->input->post('name'));
 		$email = $this->xss_clean(strtolower($this->input->post('email')));
 
-		// format first and last name properly
-		$first_name = $this->nameize($first_name);
-		$last_name = $this->nameize($last_name);
+		// format name properly
+		$name = $this->nameize($name);
 
 		$person_data = array(
-			'first_name' => $first_name,
-			'last_name' => $last_name,
+			'name' => $name,
 			'gender' => $this->input->post('gender'),
 			'email' => $email,
 			'phone_number' => $this->input->post('phone_number'),
@@ -270,26 +267,26 @@ class Customers extends Persons
 		if($this->Customer->save_customer($person_data, $customer_data, $customer_id))
 		{
 			// save customer to Mailchimp selected list
-			$this->mailchimp_lib->addOrUpdateMember($this->_list_id, $email, $first_name, $last_name, $this->input->post('mailchimp_status'), array('vip' => $this->input->post('mailchimp_vip') != NULL));
+			$this->mailchimp_lib->addOrUpdateMember($this->_list_id, $email, $name, $this->input->post('mailchimp_status'), array('vip' => $this->input->post('mailchimp_vip') != NULL));
 
 			// New customer
 			if($customer_id == -1)
 			{
 				echo json_encode(array('success' => TRUE,
-								'message' => $this->lang->line('customers_successful_adding') . ' ' . $first_name . ' ' . $last_name,
+								'message' => $this->lang->line('customers_successful_adding') . ' ' . $name,
 								'id' => $this->xss_clean($customer_data['person_id'])));
 			}
 			else // Existing customer
 			{
 				echo json_encode(array('success' => TRUE,
-								'message' => $this->lang->line('customers_successful_updating') . ' ' . $first_name . ' ' . $last_name,
+								'message' => $this->lang->line('customers_successful_updating') . ' ' . $name,
 								'id' => $customer_id));
 			}
 		}
 		else // Failure
 		{
 			echo json_encode(array('success' => FALSE,
-							'message' => $this->lang->line('customers_error_adding_updating') . ' ' . $first_name . ' ' . $last_name,
+							'message' => $this->lang->line('customers_error_adding_updating') . ' ' . $name,
 							'id' => -1));
 		}
 	}
@@ -382,36 +379,35 @@ class Customers extends Persons
 					// XSS file data sanity check
 					$data = $this->xss_clean($data);
 
-					$consent = $data[3] == '' ? 0 : 1;
+					$consent = $data[2] == '' ? 0 : 1;
 
 					if(sizeof($data) >= 16 && $consent)
 					{
-						$email = strtolower($data[4]);
+						$email = strtolower($data[3]);
 						$person_data = array(
-							'first_name'	=> $data[0],
-							'last_name'		=> $data[1],
-							'gender'		=> $data[2],
+							'name'	=> $data[0],
+							'gender'		=> $data[1],
 							'email'			=> $email,
-							'phone_number'	=> $data[5],
-							'address_1'		=> $data[6],
-							'address_2'		=> $data[7],
-							'city'			=> $data[8],
-							'state'			=> $data[9],
-							'zip'			=> $data[10],
-							'country'		=> $data[11],
-							'comments'		=> $data[12]
+							'phone_number'	=> $data[4],
+							'address_1'		=> $data[5],
+							'address_2'		=> $data[6],
+							'city'			=> $data[7],
+							'state'			=> $data[8],
+							'zip'			=> $data[9],
+							'country'		=> $data[10],
+							'comments'		=> $data[11]
 						);
 
 						$customer_data = array(
 							'consent'			=> $consent,
-							'company_name'		=> $data[13],
-							'discount'			=> $data[15],
-							'discount_type'		=> $data[16],
-							'taxable'			=> $data[17] == '' ? 0 : 1,
+							'company_name'		=> $data[12],
+							'discount'			=> $data[14],
+							'discount_type'		=> $data[15],
+							'taxable'			=> $data[16] == '' ? 0 : 1,
 							'date'				=> date('Y-m-d H:i:s'),
 							'employee_id'		=> $this->Employee->get_logged_in_employee_info()->person_id
 						);
-						$account_number = $data[14];
+						$account_number = $data[13];
 
 						// don't duplicate people with same email
 						$invalidated = $this->Customer->check_email_exists($email);
@@ -434,7 +430,7 @@ class Customers extends Persons
 					elseif($this->Customer->save_customer($person_data, $customer_data))
 					{
 						// save customer to Mailchimp selected list
-						$this->mailchimp_lib->addOrUpdateMember($this->_list_id, $person_data['email'], $person_data['first_name'], '', $person_data['last_name']);
+						$this->mailchimp_lib->addOrUpdateMember($this->_list_id, $person_data['email'], $person_data['name'], '');
 					}
 					else
 					{

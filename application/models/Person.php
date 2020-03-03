@@ -33,7 +33,7 @@ class Person extends CI_Model
 	public function get_all($limit = 10000, $offset = 0)
 	{
 		$this->db->from('people');
-		$this->db->order_by('last_name', 'asc');
+		$this->db->order_by('name', 'asc');
 		$this->db->limit($limit);
 		$this->db->offset($offset);
 
@@ -93,7 +93,7 @@ class Person extends CI_Model
 	{
 		$this->db->from('people');
 		$this->db->where_in('person_id', $person_ids);
-		$this->db->order_by('last_name', 'asc');
+		$this->db->order_by('name', 'asc');
 
 		return $this->db->get();
 	}
@@ -144,13 +144,12 @@ class Person extends CI_Model
 //		$this->db->where('deleted', 0);
 //		$this->db->where('person_id', $search);
 //		$this->db->group_start();
-//			$this->db->like('first_name', $search);
-//			$this->db->or_like('last_name', $search);
-//			$this->db->or_like('CONCAT(first_name, " ", last_name)', $search);
+//			$this->db->like('name', $search);
+//			$this->db->or_like('CONCAT(name, " ", name)', $search);
 //			$this->db->or_like('email', $search);
 //			$this->db->or_like('phone_number', $search);
 //			$this->db->group_end();
-//		$this->db->order_by('last_name', 'asc');
+//		$this->db->order_by('name', 'asc');
 
 		foreach($this->db->get()->result() as $row)
 		{

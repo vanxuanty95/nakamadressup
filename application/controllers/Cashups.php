@@ -58,7 +58,7 @@ class Cashups extends Secure_Controller
 				$employee->$property = $this->xss_clean($value);
 			}
 
-			$data['employees'][$employee->person_id] = $employee->first_name . ' ' . $employee->last_name;
+			$data['employees'][$employee->person_id] = $employee->name;
 		}
 
 		$cash_ups_info = $this->Cashup->get_info($cashup_id);

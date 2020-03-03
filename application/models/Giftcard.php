@@ -178,15 +178,14 @@ class Giftcard extends CI_Model
  		$this->db->from('customers');
 		$this->db->join('people', 'customers.person_id = people.person_id', 'left');
 		$this->db->group_start();
-			$this->db->like('first_name', $search);
-			$this->db->or_like('last_name', $search);
-			$this->db->or_like('CONCAT(first_name, " ", last_name)', $search);
+			$this->db->like('name', $search);
+			$this->db->or_like('CONCAT(name, " ", name)', $search);
 		$this->db->group_end();
 		$this->db->where('deleted', 0);
-		$this->db->order_by('last_name', 'asc');
+		$this->db->order_by('name', 'asc');
 		foreach($this->db->get()->result() as $row)
 		{
-			$suggestions[] = array('label' => $row->first_name.' '.$row->last_name);
+			$suggestions[] = array('label' => $row->name);
 		}
 
 		//only return $limit suggestions
@@ -220,9 +219,8 @@ class Giftcard extends CI_Model
 		$this->db->from('giftcards AS giftcards');
 		$this->db->join('people AS person', 'giftcards.person_id = person.person_id', 'left');
 		$this->db->group_start();
-			$this->db->like('person.first_name', $search);
-			$this->db->or_like('person.last_name', $search);
-			$this->db->or_like('CONCAT(person.first_name, " ", person.last_name)', $search);
+			$this->db->like('person.name', $search);
+			$this->db->or_like('CONCAT(person.name, " ", person.name)', $search);
 			$this->db->or_like('giftcards.giftcard_number', $search);
 			$this->db->or_like('giftcards.person_id', $search);
 		$this->db->group_end();

@@ -1,7 +1,6 @@
 <?php 
 
-$lang["messages_first_name"] = "នាមត្រកូល";
-$lang["messages_last_name"] = "ឈ្មោះ";
+$lang["messages_name"] = "នាមត្រកូល";
 $lang["messages_message"] = "សារ";
 $lang["messages_message_placeholder"] = "សរសេរសាររបស់អ្នកនៅទីនេះ...";
 $lang["messages_message_required"] = "តំរូវអោយមានសារ";

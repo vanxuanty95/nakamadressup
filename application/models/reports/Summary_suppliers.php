@@ -21,7 +21,7 @@ class Summary_suppliers extends Summary_report
 		parent::_select($inputs);
 
 		$this->db->select('
-				MAX(CONCAT(supplier_c.company_name, " (", supplier_p.first_name, " ", supplier_p.last_name, ")")) AS supplier,
+				MAX(CONCAT(supplier_c.company_name, " (", supplier_p.name, ")")) AS supplier,
 				SUM(sales_items.quantity_purchased) AS quantity_purchased
 		');
 	}
@@ -38,7 +38,7 @@ class Summary_suppliers extends Summary_report
 	protected function _group_order()
 	{
 		$this->db->group_by('items.supplier_id');
-		$this->db->order_by('MAX(CONCAT(supplier_c.company_name, " (", supplier_p.first_name, " ", supplier_p.last_name, ")"))');
+		$this->db->order_by('MAX(CONCAT(supplier_c.company_name, " (", supplier_p.name, ")"))');
 	}
 }
 ?>

@@ -1,7 +1,6 @@
 <?php 
 
-$lang["messages_first_name"] = "Tên";
-$lang["messages_last_name"] = "Họ";
+$lang["messages_name"] = "Tên";
 $lang["messages_message"] = "Tin nhắn";
 $lang["messages_message_placeholder"] = "Tin nhắn của bạn ở đây...";
 $lang["messages_message_required"] = "Cần tin nhắn";

@@ -37,7 +37,7 @@ class Employee extends Person
 		$this->db->from('employees');
 		$this->db->where('deleted', 0);
 		$this->db->join('people', 'employees.person_id = people.person_id');
-		$this->db->order_by('last_name', 'asc');
+		$this->db->order_by('name', 'asc');
 		$this->db->limit($limit);
 		$this->db->offset($offset);
 
@@ -82,7 +82,7 @@ class Employee extends Person
 		$this->db->from('employees');
 		$this->db->join('people', 'people.person_id = employees.person_id');
 		$this->db->where_in('employees.person_id', $employee_ids);
-		$this->db->order_by('last_name', 'asc');
+		$this->db->order_by('name', 'asc');
 
 		return $this->db->get();
 	}
@@ -202,15 +202,14 @@ class Employee extends Person
 		$this->db->from('employees');
 		$this->db->join('people', 'employees.person_id = people.person_id');
 		$this->db->group_start();
-			$this->db->like('first_name', $search);
-			$this->db->or_like('last_name', $search);
-			$this->db->or_like('CONCAT(first_name, " ", last_name)', $search);
+			$this->db->like('name', $search);
+			$this->db->or_like('CONCAT(name, " ", name)', $search);
 		$this->db->group_end();
 		$this->db->where('deleted', 0);
-		$this->db->order_by('last_name', 'asc');
+		$this->db->order_by('name', 'asc');
 		foreach($this->db->get()->result() as $row)
 		{
-			$suggestions[] = array('value' => $row->person_id, 'label' => $row->first_name.' '.$row->last_name);
+			$suggestions[] = array('value' => $row->person_id, 'label' => $row->name);
 		}
 
 		$this->db->from('employees');
@@ -257,13 +256,13 @@ class Employee extends Person
 	*/
 	public function get_found_rows($search)
 	{
-		return $this->search($search, 0, 0, 'last_name', 'asc', TRUE);
+		return $this->search($search, 0, 0, 'name', 'asc', TRUE);
 	}
 
 	/*
 	Performs a search on employees
 	*/
-	public function search($search, $rows = 0, $limit_from = 0, $sort = 'last_name', $order = 'asc', $count_only = FALSE)
+	public function search($search, $rows = 0, $limit_from = 0, $sort = 'name', $order = 'asc', $count_only = FALSE)
 	{
 		// get_found_rows case
 		if($count_only == TRUE)
@@ -274,12 +273,11 @@ class Employee extends Person
 		$this->db->from('employees AS employees');
 		$this->db->join('people', 'employees.person_id = people.person_id');
 		$this->db->group_start();
-			$this->db->like('first_name', $search);
-			$this->db->or_like('last_name', $search);
+			$this->db->like('name', $search);
 			$this->db->or_like('email', $search);
 			$this->db->or_like('phone_number', $search);
 			$this->db->or_like('username', $search);
-			$this->db->or_like('CONCAT(first_name, " ", last_name)', $search);
+			$this->db->or_like('CONCAT(name, " ", name)', $search);
 		$this->db->group_end();
 		$this->db->where('deleted', 0);
 

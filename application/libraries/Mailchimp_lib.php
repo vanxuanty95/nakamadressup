@@ -266,14 +266,13 @@ class Mailchimp_lib
 	*
 	* @see http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#create-post_lists_list_id_members
 	*/
-	public function addMember($list_id, $email, $first_name, $last_name, $parameters = array())
+	public function addMember($list_id, $email, $name, $parameters = array())
 	{
 		$parameters += [
 			'email_address' => $email,
 			'status' => 'subscribed',
 			'merge_fields' => array(
-				'FNAME' => $first_name,
-				'LNAME' => $last_name
+				'NAME' => $name,
 			)
 		];
 
@@ -311,13 +310,12 @@ class Mailchimp_lib
 	*
 	* @see http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#edit-patch_lists_list_id_members_subscriber_hash
 	*/
-	public function updateMember($list_id, $email, $first_name, $last_name, $parameters = array())
+	public function updateMember($list_id, $email, $name, $parameters = array())
 	{
 		$parameters += [
 			'status' => 'subscribed',
 			'merge_fields' => array(
-				'FNAME' => $first_name,
-				'LNAME' => $last_name
+				'NAME' => $name,
 			)
 		];
 
@@ -338,15 +336,14 @@ class Mailchimp_lib
 	*
 	* @see http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#edit-put_lists_list_id_members_subscriber_hash
 	*/
-	public function addOrUpdateMember($list_id, $email, $first_name, $last_name, $status, $parameters = array())
+	public function addOrUpdateMember($list_id, $email, $name, $status, $parameters = array())
 	{
 		$parameters += [
 			'email_address' => $email,
 			'status' => $status,
 			'status_if_new' => 'subscribed',
 			'merge_fields' => array(
-				'FNAME' => $first_name,
-				'LNAME' => $last_name
+				'NAME' => $name,
 			)
 		];
 

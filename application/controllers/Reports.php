@@ -892,11 +892,11 @@ class Reports extends Secure_Controller
 		{
 			if(isset($customer->company_name))
 			{
-				$customers[$customer->person_id] = $this->xss_clean($customer->first_name . ' ' . $customer->last_name. ' ' . ' [ '.$customer->company_name.' ] ');
+				$customers[$customer->person_id] = $this->xss_clean($customer->name . ' ' . ' [ '.$customer->company_name.' ] ');
 			}
 			else
 			{
-				$customers[$customer->person_id] = $this->xss_clean($customer->first_name . ' ' . $customer->last_name);
+				$customers[$customer->person_id] = $this->xss_clean($customer->name);
 			}
 		}
 		$data['specific_input_data'] = $customers;
@@ -1000,7 +1000,7 @@ class Reports extends Secure_Controller
 		}
 
 		$data = array(
-			'title' => $this->xss_clean($customer_info->first_name . ' ' . $customer_info->last_name . ' ' . $this->lang->line('reports_report')),
+			'title' => $this->xss_clean($customer_info->name . ' ' . $this->lang->line('reports_report')),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $headers,
 			'editable' => 'sales',
@@ -1021,7 +1021,7 @@ class Reports extends Secure_Controller
 		$employees = array();
 		foreach($this->Employee->get_all()->result() as $employee)
 		{
-			$employees[$employee->person_id] = $this->xss_clean($employee->first_name . ' ' . $employee->last_name);
+			$employees[$employee->person_id] = $this->xss_clean($employee->name);
 		}
 		$data['specific_input_data'] = $employees;
 		$data['sale_type_options'] = $this->get_sale_type_options();
@@ -1102,7 +1102,7 @@ class Reports extends Secure_Controller
 
 		$employee_info = $this->Employee->get_info($employee_id);
 		$data = array(
-			'title' => $this->xss_clean($employee_info->first_name . ' ' . $employee_info->last_name . ' ' . $this->lang->line('reports_report')),
+			'title' => $this->xss_clean($employee_info->name . ' ' . $this->lang->line('reports_report')),
 			'subtitle' => $this->_get_subtitle_report(array('start_date' => $start_date, 'end_date' => $end_date)),
 			'headers' => $headers,
 			'editable' => 'sales',

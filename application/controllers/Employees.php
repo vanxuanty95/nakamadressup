@@ -84,17 +84,14 @@ class Employees extends Persons
 	*/
 	public function save($employee_id = -1)
 	{
-		$first_name = $this->xss_clean($this->input->post('first_name'));
-		$last_name = $this->xss_clean($this->input->post('last_name'));
+		$name = $this->xss_clean($this->input->post('name'));
 		$email = $this->xss_clean(strtolower($this->input->post('email')));
 
 		// format first and last name properly
-		$first_name = $this->nameize($first_name);
-		$last_name = $this->nameize($last_name);
+		$name = $this->nameize($name);
 
 		$person_data = array(
-			'first_name' => $first_name,
-			'last_name' => $last_name,
+			'name' => $name,
 			'gender' => $this->input->post('gender'),
 			'email' => $email,
 			'phone_number' => $this->input->post('phone_number'),
@@ -148,20 +145,20 @@ class Employees extends Persons
 			if($employee_id == -1)
 			{
 				echo json_encode(array('success' => TRUE,
-								'message' => $this->lang->line('employees_successful_adding') . ' ' . $first_name . ' ' . $last_name,
+								'message' => $this->lang->line('employees_successful_adding') . ' ' . $name,
 								'id' => $this->xss_clean($employee_data['person_id'])));
 			}
 			else // Existing employee
 			{
 				echo json_encode(array('success' => TRUE,
-								'message' => $this->lang->line('employees_successful_updating') . ' ' . $first_name . ' ' . $last_name,
+								'message' => $this->lang->line('employees_successful_updating') . ' ' . $name,
 								'id' => $employee_id));
 			}
 		}
 		else // Failure
 		{
 			echo json_encode(array('success' => FALSE,
-							'message' => $this->lang->line('employees_error_adding_updating') . ' ' . $first_name . ' ' . $last_name,
+							'message' => $this->lang->line('employees_error_adding_updating') . ' ' . $name,
 							'id' => -1));
 		}
 	}

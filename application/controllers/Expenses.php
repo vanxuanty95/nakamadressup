@@ -75,7 +75,7 @@ class Expenses extends Secure_Controller
 				$employee->$property = $this->xss_clean($value);
 			}
 
-			$data['employees'][$employee->person_id] = $employee->first_name . ' ' . $employee->last_name;
+			$data['employees'][$employee->person_id] = $employee->name;
 		}
 
 		$data['expenses_info'] = $this->Expense->get_info($expense_id);

@@ -30,7 +30,7 @@ class Token_customer extends Token
 			$customer_info = $this->CI->Customer->get_info($customer_id);
 			if($customer_info != '')
 			{
-				return trim($customer_info->first_name . ' ' . $customer_info->last_name);
+				return trim($customer_info->name);
 			}
 		}
 

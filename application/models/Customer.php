@@ -53,7 +53,7 @@ class Customer extends Person
 		$this->db->from('customers');
 		$this->db->join('people', 'customers.person_id = people.person_id');
 		$this->db->where('deleted', 0);
-		$this->db->order_by('last_name', 'asc');
+		$this->db->order_by('name', 'asc');
 
 		if($rows > 0)
 		{
@@ -149,7 +149,7 @@ class Customer extends Person
 		$this->db->from('customers');
 		$this->db->join('people', 'people.person_id = customers.person_id');
 		$this->db->where_in('customers.person_id', $customer_ids);
-		$this->db->order_by('last_name', 'asc');
+		$this->db->order_by('name', 'asc');
 
 		return $this->db->get();
 	}
@@ -231,8 +231,7 @@ class Customer extends Person
 			$this->db->where('person_id', $customer_id);
 
 			$result &= $this->db->update('people', array(
-					'first_name'	=> $customer_id,
-					'last_name'		=> $customer_id,
+					'name'	=> $customer_id,
 					'phone_number'	=> '',
 					'email'			=> '',
 					'gender'		=> NULL,
@@ -291,9 +290,8 @@ class Customer extends Person
 		$this->db->from('customers');
 		$this->db->join('people', 'customers.person_id = people.person_id');
 		$this->db->group_start();
-			$this->db->like('first_name', $search);
-			$this->db->or_like('last_name', $search);
-			$this->db->or_like('CONCAT(first_name, " ", last_name)', $search);
+			$this->db->like('name', $search);
+			$this->db->or_like('CONCAT(name, " ", name)', $search);
 			if($unique)
 			{
 				$this->db->or_like('email', $search);
@@ -302,10 +300,10 @@ class Customer extends Person
 			}
 		$this->db->group_end();
 		$this->db->where('deleted', 0);
-		$this->db->order_by('last_name', 'asc');
+		$this->db->order_by('name', 'asc');
 		foreach($this->db->get()->result() as $row)
 		{
-			$suggestions[] = array('value' => $row->person_id, 'label' => $row->first_name . ' ' . $row->last_name . (!empty($row->company_name) ? ' [' . $row->company_name . ']' : ''). (!empty($row->phone_number) ? ' [' . $row->phone_number . ']' : ''));
+			$suggestions[] = array('value' => $row->person_id, 'label' => $row->name . (!empty($row->company_name) ? ' [' . $row->company_name . ']' : ''). (!empty($row->phone_number) ? ' [' . $row->phone_number . ']' : ''));
 		}
 
 		if(!$unique)
@@ -364,13 +362,13 @@ class Customer extends Person
 	*/
 	public function get_found_rows($search)
 	{
-		return $this->search($search, 0, 0, 'last_name', 'asc', TRUE);
+		return $this->search($search, 0, 0, 'name', 'asc', TRUE);
 	}
 
 	/*
 	Performs a search on customers
 	*/
-	public function search($search, $rows = 0, $limit_from = 0, $sort = 'last_name', $order = 'asc', $count_only = FALSE)
+	public function search($search, $rows = 0, $limit_from = 0, $sort = 'name', $order = 'asc', $count_only = FALSE)
 	{
 		// get_found_rows case
 		if($count_only == TRUE)
@@ -381,13 +379,12 @@ class Customer extends Person
 		$this->db->from('customers AS customers');
 		$this->db->join('people', 'customers.person_id = people.person_id');
 		$this->db->group_start();
-			$this->db->like('first_name', $search);
-			$this->db->or_like('last_name', $search);
+			$this->db->like('name', $search);
 			$this->db->or_like('email', $search);
 			$this->db->or_like('phone_number', $search);
 			$this->db->or_like('account_number', $search);
 			$this->db->or_like('company_name', $search);
-			$this->db->or_like('CONCAT(first_name, " ", last_name)', $search);
+			$this->db->or_like('CONCAT(name, " ", name)', $search);
 		$this->db->group_end();
 		$this->db->where('deleted', 0);
 

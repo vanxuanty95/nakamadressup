@@ -1,7 +1,6 @@
 <?php 
 
-$lang["messages_first_name"] = "שם פרטי";
-$lang["messages_last_name"] = "שם משפחה";
+$lang["messages_name"] = "שם פרטי";
 $lang["messages_message"] = "הודעה";
 $lang["messages_message_placeholder"] = "ההודעה שלך כאן...";
 $lang["messages_message_required"] = "רישום הודעה נדרש";

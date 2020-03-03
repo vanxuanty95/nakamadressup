@@ -380,8 +380,7 @@ INSERT INTO `ospos_modules` (`name_lang_key`, `desc_lang_key`, `sort`, `module_i
 --
 
 CREATE TABLE `ospos_people` (
-  `first_name` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `gender` int(1) DEFAULT NULL,
   `phone_number` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -401,7 +400,7 @@ CREATE TABLE `ospos_people` (
 -- Dumping data for table `ospos_people`
 --
 
-INSERT INTO `ospos_people` (`first_name`, `last_name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`, `person_id`) VALUES
+INSERT INTO `ospos_people` (`name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`, `person_id`) VALUES
 ('John', 'Doe', '555-555-5555', 'changeme@example.com', 'Address 1', '', '', '', '', '', '', 1);
 
 -- --------------------------------------------------------
@@ -981,8 +980,8 @@ SELECT `item_kit_id`, `item_id`, `quantity` FROM `phppos`.phppos_item_kit_items;
 -- Copy data to table `ospos_people`
 --
 
-INSERT INTO `ospos_people` (`first_name`, `last_name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`, `person_id`)
-SELECT `first_name`, `last_name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`, `person_id` FROM `phppos`.phppos_people;
+INSERT INTO `ospos_people` (`name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`, `person_id`)
+SELECT `name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`, `person_id` FROM `phppos`.phppos_people;
 
 --
 -- Copy data to table `ospos_receivings`

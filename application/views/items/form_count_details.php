@@ -91,7 +91,7 @@
 		foreach($inventory_array as $row)
 		{
 			$employee = $this->Employee->get_info($row['trans_user']);
-			array_push($employee_name, $employee->first_name . ' ' . $employee->last_name);
+			array_push($employee_name, $employee->name);
 		}
 		?>
 	</tbody>

@@ -1,7 +1,6 @@
 <?php 
 
-$lang["messages_first_name"] = "Nome";
-$lang["messages_last_name"] = "Cognome";
+$lang["messages_name"] = "Nome";
 $lang["messages_message"] = "Messaggio";
 $lang["messages_message_placeholder"] = "Il tuo messaggio qui...";
 $lang["messages_message_required"] = "Messaggio richiesto";

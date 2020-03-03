@@ -1,6 +1,5 @@
 <?php
-$lang["messages_first_name"] = "名字";
-$lang["messages_last_name"] = "姓氏";
+$lang["messages_name"] = "名字";
 $lang["messages_message"] = "Message";
 $lang["messages_message_placeholder"] = "你的訊息.....";
 $lang["messages_message_required"] = "訊息必須填寫";

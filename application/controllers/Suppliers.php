@@ -89,17 +89,14 @@ class Suppliers extends Persons
 	*/
 	public function save($supplier_id = -1)
 	{
-		$first_name = $this->xss_clean($this->input->post('first_name'));
-		$last_name = $this->xss_clean($this->input->post('last_name'));
+		$name = $this->xss_clean($this->input->post('name'));
 		$email = $this->xss_clean(strtolower($this->input->post('email')));
 
 		// format first and last name properly
-		$first_name = $this->nameize($first_name);
-		$last_name = $this->nameize($last_name);
+		$name = $this->nameize($name);
 
 		$person_data = array(
-			'first_name' => $first_name,
-			'last_name' => $last_name,
+			'name' => $name,
 			'gender' => $this->input->post('gender'),
 			'email' => $email,
 			'phone_number' => $this->input->post('phone_number'),

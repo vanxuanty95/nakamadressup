@@ -21,7 +21,7 @@ class Summary_employees extends Summary_report
 		parent::_select($inputs);
 
 		$this->db->select('
-				MAX(CONCAT(employee_p.first_name, " ", employee_p.last_name)) AS employee,
+				MAX(CONCAT(employee_p.name)) AS employee,
 				SUM(sales_items.quantity_purchased) AS quantity_purchased
 		');
 	}
@@ -36,7 +36,7 @@ class Summary_employees extends Summary_report
 	protected function _group_order()
 	{
 		$this->db->group_by('sales.employee_id');
-		$this->db->order_by('employee_p.last_name');
+		$this->db->order_by('employee_p.name');
 	}
 }
 ?>

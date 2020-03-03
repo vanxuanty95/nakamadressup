@@ -84,16 +84,14 @@ $(document).ready(function()
 		rules:
 		{
 			company_name: 'required',
-			first_name: 'required',
-			last_name: 'required',
+			name: 'required',
 			email: 'email'
    		},
 
 		messages: 
 		{
 			company_name: "<?php echo $this->lang->line('suppliers_company_name_required'); ?>",
-			first_name: "<?php echo $this->lang->line('common_first_name_required'); ?>",
-			last_name: "<?php echo $this->lang->line('common_last_name_required'); ?>",
+			name: "<?php echo $this->lang->line('common_name_required'); ?>",
 			email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>"
 		}
 	}, form_support.error));

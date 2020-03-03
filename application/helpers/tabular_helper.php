@@ -183,8 +183,7 @@ function get_people_manage_table_headers()
 
 	$headers = array(
 		array('people.person_id' => $CI->lang->line('common_id')),
-		array('last_name' => $CI->lang->line('common_last_name')),
-		array('first_name' => $CI->lang->line('common_first_name')),
+		array('name' => $CI->lang->line('common_name')),
 		array('email' => $CI->lang->line('common_email')),
 		array('phone_number' => $CI->lang->line('common_phone_number'))
 	);
@@ -207,8 +206,7 @@ function get_person_data_row($person)
 
 	return array (
 		'people.person_id' => $person->person_id,
-		'last_name' => $person->last_name,
-		'first_name' => $person->first_name,
+		'name' => $person->name,
 		'email' => empty($person->email) ? '' : mailto($person->email, $person->email),
 		'phone_number' => $person->phone_number,
 		'messages' => empty($person->phone_number) ? '' : anchor("Messages/view/$person->person_id", '<span class="glyphicon glyphicon-phone"></span>',
@@ -229,8 +227,7 @@ function get_customer_manage_table_headers()
 
 	$headers = array(
 		array('people.person_id' => $CI->lang->line('common_id')),
-		array('last_name' => $CI->lang->line('common_last_name')),
-		array('first_name' => $CI->lang->line('common_first_name')),
+		array('name' => $CI->lang->line('common_name')),
 		array('email' => $CI->lang->line('common_email')),
 		array('phone_number' => $CI->lang->line('common_phone_number')),
 		array('total' => $CI->lang->line('common_total_spent'), 'sortable' => FALSE)
@@ -255,8 +252,7 @@ function get_customer_data_row($person, $stats)
 
 	return array (
 		'people.person_id' => $person->person_id,
-		'last_name' => $person->last_name,
-		'first_name' => $person->first_name,
+		'name' => $person->name,
 		'email' => empty($person->email) ? '' : mailto($person->email, $person->email),
 		'phone_number' => $person->phone_number,
 		'total' => to_currency($stats->total),
@@ -280,8 +276,7 @@ function get_suppliers_manage_table_headers()
 		array('company_name' => $CI->lang->line('suppliers_company_name')),
 		array('agency_name' => $CI->lang->line('suppliers_agency_name')),
 		array('category' => $CI->lang->line('suppliers_category')),
-		array('last_name' => $CI->lang->line('common_last_name')),
-		array('first_name' => $CI->lang->line('common_first_name')),
+		array('name' => $CI->lang->line('common_name')),
 		array('email' => $CI->lang->line('common_email')),
 		array('phone_number' => $CI->lang->line('common_phone_number'))
 	);
@@ -308,8 +303,7 @@ function get_supplier_data_row($supplier)
 		'company_name' => $supplier->company_name,
 		'agency_name' => $supplier->agency_name,
 		'category' => $supplier->category,
-		'last_name' => $supplier->last_name,
-		'first_name' => $supplier->first_name,
+		'name' => $supplier->name,
 		'email' => empty($supplier->email) ? '' : mailto($supplier->email, $supplier->email),
 		'phone_number' => $supplier->phone_number,
 		'messages' => empty($supplier->phone_number) ? '' : anchor("Messages/view/$supplier->person_id", '<span class="glyphicon glyphicon-phone"></span>',
@@ -464,8 +458,7 @@ function get_giftcards_manage_table_headers()
 
 	$headers = array(
 		array('giftcard_id' => $CI->lang->line('common_id')),
-		array('last_name' => $CI->lang->line('common_last_name')),
-		array('first_name' => $CI->lang->line('common_first_name')),
+		array('name' => $CI->lang->line('common_name')),
 		array('giftcard_number' => $CI->lang->line('giftcards_giftcard_number')),
 		array('value' => $CI->lang->line('giftcards_card_value'))
 	);
@@ -484,8 +477,7 @@ function get_giftcard_data_row($giftcard)
 
 	return array (
 		'giftcard_id' => $giftcard->giftcard_id,
-		'last_name' => $giftcard->last_name,
-		'first_name' => $giftcard->first_name,
+		'name' => $giftcard->name,
 		'giftcard_number' => $giftcard->giftcard_number,
 		'value' => to_currency($giftcard->value),
 		'edit' => anchor($controller_name."/view/$giftcard->giftcard_id", '<span class="glyphicon glyphicon-edit"></span>',
@@ -696,7 +688,7 @@ function get_expenses_data_row($expense)
 		'payment_type' => $expense->payment_type,
 		'category_name' => $expense->category_name,
 		'description' => $expense->description,
-		'created_by' => $expense->first_name.' '. $expense->last_name,
+		'created_by' => $expense->name,
 		'edit' => anchor($controller_name."/view/$expense->expense_id", '<span class="glyphicon glyphicon-edit"></span>',
 			array('class'=>'modal-dlg', 'data-btn-submit' => $CI->lang->line('common_submit'), 'title'=>$CI->lang->line($controller_name.'_update'))
 		)
@@ -787,11 +779,11 @@ function get_cash_up_data_row($cash_up)
 	return array (
 		'cashup_id' => $cash_up->cashup_id,
 		'open_date' => to_datetime(strtotime($cash_up->open_date)),
-		'open_employee_id' => $cash_up->open_first_name . ' ' . $cash_up->open_last_name,
+		'open_employee_id' => $cash_up->open_name,
 		'open_amount_cash' => to_currency($cash_up->open_amount_cash),
 		'transfer_amount_cash' => to_currency($cash_up->transfer_amount_cash),
 		'close_date' => to_datetime(strtotime($cash_up->close_date)),
-		'close_employee_id' => $cash_up->close_first_name . ' ' . $cash_up->close_last_name,
+		'close_employee_id' => $cash_up->close_name,
 		'closed_amount_cash' => to_currency($cash_up->closed_amount_cash),
 		'note' => $cash_up->note ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-remove"></span>',
 		'closed_amount_due' => to_currency($cash_up->closed_amount_due),

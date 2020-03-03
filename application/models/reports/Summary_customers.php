@@ -21,7 +21,7 @@ class Summary_customers extends Summary_report
 		parent::_select($inputs);
 
 		$this->db->select('
-				CONCAT(customer_p.first_name, " ", customer_p.last_name) AS customer,
+				CONCAT(customer_p.name) AS customer,
 				SUM(sales_items.quantity_purchased) AS quantity_purchased
 		');
 	}
@@ -36,7 +36,7 @@ class Summary_customers extends Summary_report
 	protected function _group_order()
 	{
 		$this->db->group_by('sales.customer_id');
-		$this->db->order_by('customer_p.last_name');
+		$this->db->order_by('customer_p.name');
 	}
 }
 ?>
