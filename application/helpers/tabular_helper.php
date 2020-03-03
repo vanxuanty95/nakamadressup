@@ -207,6 +207,7 @@ function get_person_data_row($person)
 	return array (
 		'people.person_id' => $person->person_id,
 		'name' => $person->name,
+		'email' => empty($person->email) ? '' : mailto($person->email, $person->email),
 		'phone_number' => $person->phone_number,
 		'messages' => empty($person->phone_number) ? '' : anchor("Messages/view/$person->person_id", '<span class="glyphicon glyphicon-phone"></span>',
 			array('class'=>'modal-dlg', 'data-btn-submit' => $CI->lang->line('common_submit'), 'title'=>$CI->lang->line('messages_sms_send'))),
@@ -227,7 +228,6 @@ function get_customer_manage_table_headers()
 	$headers = array(
 		array('people.person_id' => $CI->lang->line('common_id')),
 		array('name' => $CI->lang->line('common_name')),
-		array('email' => $CI->lang->line('common_email')),
 		array('phone_number' => $CI->lang->line('common_phone_number')),
 		array('total' => $CI->lang->line('common_total_spent'), 'sortable' => FALSE)
 	);
