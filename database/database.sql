@@ -401,7 +401,7 @@ CREATE TABLE `ospos_people` (
 --
 
 INSERT INTO `ospos_people` (`name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`, `person_id`) VALUES
-('John', 'Doe', '555-555-5555', 'changeme@example.com', 'Address 1', '', '', '', '', '', '', 1);
+('John', '555-555-5555', 'changeme@example.com', 'Address 1', '', '', '', '', '', '', 1);
 
 -- --------------------------------------------------------
 
