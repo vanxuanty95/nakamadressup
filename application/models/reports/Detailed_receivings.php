@@ -48,7 +48,7 @@ class Detailed_receivings extends Report
 			MAX(reference) as reference');
 		$this->db->from('receivings_items_temp');
 		$this->db->join('people AS employee', 'receivings_items_temp.employee_id = employee.person_id');
-		$this->db->join('suppliers AS consignmenter', 'receivings_items_temp.supplier_id = consignmenter.person_id', 'left');
+		$this->db->join('consignmenters AS consignmenter', 'receivings_items_temp.supplier_id = consignmenter.person_id', 'left');
 		$this->db->where('receiving_id', $receiving_id);
 		$this->db->group_by('receiving_id');
 
@@ -69,7 +69,7 @@ class Detailed_receivings extends Report
 			MAX(reference) AS reference');
 		$this->db->from('receivings_items_temp AS receivings_items_temp');
 		$this->db->join('people AS employee', 'receivings_items_temp.employee_id = employee.person_id');
-		$this->db->join('suppliers AS consignmenter', 'receivings_items_temp.supplier_id = consignmenter.person_id', 'left');
+		$this->db->join('consignmenters AS consignmenter', 'receivings_items_temp.supplier_id = consignmenter.person_id', 'left');
 
 		if($inputs['location_id'] != 'all')
 		{

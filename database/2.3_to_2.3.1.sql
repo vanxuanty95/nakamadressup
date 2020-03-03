@@ -34,7 +34,7 @@ INSERT INTO `ospos_permissions` (`permission_id`, `module_id`) VALUES
 ('reports', 'reports'),
 ('sales', 'sales'),
 ('config', 'config'),
-('suppliers', 'suppliers'),
+('consignmenters', 'consignmenters'),
 ('sales_stock', 'sales'),
 ('receivings_stock', 'receivings');
 
@@ -77,7 +77,7 @@ INSERT INTO `ospos_grants` (`permission_id`, `person_id`) VALUES
 ('items_stock', 1),
 ('sales_stock', 1),
 ('receivings_stock', 1),
-('suppliers', 1);
+('consignmenters', 1);
 
 -- add config options for tax inclusive sales
 INSERT INTO `ospos_app_config` (`key`, `value`) VALUES 

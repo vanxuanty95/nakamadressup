@@ -32,7 +32,7 @@
 		<div class="form-group form-group-sm">
 			<?php echo form_label($this->lang->line('items_supplier'), 'consignmenter', array('class'=>'control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
-				<?php echo form_dropdown('supplier_id', $suppliers, '', array('class'=>'form-control'));?>
+				<?php echo form_dropdown('supplier_id', $consignmenters, '', array('class'=>'form-control'));?>
 			</div>
 		</div>
 

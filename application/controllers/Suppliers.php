@@ -2,11 +2,11 @@
 
 require_once("Persons.php");
 
-class Suppliers extends Persons
+class Consignmenters extends Persons
 {
 	public function __construct()
 	{
-		parent::__construct('suppliers');
+		parent::__construct('consignmenters');
 	}
 
 	public function index()
@@ -37,11 +37,11 @@ class Suppliers extends Persons
 		$sort   = $this->input->get('sort');
 		$order  = $this->input->get('order');
 
-		$suppliers = $this->Consignmenter->search($search, $limit, $offset, $sort, $order);
+		$consignmenters = $this->Consignmenter->search($search, $limit, $offset, $sort, $order);
 		$total_rows = $this->Consignmenter->get_found_rows($search);
 
 		$data_rows = array();
-		foreach($suppliers->result() as $consignmenter)
+		foreach($consignmenters->result() as $consignmenter)
 		{
 			$row = $this->xss_clean(get_supplier_data_row($consignmenter));
 			$row['category'] = $this->Consignmenter->get_category_name($row['category']);
@@ -81,7 +81,7 @@ class Suppliers extends Persons
 		$data['person_info'] = $info;
 		$data['categories'] = $this->Consignmenter->get_categories();
 
-		$this->load->view("suppliers/form", $data);
+		$this->load->view("consignmenters/form", $data);
 	}
 	
 	/*
@@ -146,7 +146,7 @@ class Suppliers extends Persons
 	}
 	
 	/*
-	This deletes suppliers from the suppliers table
+	This deletes consignmenters from the consignmenters table
 	*/
 	public function delete()
 	{

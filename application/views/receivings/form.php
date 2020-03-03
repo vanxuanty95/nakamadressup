@@ -61,7 +61,7 @@ $(document).ready(function()
 	};
 
 	$('#supplier_name').autocomplete({
-		source: "<?php echo site_url('suppliers/suggest'); ?>",
+		source: "<?php echo site_url('consignmenters/suggest'); ?>",
 		minChars: 0,
 		delay: 15, 
 		cacheLength: 1,

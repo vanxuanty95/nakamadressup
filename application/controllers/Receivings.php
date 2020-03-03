@@ -145,10 +145,10 @@ class Receivings extends Secure_Controller
 	{
 		$data = array();
 
-		$data['suppliers'] = array('' => 'No Consignmenter');
+		$data['consignmenters'] = array('' => 'No Consignmenter');
 		foreach($this->Consignmenter->get_all()->result() as $consignmenter)
 		{
-			$data['suppliers'][$consignmenter->person_id] = $this->xss_clean($consignmenter->name);
+			$data['consignmenters'][$consignmenter->person_id] = $this->xss_clean($consignmenter->name);
 		}
 	
 		$data['employees'] = array();

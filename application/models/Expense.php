@@ -71,7 +71,7 @@ class Expense extends CI_Model
 			$this->db->select('
 				expenses.expense_id,
 				MAX(expenses.date) AS date,
-				MAX(suppliers.company_name) AS supplier_name,
+				MAX(consignmenters.company_name) AS supplier_name,
 				MAX(expenses.supplier_tax_code) AS supplier_tax_code,
 				MAX(expenses.amount) AS amount,
 				MAX(expenses.tax_amount) AS tax_amount,
@@ -85,7 +85,7 @@ class Expense extends CI_Model
 		$this->db->from('expenses AS expenses');
 		$this->db->join('people AS employees', 'employees.person_id = expenses.employee_id', 'LEFT');
 		$this->db->join('expense_categories AS expense_categories', 'expense_categories.expense_category_id = expenses.expense_category_id', 'LEFT');
-		$this->db->join('suppliers AS suppliers', 'suppliers.person_id = expenses.supplier_id', 'LEFT');
+		$this->db->join('consignmenters AS consignmenters', 'consignmenters.person_id = expenses.supplier_id', 'LEFT');
 
 		$this->db->group_start();
 			$this->db->like('employees.name', $search);
@@ -161,7 +161,7 @@ class Expense extends CI_Model
 		$this->db->select('
 			expenses.expense_id AS expense_id,
 			expenses.date AS date,
-			suppliers.company_name AS supplier_name,
+			consignmenters.company_name AS supplier_name,
 			expenses.supplier_id AS supplier_id,
 			expenses.supplier_tax_code AS supplier_tax_code,
 			expenses.amount AS amount,
@@ -177,7 +177,7 @@ class Expense extends CI_Model
 		$this->db->from('expenses AS expenses');
 		$this->db->join('people AS employees', 'employees.person_id = expenses.employee_id', 'LEFT');
 		$this->db->join('expense_categories AS expense_categories', 'expense_categories.expense_category_id = expenses.expense_category_id', 'LEFT');
-		$this->db->join('suppliers AS suppliers', 'suppliers.person_id = expenses.supplier_id', 'LEFT');
+		$this->db->join('consignmenters AS consignmenters', 'consignmenters.person_id = expenses.supplier_id', 'LEFT');
 		$this->db->where('expense_id', $expense_id);
 
 		$query = $this->db->get();

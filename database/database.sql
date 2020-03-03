@@ -370,7 +370,7 @@ INSERT INTO `ospos_modules` (`name_lang_key`, `desc_lang_key`, `sort`, `module_i
 ('module_receivings', 'module_receivings_desc', 60, 'receivings'),
 ('module_reports', 'module_reports_desc', 50, 'reports'),
 ('module_sales', 'module_sales_desc', 70, 'sales'),
-('module_suppliers', 'module_suppliers_desc', 40, 'suppliers'),
+('module_suppliers', 'module_suppliers_desc', 40, 'consignmenters'),
 ('module_taxes', 'module_taxes_desc', 105, 'taxes');
 
 -- --------------------------------------------------------
@@ -445,7 +445,7 @@ INSERT INTO `ospos_permissions` (`permission_id`, `module_id`) VALUES
 ('reports', 'reports'),
 ('sales', 'sales'),
 ('config', 'config'),
-('suppliers', 'suppliers'),
+('consignmenters', 'consignmenters'),
 ('taxes', 'taxes');
 
 
@@ -498,7 +498,7 @@ INSERT INTO `ospos_grants` (`permission_id`, `person_id`, `menu_group`) VALUES
 ('items_stock', 1, 'home'),
 ('sales_stock', 1, 'home'),
 ('receivings_stock', 1, 'home'),
-('suppliers', 1, 'home'),
+('consignmenters', 1, 'home'),
 ('taxes', 1, 'office'),
 ('office', 1, 'home'),
 ('home', 1, 'office');

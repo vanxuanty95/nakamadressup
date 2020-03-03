@@ -176,7 +176,7 @@ class Reports extends Secure_Controller
 		$this->load->view('reports/tabular', $data);
 	}
 
-	//Summary Suppliers report
+	//Summary Consignmenters report
 	public function summary_suppliers($start_date, $end_date, $sale_type, $location_id = 'all')
 	{
 		$inputs = array('start_date' => $start_date, 'end_date' => $end_date, 'sale_type' => $sale_type, 'location_id' => $location_id);
@@ -641,7 +641,7 @@ class Reports extends Secure_Controller
 		$this->load->view('reports/graphical', $data);
 	}
 
-	//Graphical summary suppliers report
+	//Graphical summary consignmenters report
 	public function graphical_summary_suppliers($start_date, $end_date, $sale_type, $location_id = 'all')
 	{
 		$inputs = array('start_date' => $start_date, 'end_date' => $end_date, 'sale_type' => $sale_type, 'location_id' => $location_id);

@@ -1197,7 +1197,7 @@ class Sale extends CI_Model
 					ON sales_items.item_id = items.item_id
 				LEFT OUTER JOIN ' . $this->db->dbprefix('sales_payments_temp') . ' AS payments
 					ON sales_items.sale_id = payments.sale_id
-				LEFT OUTER JOIN ' . $this->db->dbprefix('suppliers') . ' AS consignmenter
+				LEFT OUTER JOIN ' . $this->db->dbprefix('consignmenters') . ' AS consignmenter
 					ON items.supplier_id = consignmenter.person_id
 				LEFT OUTER JOIN ' . $this->db->dbprefix('people') . ' AS customer_p
 					ON sales.customer_id = customer_p.person_id

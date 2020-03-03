@@ -2,7 +2,7 @@
 
 $lang["suppliers_account_number"] = "บัญชี #";
 $lang["suppliers_agency_name"] = " ";
-$lang["suppliers_cannot_be_deleted"] = "ลบผู้ผลิตที่ถูกเลือกไม่ได้, one or more of the selected suppliers has sales.";
+$lang["suppliers_cannot_be_deleted"] = "ลบผู้ผลิตที่ถูกเลือกไม่ได้, one or more of the selected consignmenters has sales.";
 $lang["suppliers_category"] = "";
 $lang["suppliers_company_name"] = "ชื่อบริษัท";
 $lang["suppliers_company_name_required"] = "ชื่อบริษัทต้องกรอก";

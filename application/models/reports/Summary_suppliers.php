@@ -31,7 +31,7 @@ class Summary_suppliers extends Summary_report
 		parent::_from();
 
 		$this->db->join('items AS items', 'sales_items.item_id = items.item_id');
-		$this->db->join('suppliers AS supplier_c', 'items.supplier_id = supplier_c.person_id ');
+		$this->db->join('consignmenters AS supplier_c', 'items.supplier_id = supplier_c.person_id ');
 		$this->db->join('people AS supplier_p', 'items.supplier_id = supplier_p.person_id');
 	}
 

@@ -14,9 +14,9 @@ class Consignmenter extends Person
 	*/
 	public function exists($person_id)
 	{
-		$this->db->from('suppliers');	
-		$this->db->join('people', 'people.person_id = suppliers.person_id');
-		$this->db->where('suppliers.person_id', $person_id);
+		$this->db->from('consignmenters');	
+		$this->db->join('people', 'people.person_id = consignmenters.person_id');
+		$this->db->where('consignmenters.person_id', $person_id);
 		
 		return ($this->db->get()->num_rows() == 1);
 	}
@@ -26,19 +26,19 @@ class Consignmenter extends Person
 	*/
 	public function get_total_rows()
 	{
-		$this->db->from('suppliers');
+		$this->db->from('consignmenters');
 		$this->db->where('deleted', 0);
 
 		return $this->db->count_all_results();
 	}
 	
 	/*
-	Returns all the suppliers
+	Returns all the consignmenters
 	*/
 	public function get_all($category = self::GOODS_SUPPLIER, $limit_from = 0, $rows = 0)
 	{
-		$this->db->from('suppliers');
-		$this->db->join('people', 'suppliers.person_id = people.person_id');
+		$this->db->from('consignmenters');
+		$this->db->join('people', 'consignmenters.person_id = people.person_id');
 		$this->db->where('category', $category);
 		$this->db->where('deleted', 0);
 		$this->db->order_by('company_name', 'asc');
@@ -55,9 +55,9 @@ class Consignmenter extends Person
 	*/
 	public function get_info($supplier_id)
 	{
-		$this->db->from('suppliers');	
-		$this->db->join('people', 'people.person_id = suppliers.person_id');
-		$this->db->where('suppliers.person_id', $supplier_id);
+		$this->db->from('consignmenters');	
+		$this->db->join('people', 'people.person_id = consignmenters.person_id');
+		$this->db->where('consignmenters.person_id', $supplier_id);
 		$query = $this->db->get();
 		
 		if($query->num_rows() == 1)
@@ -71,7 +71,7 @@ class Consignmenter extends Person
 			
 			//Get all the fields from consignmenter table		
 			//append those fields to base parent object, we we have a complete empty object
-			foreach($this->db->list_fields('suppliers') as $field)
+			foreach($this->db->list_fields('consignmenters') as $field)
 			{
 				$person_obj->$field = '';
 			}
@@ -81,20 +81,20 @@ class Consignmenter extends Person
 	}
 	
 	/*
-	Gets information about multiple suppliers
+	Gets information about multiple consignmenters
 	*/
 	public function get_multiple_info($suppliers_ids)
 	{
-		$this->db->from('suppliers');
-		$this->db->join('people', 'people.person_id = suppliers.person_id');		
-		$this->db->where_in('suppliers.person_id', $suppliers_ids);
+		$this->db->from('consignmenters');
+		$this->db->join('people', 'people.person_id = consignmenters.person_id');		
+		$this->db->where_in('consignmenters.person_id', $suppliers_ids);
 		$this->db->order_by('name', 'asc');
 
 		return $this->db->get();
 	}
 	
 	/*
-	Inserts or updates a suppliers
+	Inserts or updates a consignmenters
 	*/
 	public function save_supplier(&$person_data, &$supplier_data, $supplier_id = FALSE)
 	{
@@ -108,12 +108,12 @@ class Consignmenter extends Person
 			if(!$supplier_id || !$this->exists($supplier_id))
 			{
 				$supplier_data['person_id'] = $person_data['person_id'];
-				$success = $this->db->insert('suppliers', $supplier_data);
+				$success = $this->db->insert('consignmenters', $supplier_data);
 			}
 			else
 			{
 				$this->db->where('person_id', $supplier_id);
-				$success = $this->db->update('suppliers', $supplier_data);
+				$success = $this->db->update('consignmenters', $supplier_data);
 			}
 		}
 		
@@ -131,28 +131,28 @@ class Consignmenter extends Person
 	{
 		$this->db->where('person_id', $supplier_id);
 
-		return $this->db->update('suppliers', array('deleted' => 1));
+		return $this->db->update('consignmenters', array('deleted' => 1));
 	}
 	
 	/*
-	Deletes a list of suppliers
+	Deletes a list of consignmenters
 	*/
 	public function delete_list($supplier_ids)
 	{
 		$this->db->where_in('person_id', $supplier_ids);
 
-		return $this->db->update('suppliers', array('deleted' => 1));
+		return $this->db->update('consignmenters', array('deleted' => 1));
  	}
  	
  	/*
-	Get search suggestions to find suppliers
+	Get search suggestions to find consignmenters
 	*/
 	public function get_search_suggestions($search, $unique = FALSE, $limit = 25)
 	{
 		$suggestions = array();
 
-		$this->db->from('suppliers');
-		$this->db->join('people', 'suppliers.person_id = people.person_id');
+		$this->db->from('consignmenters');
+		$this->db->join('people', 'consignmenters.person_id = people.person_id');
 		$this->db->where('deleted', 0);
 		$this->db->like('company_name', $search);
 		$this->db->order_by('company_name', 'asc');
@@ -161,8 +161,8 @@ class Consignmenter extends Person
 			$suggestions[] = array('value' => $row->person_id, 'label' => $row->company_name);
 		}
 
-		$this->db->from('suppliers');
-		$this->db->join('people', 'suppliers.person_id = people.person_id');
+		$this->db->from('consignmenters');
+		$this->db->join('people', 'consignmenters.person_id = people.person_id');
 		$this->db->where('deleted', 0);
 		$this->db->distinct();
 		$this->db->like('agency_name', $search);
@@ -173,8 +173,8 @@ class Consignmenter extends Person
 			$suggestions[] = array('value' => $row->person_id, 'label' => $row->agency_name);
 		}
 
-		$this->db->from('suppliers');
-		$this->db->join('people', 'suppliers.person_id = people.person_id');
+		$this->db->from('consignmenters');
+		$this->db->join('people', 'consignmenters.person_id = people.person_id');
 		$this->db->group_start();
 			$this->db->like('name', $search);
 			$this->db->or_like('CONCAT(name, " ", name)', $search);
@@ -188,8 +188,8 @@ class Consignmenter extends Person
 
 		if(!$unique)
 		{
-			$this->db->from('suppliers');
-			$this->db->join('people', 'suppliers.person_id = people.person_id');
+			$this->db->from('consignmenters');
+			$this->db->join('people', 'consignmenters.person_id = people.person_id');
 			$this->db->where('deleted', 0);
 			$this->db->like('email', $search);
 			$this->db->order_by('email', 'asc');
@@ -198,8 +198,8 @@ class Consignmenter extends Person
 				$suggestions[] = array('value' => $row->person_id, 'label' => $row->email);
 			}
 
-			$this->db->from('suppliers');
-			$this->db->join('people', 'suppliers.person_id = people.person_id');
+			$this->db->from('consignmenters');
+			$this->db->join('people', 'consignmenters.person_id = people.person_id');
 			$this->db->where('deleted', 0);
 			$this->db->like('phone_number', $search);
 			$this->db->order_by('phone_number', 'asc');
@@ -208,8 +208,8 @@ class Consignmenter extends Person
 				$suggestions[] = array('value' => $row->person_id, 'label' => $row->phone_number);
 			}
 
-			$this->db->from('suppliers');
-			$this->db->join('people', 'suppliers.person_id = people.person_id');
+			$this->db->from('consignmenters');
+			$this->db->join('people', 'consignmenters.person_id = people.person_id');
 			$this->db->where('deleted', 0);
 			$this->db->like('account_number', $search);
 			$this->db->order_by('account_number', 'asc');
@@ -237,18 +237,18 @@ class Consignmenter extends Person
 	}
 	
 	/*
-	Perform a search on suppliers
+	Perform a search on consignmenters
 	*/
 	public function search($search, $rows = 0, $limit_from = 0, $sort = 'name', $order = 'asc', $count_only = FALSE)
 	{
 		// get_found_rows case
 		if($count_only == TRUE)
 		{
-			$this->db->select('COUNT(suppliers.person_id) as count');
+			$this->db->select('COUNT(consignmenters.person_id) as count');
 		}
 
-		$this->db->from('suppliers AS suppliers');
-		$this->db->join('people', 'suppliers.person_id = people.person_id');
+		$this->db->from('consignmenters AS consignmenters');
+		$this->db->join('people', 'consignmenters.person_id = people.person_id');
 		$this->db->group_start();
 			$this->db->like('name', $search);
 			$this->db->or_like('name', $search);

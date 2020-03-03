@@ -265,7 +265,7 @@ function get_customer_data_row($person, $stats)
 
 
 /*
-Get the header for the suppliers tabular view
+Get the header for the consignmenters tabular view
 */
 function get_suppliers_manage_table_headers()
 {

@@ -10,7 +10,7 @@ class Receiving extends CI_Model
 	{
 		$this->db->from('receivings');
 		$this->db->join('people', 'people.person_id = receivings.supplier_id', 'LEFT');
-		$this->db->join('suppliers', 'suppliers.person_id = receivings.supplier_id', 'LEFT');
+		$this->db->join('consignmenters', 'consignmenters.person_id = receivings.supplier_id', 'LEFT');
 		$this->db->where('receiving_id', $receiving_id);
 
 		return $this->db->get();

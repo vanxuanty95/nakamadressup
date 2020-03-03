@@ -103,7 +103,7 @@ ALTER TABLE `ospos_cash_up`
   ADD `closed_amount_due` decimal(15,2) NOT NULL;
 
 --
--- Add Suppliers category
+-- Add Consignmenters category
 --
 
 ALTER TABLE `ospos_suppliers`
@@ -114,7 +114,7 @@ UPDATE `ospos_suppliers`
 
 
 --
--- Link Expenses with Suppliers
+-- Link Expenses with Consignmenters
 --
 
 -- Add consignmenter id
@@ -122,7 +122,7 @@ UPDATE `ospos_suppliers`
 ALTER TABLE `ospos_expenses`
   ADD COLUMN `supplier_id` int(10) NULL;
 
--- Link suppliers
+-- Link consignmenters
 
 UPDATE `ospos_expenses`
   INNER JOIN `ospos_suppliers`

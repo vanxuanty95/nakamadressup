@@ -256,12 +256,12 @@ class Items extends Secure_Controller
 
 		$data['item_info'] = $item_info;
 
-		$suppliers = array('' => $this->lang->line('items_none'));
+		$consignmenters = array('' => $this->lang->line('items_none'));
 		foreach($this->Consignmenter->get_all()->result_array() as $row)
 		{
-			$suppliers[$this->xss_clean($row['person_id'])] = $this->xss_clean($row['company_name']);
+			$consignmenters[$this->xss_clean($row['person_id'])] = $this->xss_clean($row['company_name']);
 		}
-		$data['suppliers'] = $suppliers;
+		$data['consignmenters'] = $consignmenters;
 		$data['selected_supplier'] = $item_info->supplier_id;
 
 		if($data['include_hsn'])
@@ -453,14 +453,14 @@ class Items extends Secure_Controller
 
 	public function bulk_edit()
 	{
-		$suppliers = array('' => $this->lang->line('items_none'));
+		$consignmenters = array('' => $this->lang->line('items_none'));
 		foreach($this->Consignmenter->get_all()->result_array() as $row)
 		{
 			$row = $this->xss_clean($row);
 
-			$suppliers[$row['person_id']] = $row['company_name'];
+			$consignmenters[$row['person_id']] = $row['company_name'];
 		}
-		$data['suppliers'] = $suppliers;
+		$data['consignmenters'] = $consignmenters;
 		$data['allow_alt_description_choices'] = array(
 			'' => $this->lang->line('items_do_nothing'),
 			1  => $this->lang->line('items_change_all_to_allow_alt_desc'),

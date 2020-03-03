@@ -288,7 +288,7 @@ if (isset($success))
 					<label id="supplier_label" for="consignmenter" class="control-label" style="margin-bottom: 1em; margin-top: -1em;"><?php echo $this->lang->line('receivings_select_supplier'); ?></label>
 					<?php echo form_input(array('name'=>'consignmenter', 'id'=>'consignmenter', 'class'=>'form-control input-sm', 'value'=>$this->lang->line('receivings_start_typing_supplier_name'))); ?>
 
-					<button id='new_supplier_button' class='btn btn-info btn-sm modal-dlg' data-btn-submit='<?php echo $this->lang->line('common_submit') ?>' data-href='<?php echo site_url("suppliers/view"); ?>'
+					<button id='new_supplier_button' class='btn btn-info btn-sm modal-dlg' data-btn-submit='<?php echo $this->lang->line('common_submit') ?>' data-href='<?php echo site_url("consignmenters/view"); ?>'
 							title='<?php echo $this->lang->line('receivings_new_supplier'); ?>'>
 						<span class="glyphicon glyphicon-user">&nbsp</span><?php echo $this->lang->line('receivings_new_supplier'); ?>
 					</button>
@@ -451,7 +451,7 @@ $(document).ready(function()
 
 	$("#consignmenter").autocomplete(
 	{
-		source: '<?php echo site_url("suppliers/suggest"); ?>',
+		source: '<?php echo site_url("consignmenters/suggest"); ?>',
 		minChars:0,
 		delay:10,
 		select: function (a, ui) {
@@ -493,7 +493,7 @@ $(document).ready(function()
 	{
 		if(response.success)
 		{
-			if (resource.match(/suppliers$/))
+			if (resource.match(/consignmenters$/))
 			{
 				$("#consignmenter").val(response.id);
 				$("#select_supplier_form").submit();
