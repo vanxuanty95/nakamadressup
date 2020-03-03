@@ -273,6 +273,7 @@ function get_consignmenters_manage_table_headers()
 
 	$headers = array(
 		array('people.person_id' => $CI->lang->line('common_id')),
+		array('company_name' => $CI->lang->line('consignmenters_company_name')),
 		array('agency_name' => $CI->lang->line('consignmenters_agency_name')),
 		array('category' => $CI->lang->line('consignmenters_category')),
 		array('name' => $CI->lang->line('common_name')),
@@ -299,6 +300,7 @@ function get_consignmenter_data_row($consignmenter)
 
 	return array (
 		'people.person_id' => $consignmenter->person_id,
+		'company_name' => $consignmenter->company_name,
 		'agency_name' => $consignmenter->agency_name,
 		'category' => $consignmenter->category,
 		'name' => $consignmenter->name,
@@ -326,6 +328,7 @@ function get_items_manage_table_headers()
 		array('item_number' => $CI->lang->line('items_item_number')),
 		array('name' => $CI->lang->line('items_name')),
 		array('category' => $CI->lang->line('items_category')),
+		array('company_name' => $CI->lang->line('consignmenters_company_name')),
 		array('cost_price' => $CI->lang->line('items_cost_price')),
 		array('unit_price' => $CI->lang->line('items_unit_price')),
 		array('quantity' => $CI->lang->line('items_quantity'))
@@ -421,6 +424,7 @@ function get_item_data_row($item)
 		'item_number' => $item->item_number,
 		'name' => $item->name,
 		'category' => $item->category,
+		'company_name' => $item->company_name,
 		'cost_price' => to_currency($item->cost_price),
 		'unit_price' => to_currency($item->unit_price),
 		'quantity' => to_quantity_decimals($item->quantity),

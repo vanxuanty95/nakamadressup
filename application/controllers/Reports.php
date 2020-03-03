@@ -890,7 +890,14 @@ class Reports extends Secure_Controller
 		$customers = array();
 		foreach($this->Customer->get_all()->result() as $customer)
 		{
-			$customers[$customer->person_id] = $this->xss_clean($customer->name);
+			if(isset($customer->company_name))
+			{
+				$customers[$customer->person_id] = $this->xss_clean($customer->name . ' ' . ' [ '.$customer->company_name.' ] ');
+			}
+			else
+			{
+				$customers[$customer->person_id] = $this->xss_clean($customer->name);
+			}
 		}
 		$data['specific_input_data'] = $customers;
 		$data['sale_type_options'] = $this->get_sale_type_options();
@@ -983,13 +990,13 @@ class Reports extends Secure_Controller
 		}
 
 		$customer_info = $this->Customer->get_info($customer_id);
-		if(!empty($customer_info->name))
+		if(!empty($customer_info->company_name))
 		{
-			$customer_name ='[ '.$customer_info->name.' ]';
+			$customer_name ='[ '.$customer_info->company_name.' ]';
 		}
 		else
 		{
-			$customer_name = $customer_info->name;
+			$customer_name = $customer_info->company_name;
 		}
 
 		$data = array(

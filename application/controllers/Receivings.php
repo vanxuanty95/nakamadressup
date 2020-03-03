@@ -158,7 +158,7 @@ class Receivings extends Secure_Controller
 		}
 	
 		$receiving_info = $this->xss_clean($this->Receiving->get_info($receiving_id)->row_array());
-		$data['selected_consignmenter_name'] = !empty($receiving_info['consignmenter_id']) ? $receiving_info['name'] : '';
+		$data['selected_consignmenter_name'] = !empty($receiving_info['consignmenter_id']) ? $receiving_info['company_name'] : '';
 		$data['selected_consignmenter_id'] = $receiving_info['consignmenter_id'];
 		$data['receiving_info'] = $receiving_info;
 	
@@ -224,7 +224,7 @@ class Receivings extends Secure_Controller
 		if($consignmenter_id != -1)
 		{
 			$consignmenter_info = $this->Consignmenter->get_info($consignmenter_id);
-			$data['consignmenter'] = $consignmenter_info->name;
+			$data['consignmenter'] = $consignmenter_info->company_name;
 			$data['name'] = $consignmenter_info->name;
 			$data['consignmenter_email'] = $consignmenter_info->email;
 			$data['consignmenter_address'] = $consignmenter_info->address_1;
@@ -300,7 +300,7 @@ class Receivings extends Secure_Controller
 		if($consignmenter_id != -1)
 		{
 			$consignmenter_info = $this->Consignmenter->get_info($consignmenter_id);
-			$data['consignmenter'] = $consignmenter_info->name;
+			$data['consignmenter'] = $consignmenter_info->company_name;
 			$data['name'] = $consignmenter_info->name;
 			$data['consignmenter_email'] = $consignmenter_info->email;
 			$data['consignmenter_address'] = $consignmenter_info->address_1;
@@ -348,7 +348,7 @@ class Receivings extends Secure_Controller
 		if($consignmenter_id != -1)
 		{
 			$consignmenter_info = $this->Consignmenter->get_info($consignmenter_id);
-			$data['consignmenter'] = $consignmenter_info->name;
+			$data['consignmenter'] = $consignmenter_info->company_name;
 			$data['name'] = $consignmenter_info->name;
 			$data['consignmenter_email'] = $consignmenter_info->email;
 			$data['consignmenter_address'] = $consignmenter_info->address_1;

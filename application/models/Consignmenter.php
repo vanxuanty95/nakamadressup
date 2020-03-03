@@ -41,7 +41,7 @@ class Consignmenter extends Person
 		$this->db->join('people', 'consignmenters.person_id = people.person_id');
 		$this->db->where('category', $category);
 		$this->db->where('deleted', 0);
-		$this->db->order_by('name', 'asc');
+		$this->db->order_by('company_name', 'asc');
 		if($rows > 0)
 		{
 			$this->db->limit($rows, $limit_from);
@@ -154,11 +154,11 @@ class Consignmenter extends Person
 		$this->db->from('consignmenters');
 		$this->db->join('people', 'consignmenters.person_id = people.person_id');
 		$this->db->where('deleted', 0);
-		$this->db->like('name', $search);
-		$this->db->order_by('name', 'asc');
+		$this->db->like('company_name', $search);
+		$this->db->order_by('company_name', 'asc');
 		foreach($this->db->get()->result() as $row)
 		{
-			$suggestions[] = array('value' => $row->person_id, 'label' => $row->name);
+			$suggestions[] = array('value' => $row->person_id, 'label' => $row->company_name);
 		}
 
 		$this->db->from('consignmenters');
@@ -252,6 +252,7 @@ class Consignmenter extends Person
 		$this->db->group_start();
 			$this->db->like('name', $search);
 			$this->db->or_like('name', $search);
+			$this->db->or_like('company_name', $search);
 			$this->db->or_like('agency_name', $search);
 			$this->db->or_like('email', $search);
 			$this->db->or_like('phone_number', $search);
