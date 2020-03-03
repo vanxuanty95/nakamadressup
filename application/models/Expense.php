@@ -71,7 +71,6 @@ class Expense extends CI_Model
 			$this->db->select('
 				expenses.expense_id,
 				MAX(expenses.date) AS date,
-				MAX(consignmenters.company_name) AS consignmenter_name,
 				MAX(expenses.consignmenter_tax_code) AS consignmenter_tax_code,
 				MAX(expenses.amount) AS amount,
 				MAX(expenses.tax_amount) AS tax_amount,
@@ -161,7 +160,6 @@ class Expense extends CI_Model
 		$this->db->select('
 			expenses.expense_id AS expense_id,
 			expenses.date AS date,
-			consignmenters.company_name AS consignmenter_name,
 			expenses.consignmenter_id AS consignmenter_id,
 			expenses.consignmenter_tax_code AS consignmenter_tax_code,
 			expenses.amount AS amount,

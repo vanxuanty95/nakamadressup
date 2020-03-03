@@ -259,7 +259,7 @@ class Items extends Secure_Controller
 		$consignmenters = array('' => $this->lang->line('items_none'));
 		foreach($this->Consignmenter->get_all()->result_array() as $row)
 		{
-			$consignmenters[$this->xss_clean($row['person_id'])] = $this->xss_clean($row['company_name']);
+			$consignmenters[$this->xss_clean($row['person_id'])] = $this->xss_clean($row['name']);
 		}
 		$data['consignmenters'] = $consignmenters;
 		$data['selected_consignmenter'] = $item_info->consignmenter_id;
@@ -458,7 +458,7 @@ class Items extends Secure_Controller
 		{
 			$row = $this->xss_clean($row);
 
-			$consignmenters[$row['person_id']] = $row['company_name'];
+			$consignmenters[$row['person_id']] = $row['name'];
 		}
 		$data['consignmenters'] = $consignmenters;
 		$data['allow_alt_description_choices'] = array(

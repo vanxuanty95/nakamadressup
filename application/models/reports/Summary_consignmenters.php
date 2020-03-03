@@ -21,7 +21,7 @@ class Summary_consignmenters extends Summary_report
 		parent::_select($inputs);
 
 		$this->db->select('
-				MAX(CONCAT(consignmenter_c.company_name, " (", consignmenter_p.name, ")")) AS consignmenter,
+				MAX(CONCAT(consignmenter_c.name, " (", consignmenter_p.name, ")")) AS consignmenter,
 				SUM(sales_items.quantity_purchased) AS quantity_purchased
 		');
 	}
@@ -38,7 +38,7 @@ class Summary_consignmenters extends Summary_report
 	protected function _group_order()
 	{
 		$this->db->group_by('items.consignmenter_id');
-		$this->db->order_by('MAX(CONCAT(consignmenter_c.company_name, " (", consignmenter_p.name, ")"))');
+		$this->db->order_by('MAX(CONCAT(consignmenter_c.name, " (", consignmenter_p.name, ")"))');
 	}
 }
 ?>

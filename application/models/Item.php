@@ -133,7 +133,7 @@ class Item extends CI_Model
 			$this->db->select('MAX(items.deleted) AS deleted');
 
 			$this->db->select('MAX(consignmenters.person_id) AS person_id');
-			$this->db->select('MAX(consignmenters.company_name) AS company_name');
+			$this->db->select('MAX(consignmenters.name) AS name');
 			$this->db->select('MAX(consignmenters.agency_name) AS agency_name');
 			$this->db->select('MAX(consignmenters.account_number) AS account_number');
 			$this->db->select('MAX(consignmenters.deleted) AS deleted');
@@ -181,7 +181,7 @@ class Item extends CI_Model
 				$this->db->like('name', $search);
 				$this->db->or_like('item_number', $search);
 				$this->db->or_like('items.item_id', $search);
-				$this->db->or_like('company_name', $search);
+				$this->db->or_like('name', $search);
 				$this->db->or_like('items.category', $search);
 				if ($filters['search_custom'] && $attributes_enabled)
 				{
@@ -286,7 +286,7 @@ class Item extends CI_Model
 		$this->db->select('GROUP_CONCAT(attribute_value SEPARATOR \'|\') AS attribute_values');
 		$this->db->select('GROUP_CONCAT(attribute_decimal SEPARATOR \'|\') AS attribute_dvalues');
 		$this->db->select('GROUP_CONCAT(attribute_date SEPARATOR \'|\') AS attribute_dtvalues');
-		$this->db->select('consignmenters.company_name');
+		$this->db->select('consignmenters.name');
 		$this->db->from('items');
 		$this->db->join('consignmenters', 'consignmenters.person_id = items.consignmenter_id', 'left');
 		$this->db->join('attribute_links', 'attribute_links.item_id = items.item_id', 'left');
@@ -383,7 +383,6 @@ class Item extends CI_Model
 	{
 		$format = $this->db->escape(dateformat_mysql());
 		$this->db->select('items.*');
-		$this->db->select('company_name');
 		$this->db->select('GROUP_CONCAT(DISTINCT CONCAT_WS(\'_\', definition_id, attribute_value) ORDER BY definition_id SEPARATOR \'|\') AS attribute_values');
 		$this->db->select("GROUP_CONCAT(DISTINCT CONCAT_WS('_', definition_id, DATE_FORMAT(attribute_date, $format)) ORDER BY definition_id SEPARATOR '|') AS attribute_dtvalues");
 		$this->db->select('GROUP_CONCAT(DISTINCT CONCAT_WS(\'_\', definition_id, attribute_decimal) ORDER BY definition_id SEPARATOR \'|\') AS attribute_dvalues');
@@ -612,17 +611,17 @@ class Item extends CI_Model
 			}
 
 			//Search by consignmenter
-			$this->db->select('company_name');
+			$this->db->select('name');
 			$this->db->from('consignmenters');
-			$this->db->like('company_name', $search);
+			$this->db->like('name', $search);
 			// restrict to non deleted companies only if is_deleted is FALSE
 			$this->db->where('deleted', $filters['is_deleted']);
 			$this->db->where_in('item_type', $non_kit); // standard, exclude kit items since kits will be picked up later
 			$this->db->distinct();
-			$this->db->order_by('company_name', 'asc');
+			$this->db->order_by('name', 'asc');
 			foreach($this->db->get()->result() as $row)
 			{
-				$suggestions[] = array('label' => $row->company_name);
+				$suggestions[] = array('label' => $row->name);
 			}
 
 			//Search by description
@@ -714,16 +713,16 @@ class Item extends CI_Model
 			}
 
 			//Search by consignmenter
-			$this->db->select('company_name');
+			$this->db->select('name');
 			$this->db->from('consignmenters');
-			$this->db->like('company_name', $search);
+			$this->db->like('name', $search);
 			// restrict to non deleted companies only if is_deleted is FALSE
 			$this->db->where('deleted', $filters['is_deleted']);
 			$this->db->distinct();
-			$this->db->order_by('company_name', 'asc');
+			$this->db->order_by('name', 'asc');
 			foreach($this->db->get()->result() as $row)
 			{
-				$suggestions[] = array('label' => $row->company_name);
+				$suggestions[] = array('label' => $row->name);
 			}
 
 			//Search by description
@@ -812,16 +811,16 @@ class Item extends CI_Model
 			}
 
 			//Search by consignmenter
-			$this->db->select('company_name');
+			$this->db->select('name');
 			$this->db->from('consignmenters');
-			$this->db->like('company_name', $search);
+			$this->db->like('name', $search);
 			// restrict to non deleted companies only if is_deleted is FALSE
 			$this->db->where('deleted', $filters['is_deleted']);
 			$this->db->distinct();
-			$this->db->order_by('company_name', 'asc');
+			$this->db->order_by('name', 'asc');
 			foreach($this->db->get()->result() as $row)
 			{
-				$suggestions[] = array('label' => $row->company_name);
+				$suggestions[] = array('label' => $row->name);
 			}
 
 			//Search by description
