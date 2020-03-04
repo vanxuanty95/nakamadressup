@@ -323,7 +323,7 @@ if (isset($success)) {
 										<td><?php echo $this->lang->line('expiration_date'); ?></td>
 										<td>
 											<div class="form-group">
-												<div class='input-group date' id='datetimepicker1'>
+												<div class="input-group date" id="datetimepicker1" data-date-format="dd/mm/yyyy">
 													<?php echo form_input(array('name' => 'expiration_date', 'class' => 'form-control')); ?>
 													<span class="input-group-addon">
 														<span class="glyphicon glyphicon-calendar"></span>
