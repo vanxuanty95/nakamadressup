@@ -66,6 +66,11 @@ class Receivings extends Secure_Controller
 		$this->_reload();
 	}
 
+	public function set_expiration_date()
+	{
+		$this->receiving_lib->set_set_expiration_date($this->input->post('set_expiration_date'));
+	}
+
 	public function set_comment()
 	{
 		$this->receiving_lib->set_comment($this->input->post('comment'));
