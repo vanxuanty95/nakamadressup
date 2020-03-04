@@ -322,31 +322,20 @@ if (isset($success)) {
 									<tr>
 										<td><?php echo $this->lang->line('expiration_date'); ?></td>
 										<td>
-											<!-- <div class="input-group date" data-date-format="dd/mm/yyyy">
-												<?php echo form_input(array('name' => 'expiration_date', 'class' => 'form-control')); ?>
-												<div class="input-group-addon">
-													<span class="glyphicon glyphicon-th"></span>
-												</div>
-											</div> -->
-											<div class="container">
-												<div class="row">
-													<div class='col-sm-12'>
-														<div class="form-group">
-															<div class='input-group date' id='datetimepicker1'>
-																<input type='text' class="form-control" />
-																<span class="input-group-addon">
-																	<span class="glyphicon glyphicon-calendar"></span>
-																</span>
-															</div>
-														</div>
-													</div>
-													<script type="text/javascript">
-														$(function() {
-															$('#datetimepicker1').datetimepicker();
-														});
-													</script>
+											<div class="form-group">
+												<div class='input-group date' id='datetimepicker1'>
+													<?php echo form_input(array('name' => 'expiration_date', 'class' => 'form-control')); ?>
+													<span class="input-group-addon">
+														<span class="glyphicon glyphicon-calendar"></span>
+													</span>
 												</div>
 											</div>
+
+											<script type="text/javascript">
+												$(function() {
+													$('#datetimepicker1').datetimepicker();
+												});
+											</script>
 										</td>
 									</tr>
 									<tr>
