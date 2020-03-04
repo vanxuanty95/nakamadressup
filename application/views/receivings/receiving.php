@@ -328,10 +328,23 @@ if (isset($success)) {
 													<span class="glyphicon glyphicon-th"></span>
 												</div>
 											</div> -->
-											<div class="input-group date" data-date-format="dd.mm.yyyy">
-												<input type="text" class="form-control" placeholder="dd.mm.yyyy">
-												<div class="input-group-addon">
-													<span class="glyphicon glyphicon-th"></span>
+											<div class="container">
+												<div class="row">
+													<div class='col-sm-12'>
+														<div class="form-group">
+															<div class='input-group date' id='datetimepicker1'>
+																<input type='text' class="form-control" />
+																<span class="input-group-addon">
+																	<span class="glyphicon glyphicon-calendar"></span>
+																</span>
+															</div>
+														</div>
+													</div>
+													<script type="text/javascript">
+														$(function() {
+															$('#datetimepicker1').datetimepicker();
+														});
+													</script>
 												</div>
 											</div>
 										</td>
@@ -481,10 +494,6 @@ if (isset($success)) {
 			var input = $("<input>").attr("type", "hidden").attr("name", "discount_type").val(($(this).prop('checked')) ? 1 : 0);
 			$('#cart_' + $(this).attr('data-line')).append($(input));
 			$('#cart_' + $(this).attr('data-line')).submit();
-		});
-
-		$('.input-group.date').datepicker({
-			format: "dd/mm/yyyy"
 		});
 	});
 </script>
