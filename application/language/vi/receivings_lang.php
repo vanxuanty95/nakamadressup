@@ -31,6 +31,7 @@ $lang["receivings_receipt"] = "Nhập hàng Biên lai";
 $lang["receivings_receipt_number"] = "Nhập hàng #";
 $lang["receivings_receiving"] = "Nhập hàng";
 $lang["receivings_reference"] = "Tham chiếu";
+$lang["expiration_date"] = "Ngày hết hạn";
 $lang["receivings_register"] = "Nhập hàng hóa";
 $lang["receivings_requisition"] = "Yêu cầu";
 $lang["receivings_return"] = "Trả hàng";
