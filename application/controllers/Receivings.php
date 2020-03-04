@@ -68,7 +68,7 @@ class Receivings extends Secure_Controller
 
 	public function set_expiration_date()
 	{
-		$this->receiving_lib->set_set_expiration_date($this->input->post('set_expiration_date'));
+		$this->receiving_lib->set_set_expiration_date($this->input->post('expiration_date'));
 	}
 
 	public function set_comment()
@@ -344,7 +344,7 @@ class Receivings extends Secure_Controller
 		$newdate2 = $this->input->post('expiration_date');
 
 		$date_formatter = date_create_from_format($this->config->item('dateformat') . ' ' . $this->config->item('timeformat'), $newdate);
-		$date_formatter2 = date_create_from_format($this->config->item('dateformat') . ' ' . $this->config->item('timeformat'), $newdate2);
+		$date_formatter2 = date_create_from_format($this->config->item('dateformat'), $newdate2);
 
 		$receiving_data = array(
 			'receiving_time' => $date_formatter->format('Y-m-d H:i:s'),
@@ -352,7 +352,7 @@ class Receivings extends Secure_Controller
 			'employee_id' => $this->input->post('employee_id'),
 			'comment' => $this->input->post('comment'),
 			'reference' => $this->input->post('reference') != '' ? $this->input->post('reference') : NULL,
-			'expiration_date' => $date_formatter2->format('Y-m-d H:i:s')
+			'expiration_date' => $date_formatter2->format('Y-m-d')
 		);
 
 		if ($this->Receiving->update($receiving_data, $receiving_id)) {

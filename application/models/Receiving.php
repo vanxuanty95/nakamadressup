@@ -73,7 +73,7 @@ class Receiving extends CI_Model
 			'payment_type' => $payment_type,
 			'comment' => $comment,
 			'reference' => $reference,
-			'receiving_time' => $expiration_date,
+			'expiration_date' => $expiration_date,
 		);
 
 		//Run these queries as a transaction, we want to make sure we do all or nothing
