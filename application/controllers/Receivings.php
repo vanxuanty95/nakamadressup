@@ -198,7 +198,7 @@ class Receivings extends Secure_Controller
 		$data['payment_type'] = $this->input->post('payment_type');
 		$data['show_stock_locations'] = $this->Stock_location->show_locations('receivings');
 		$data['stock_location'] = $this->receiving_lib->get_stock_source();
-		$data['expiration_date'] = $this->receiving_lib->get_expiration_date();
+		$data['expiration_date'] = $this->input->post('get_expiration_date');
 		if ($this->input->post('amount_tendered') != NULL) {
 			$data['amount_tendered'] = $this->input->post('amount_tendered');
 			$data['amount_change'] = to_currency($data['amount_tendered'] - $data['total']);
