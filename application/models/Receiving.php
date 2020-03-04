@@ -59,7 +59,7 @@ class Receiving extends CI_Model
 		return $this->db->update('receivings', $receiving_data);
 	}
 
-	public function save($items, $consignmenter_id, $employee_id, $comment, $reference, $payment_type, $receiving_id = FALSE)
+	public function save($items, $consignmenter_id, $employee_id, $comment, $reference, $payment_type, $receiving_id = FALSE, $expiration_date)
 	{
 		if(count($items) == 0)
 		{
@@ -72,7 +72,8 @@ class Receiving extends CI_Model
 			'employee_id' => $employee_id,
 			'payment_type' => $payment_type,
 			'comment' => $comment,
-			'reference' => $reference
+			'reference' => $reference,
+			'receiving_time' => $expiration_date,
 		);
 
 		//Run these queries as a transaction, we want to make sure we do all or nothing
