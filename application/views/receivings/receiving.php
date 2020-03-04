@@ -333,7 +333,9 @@ if (isset($success)) {
 
 											<script type="text/javascript">
 												$(function() {
-													$('#datetimepicker1').datetimepicker();
+													$('#datetimepicker1').datetimepicker({
+														format: 'dd/mm/yyyy',
+													});
 												});
 											</script>
 										</td>
