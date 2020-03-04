@@ -322,7 +322,12 @@ if (isset($success)) {
 									<tr>
 										<td><?php echo $this->lang->line('expiration_date'); ?></td>
 										<td>
-											<?php echo form_input(array('name' => 'expiration_date', 'class' => 'form-control input-sm', 'id' => 'daterangepicker')); ?>
+											<div class="input-group date" data-date-format="dd/mm/yyyy">
+												<?php echo form_input(array('name' => 'expiration_date', 'class' => 'form-control')); ?>
+												<div class="input-group-addon">
+													<span class="glyphicon glyphicon-th"></span>
+												</div>
+											</div>
 										</td>
 									</tr>
 									<tr>
@@ -472,6 +477,7 @@ if (isset($success)) {
 			$('#cart_' + $(this).attr('data-line')).submit();
 		});
 
+		$('.input-group.date').datepicker({format: "dd/mm/yyyy"}); 
 	});
 </script>
 
