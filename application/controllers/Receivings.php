@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once("Secure_Controller.php");
 
@@ -40,8 +40,7 @@ class Receivings extends Secure_Controller
 	public function select_consignmenter()
 	{
 		$consignmenter_id = $this->input->post('consignmenter');
-		if($this->Consignmenter->exists($consignmenter_id))
-		{
+		if ($this->Consignmenter->exists($consignmenter_id)) {
 			$this->receiving_lib->set_consignmenter($consignmenter_id);
 		}
 
@@ -53,22 +52,20 @@ class Receivings extends Secure_Controller
 		$stock_destination = $this->input->post('stock_destination');
 		$stock_source = $this->input->post('stock_source');
 
-		if((!$stock_source || $stock_source == $this->receiving_lib->get_stock_source()) &&
-			(!$stock_destination || $stock_destination == $this->receiving_lib->get_stock_destination()))
-		{
+		if ((!$stock_source || $stock_source == $this->receiving_lib->get_stock_source()) &&
+			(!$stock_destination || $stock_destination == $this->receiving_lib->get_stock_destination())
+		) {
 			$this->receiving_lib->clear_reference();
 			$mode = $this->input->post('mode');
 			$this->receiving_lib->set_mode($mode);
-		}
-		elseif($this->Stock_location->is_allowed_location($stock_source, 'receivings'))
-		{
+		} elseif ($this->Stock_location->is_allowed_location($stock_source, 'receivings')) {
 			$this->receiving_lib->set_stock_source($stock_source);
 			$this->receiving_lib->set_stock_destination($stock_destination);
 		}
 
 		$this->_reload();
 	}
-	
+
 	public function set_comment()
 	{
 		$this->receiving_lib->set_comment($this->input->post('comment'));
@@ -78,12 +75,12 @@ class Receivings extends Secure_Controller
 	{
 		$this->receiving_lib->set_print_after_sale($this->input->post('recv_print_after_sale'));
 	}
-	
+
 	public function set_reference()
 	{
 		$this->receiving_lib->set_reference($this->input->post('recv_reference'));
 	}
-	
+
 	public function add()
 	{
 		$data = array();
@@ -96,16 +93,11 @@ class Receivings extends Secure_Controller
 		$discount = $this->config->item('default_receivings_discount');
 		$discount_type = $this->config->item('default_receivings_discount_type');
 
-		if($mode == 'return' && $this->Receiving->is_valid_receipt($item_id_or_number_or_item_kit_or_receipt))
-		{
+		if ($mode == 'return' && $this->Receiving->is_valid_receipt($item_id_or_number_or_item_kit_or_receipt)) {
 			$this->receiving_lib->return_entire_receiving($item_id_or_number_or_item_kit_or_receipt);
-		}
-		elseif($this->Item_kit->is_valid_item_kit($item_id_or_number_or_item_kit_or_receipt))
-		{
+		} elseif ($this->Item_kit->is_valid_item_kit($item_id_or_number_or_item_kit_or_receipt)) {
 			$this->receiving_lib->add_item_kit($item_id_or_number_or_item_kit_or_receipt, $item_location, $discount, $discount_type);
-		}
-		elseif(!$this->receiving_lib->add_item($item_id_or_number_or_item_kit_or_receipt, $quantity, $item_location, $discount,  $discount_type))
-		{
+		} elseif (!$this->receiving_lib->add_item($item_id_or_number_or_item_kit_or_receipt, $quantity, $item_location, $discount,  $discount_type)) {
 			$data['error'] = $this->lang->line('receivings_unable_to_add_item');
 		}
 
@@ -129,39 +121,34 @@ class Receivings extends Secure_Controller
 		$item_location = $this->input->post('location');
 		$receiving_quantity = $this->input->post('receiving_quantity');
 
-		if($this->form_validation->run() != FALSE)
-		{
+		if ($this->form_validation->run() != FALSE) {
 			$this->receiving_lib->edit_item($item_id, $description, $serialnumber, $quantity, $discount, $discount_type, $price, $receiving_quantity);
-		}
-		else
-		{
-			$data['error']=$this->lang->line('receivings_error_editing_item');
+		} else {
+			$data['error'] = $this->lang->line('receivings_error_editing_item');
 		}
 
 		$this->_reload($data);
 	}
-	
+
 	public function edit($receiving_id)
 	{
 		$data = array();
 
 		$data['consignmenters'] = array('' => 'No Consignmenter');
-		foreach($this->Consignmenter->get_all()->result() as $consignmenter)
-		{
+		foreach ($this->Consignmenter->get_all()->result() as $consignmenter) {
 			$data['consignmenters'][$consignmenter->person_id] = $this->xss_clean($consignmenter->name);
 		}
-	
+
 		$data['employees'] = array();
-		foreach($this->Employee->get_all()->result() as $employee)
-		{
+		foreach ($this->Employee->get_all()->result() as $employee) {
 			$data['employees'][$employee->person_id] = $this->xss_clean($employee->name);
 		}
-	
+
 		$receiving_info = $this->xss_clean($this->Receiving->get_info($receiving_id)->row_array());
 		$data['selected_consignmenter_name'] = !empty($receiving_info['consignmenter_id']) ? $receiving_info['consignmenter_name'] : '';
 		$data['selected_consignmenter_id'] = $receiving_info['consignmenter_id'];
 		$data['receiving_info'] = $receiving_info;
-	
+
 		$this->load->view('receivings/form', $data);
 	}
 
@@ -171,19 +158,16 @@ class Receivings extends Secure_Controller
 
 		$this->_reload();
 	}
-	
-	public function delete($receiving_id = -1, $update_inventory = TRUE) 
+
+	public function delete($receiving_id = -1, $update_inventory = TRUE)
 	{
 		$employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
 		$receiving_ids = $receiving_id == -1 ? $this->input->post('ids') : array($receiving_id);
-	
-		if($this->Receiving->delete_list($receiving_ids, $employee_id, $update_inventory))
-		{
+
+		if ($this->Receiving->delete_list($receiving_ids, $employee_id, $update_inventory)) {
 			echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('receivings_successfully_deleted') . ' ' .
-							count($receiving_ids) . ' ' . $this->lang->line('receivings_one_or_multiple'), 'ids' => $receiving_ids));
-		}
-		else
-		{
+				count($receiving_ids) . ' ' . $this->lang->line('receivings_one_or_multiple'), 'ids' => $receiving_ids));
+		} else {
 			echo json_encode(array('success' => FALSE, 'message' => $this->lang->line('receivings_cannot_be_deleted')));
 		}
 	}
@@ -199,7 +183,7 @@ class Receivings extends Secure_Controller
 	public function complete()
 	{
 		$data = array();
-		
+
 		$data['cart'] = $this->receiving_lib->get_cart();
 		$data['total'] = $this->receiving_lib->get_total();
 		$data['transaction_time'] = to_datetime(time());
@@ -209,31 +193,27 @@ class Receivings extends Secure_Controller
 		$data['payment_type'] = $this->input->post('payment_type');
 		$data['show_stock_locations'] = $this->Stock_location->show_locations('receivings');
 		$data['stock_location'] = $this->receiving_lib->get_stock_source();
-		if($this->input->post('amount_tendered') != NULL)
-		{
+		$data['expiration_date'] = $this->receiving_lib->get_expiration_date();
+		if ($this->input->post('amount_tendered') != NULL) {
 			$data['amount_tendered'] = $this->input->post('amount_tendered');
 			$data['amount_change'] = to_currency($data['amount_tendered'] - $data['total']);
 		}
-		
+
 		$employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
 		$employee_info = $this->Employee->get_info($employee_id);
 		$data['employee'] = $employee_info->name;
 
 		$consignmenter_info = '';
 		$consignmenter_id = $this->receiving_lib->get_consignmenter();
-		if($consignmenter_id != -1)
-		{
+		if ($consignmenter_id != -1) {
 			$consignmenter_info = $this->Consignmenter->get_info($consignmenter_id);
 			$data['consignmenter'] = $consignmenter_info->consignmenter_name;
 			$data['name'] = $consignmenter_info->name;
 			$data['consignmenter_email'] = $consignmenter_info->email;
 			$data['consignmenter_address'] = $consignmenter_info->address_1;
-			if(!empty($consignmenter_info->zip) or !empty($consignmenter_info->city))
-			{
-				$data['consignmenter_location'] = $consignmenter_info->zip . ' ' . $consignmenter_info->city;				
-			}
-			else
-			{
+			if (!empty($consignmenter_info->zip) or !empty($consignmenter_info->city)) {
+				$data['consignmenter_location'] = $consignmenter_info->zip . ' ' . $consignmenter_info->city;
+			} else {
 				$data['consignmenter_location'] = '';
 			}
 		}
@@ -243,43 +223,36 @@ class Receivings extends Secure_Controller
 
 		$data = $this->xss_clean($data);
 
-		if($data['receiving_id'] == 'RECV -1')
-		{
+		if ($data['receiving_id'] == 'RECV -1') {
 			$data['error_message'] = $this->lang->line('receivings_transaction_failed');
-		}
-		else
-		{
-			$data['barcode'] = $this->barcode_lib->generate_receipt_barcode($data['receiving_id']);				
+		} else {
+			$data['barcode'] = $this->barcode_lib->generate_receipt_barcode($data['receiving_id']);
 		}
 
 		$data['print_after_sale'] = $this->receiving_lib->is_print_after_sale();
 
-		$this->load->view("receivings/receipt",$data);
+		$this->load->view("receivings/receipt", $data);
 
 		$this->receiving_lib->clear_all();
 	}
 
 	public function requisition_complete()
 	{
-		if($this->receiving_lib->get_stock_source() != $this->receiving_lib->get_stock_destination()) 
-		{
-			foreach($this->receiving_lib->get_cart() as $item)
-			{
+		if ($this->receiving_lib->get_stock_source() != $this->receiving_lib->get_stock_destination()) {
+			foreach ($this->receiving_lib->get_cart() as $item) {
 				$this->receiving_lib->delete_item($item['line']);
 				$this->receiving_lib->add_item($item['item_id'], $item['quantity'], $this->receiving_lib->get_stock_destination(), $item['discount_type']);
 				$this->receiving_lib->add_item($item['item_id'], -$item['quantity'], $this->receiving_lib->get_stock_source(), $item['discount_type']);
 			}
-			
+
 			$this->complete();
-		}
-		else 
-		{
+		} else {
 			$data['error'] = $this->lang->line('receivings_error_requisition');
 
-			$this->_reload($data);	
+			$this->_reload($data);
 		}
 	}
-	
+
 	public function receipt($receiving_id)
 	{
 		$receiving_info = $this->Receiving->get_info($receiving_id)->row_array();
@@ -297,19 +270,15 @@ class Receivings extends Secure_Controller
 		$data['employee'] = $employee_info->name;
 
 		$consignmenter_id = $this->receiving_lib->get_consignmenter();
-		if($consignmenter_id != -1)
-		{
+		if ($consignmenter_id != -1) {
 			$consignmenter_info = $this->Consignmenter->get_info($consignmenter_id);
 			$data['consignmenter'] = $consignmenter_info->consignmenter_name;
 			$data['name'] = $consignmenter_info->name;
 			$data['consignmenter_email'] = $consignmenter_info->email;
 			$data['consignmenter_address'] = $consignmenter_info->address_1;
-			if(!empty($consignmenter_info->zip) or !empty($consignmenter_info->city))
-			{
-				$data['consignmenter_location'] = $consignmenter_info->zip . ' ' . $consignmenter_info->city;				
-			}
-			else
-			{
+			if (!empty($consignmenter_info->zip) or !empty($consignmenter_info->city)) {
+				$data['consignmenter_location'] = $consignmenter_info->zip . ' ' . $consignmenter_info->city;
+			} else {
 				$data['consignmenter_location'] = '';
 			}
 		}
@@ -317,7 +286,7 @@ class Receivings extends Secure_Controller
 		$data['print_after_sale'] = FALSE;
 
 		$data = $this->xss_clean($data);
-		
+
 		$this->load->view("receivings/receipt", $data);
 
 		$this->receiving_lib->clear_all();
@@ -330,8 +299,7 @@ class Receivings extends Secure_Controller
 		$data['mode'] = $this->receiving_lib->get_mode();
 		$data['stock_locations'] = $this->Stock_location->get_allowed_locations('receivings');
 		$data['show_stock_locations'] = count($data['stock_locations']) > 1;
-		if($data['show_stock_locations']) 
-		{
+		if ($data['show_stock_locations']) {
 			$data['modes']['requisition'] = $this->lang->line('receivings_requisition');
 			$data['stock_source'] = $this->receiving_lib->get_stock_source();
 			$data['stock_destination'] = $this->receiving_lib->get_stock_destination();
@@ -345,50 +313,46 @@ class Receivings extends Secure_Controller
 
 		$consignmenter_id = $this->receiving_lib->get_consignmenter();
 		$consignmenter_info = '';
-		if($consignmenter_id != -1)
-		{
+		if ($consignmenter_id != -1) {
 			$consignmenter_info = $this->Consignmenter->get_info($consignmenter_id);
 			$data['consignmenter'] = $consignmenter_info->consignmenter_name;
 			$data['name'] = $consignmenter_info->name;
 			$data['consignmenter_email'] = $consignmenter_info->email;
 			$data['consignmenter_address'] = $consignmenter_info->address_1;
-			if(!empty($consignmenter_info->zip) or !empty($consignmenter_info->city))
-			{
-				$data['consignmenter_location'] = $consignmenter_info->zip . ' ' . $consignmenter_info->city;				
-			}
-			else
-			{
+			if (!empty($consignmenter_info->zip) or !empty($consignmenter_info->city)) {
+				$data['consignmenter_location'] = $consignmenter_info->zip . ' ' . $consignmenter_info->city;
+			} else {
 				$data['consignmenter_location'] = '';
 			}
 		}
-		
+
 		$data['print_after_sale'] = $this->receiving_lib->is_print_after_sale();
 
 		$data = $this->xss_clean($data);
 
 		$this->load->view("receivings/receiving", $data);
 	}
-	
+
 	public function save($receiving_id = -1)
 	{
 		$newdate = $this->input->post('date');
-		
+		$newdate2 = $this->input->post('expiration_date');
+
 		$date_formatter = date_create_from_format($this->config->item('dateformat') . ' ' . $this->config->item('timeformat'), $newdate);
+		$date_formatter2 = date_create_from_format($this->config->item('dateformat') . ' ' . $this->config->item('timeformat'), $newdate2);
 
 		$receiving_data = array(
 			'receiving_time' => $date_formatter->format('Y-m-d H:i:s'),
 			'consignmenter_id' => $this->input->post('consignmenter_id') ? $this->input->post('consignmenter_id') : NULL,
 			'employee_id' => $this->input->post('employee_id'),
 			'comment' => $this->input->post('comment'),
-			'reference' => $this->input->post('reference') != '' ? $this->input->post('reference') : NULL
+			'reference' => $this->input->post('reference') != '' ? $this->input->post('reference') : NULL,
+			'expiration_date' => $date_formatter2->format('Y-m-d H:i:s')
 		);
-	
-		if($this->Receiving->update($receiving_data, $receiving_id))
-		{
+
+		if ($this->Receiving->update($receiving_data, $receiving_id)) {
 			echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('receivings_successfully_updated'), 'id' => $receiving_id));
-		}
-		else
-		{
+		} else {
 			echo json_encode(array('success' => FALSE, 'message' => $this->lang->line('receivings_unsuccessfully_updated'), 'id' => $receiving_id));
 		}
 	}
@@ -400,4 +364,3 @@ class Receivings extends Secure_Controller
 		$this->_reload();
 	}
 }
-?>

@@ -242,6 +242,7 @@ CREATE TABLE `ospos_items` (
   `is_serialized` tinyint(1) NOT NULL,
   `stock_type` TINYINT(2) NOT NULL DEFAULT 0,
   `item_type` TINYINT(2) NOT NULL DEFAULT 0,
+  `expiration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted` int(1) NOT NULL DEFAULT '0',
   `custom1` VARCHAR(255) DEFAULT NULL,
   `custom2` VARCHAR(255) DEFAULT NULL,
@@ -515,6 +516,7 @@ CREATE TABLE `ospos_receivings` (
   `receiving_id` int(10) NOT NULL AUTO_INCREMENT,
   `payment_type` varchar(20) DEFAULT NULL,
   `reference` varchar(32) DEFAULT NULL,
+  `expiration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`receiving_id`),
   KEY `consignmenter_id` (`consignmenter_id`),
   KEY `employee_id` (`employee_id`),
@@ -544,6 +546,7 @@ CREATE TABLE `ospos_receivings_items` (
   `discount_percent` decimal(15,2) NOT NULL DEFAULT '0',
   `item_location` int(11) NOT NULL,
   `receiving_quantity` decimal(15,3) NOT NULL DEFAULT '1',
+  `expiration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`receiving_id`,`item_id`,`line`),
   KEY `item_id` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

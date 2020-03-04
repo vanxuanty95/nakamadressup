@@ -84,6 +84,19 @@ class Receiving_lib
 
 		return $this->CI->session->userdata('recv_stock_source');
 	}
+
+	public function get_expiration_date()
+	{
+		// avoid returning a NULL that results in a 0 in the comment if nothing is set/available
+		$expiration_date = $this->CI->session->userdata('expiration_date');
+
+		return empty($expiration_date) ? '' : $expiration_date;
+	}
+	
+	public function set_expiration_date($expiration_date)
+	{
+		$this->CI->session->set_userdata('expiration_date', $expiration_date);
+	}
 	
 	public function get_comment()
 	{
