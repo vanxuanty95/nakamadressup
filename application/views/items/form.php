@@ -4,7 +4,7 @@
 
 <?php echo form_open('items/save/'.$item_info->item_id, array('id'=>'item_form', 'enctype'=>'multipart/form-data', 'class'=>'form-horizontal')); ?>
 	<fieldset id="item_basic_info">
-		<div class="form-group form-group-sm" style="display: none;">
+		<div class="form-group form-group-sm">
 			<?php echo form_label($this->lang->line('items_item_number'), 'item_number', array('class'=>'control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
 				<div class="input-group">

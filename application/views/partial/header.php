@@ -75,7 +75,7 @@
 		<![endif]-->
 		<!-- start mincss template tags -->
 		<link rel="stylesheet" type="text/css" href="dist/jquery-ui/jquery-ui.min.css"/>
-		<link rel="stylesheet" type="text/css" href="dist/opensourcepos.min.css?rel=397f582d3d"/>
+		<link rel="stylesheet" type="text/css" href="dist/opensourcepos.css?rel=397f582d3d"/>
 		<!-- end mincss template tags -->
 		<!-- start minjs template tags -->
 		<script type="text/javascript" src="dist/opensourcepos.min.js?rel=d08916b862"></script>
