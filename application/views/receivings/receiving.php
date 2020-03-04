@@ -334,7 +334,7 @@ if (isset($success)) {
 											<script type="text/javascript">
 												$(function() {
 													$('#datetimepicker1').datetimepicker({
-														format: 'L',
+														pickTime: false,
 													});
 												});
 											</script>
