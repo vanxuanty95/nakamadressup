@@ -335,7 +335,7 @@ if (isset($success)) {
 												$(function() {
 													$('#datetimepicker1').datetimepicker({
 														pickTime: false,
-														format: 'DD/MM/YYYY',
+														format: 'dd/mm/yyyy',
 													});
 												});
 											</script>
