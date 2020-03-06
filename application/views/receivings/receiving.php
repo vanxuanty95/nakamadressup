@@ -480,7 +480,7 @@ if (isset($success)) {
 		});
 
 		$('#expiration_date_time_picker').datetimepicker({
-			timePicker: false,
+			timepicker: false,
 			format: "dd/mm/yyyy",
 		});
 	});
