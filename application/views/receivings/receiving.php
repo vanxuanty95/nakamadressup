@@ -479,11 +479,9 @@ if (isset($success)) {
 			$('#cart_' + $(this).attr('data-line')).submit();
 		});
 
-		$(function() {
-			$('#datetimepicker1').datetimepicker({
-				timePicker: false,
-				format: 'dd/mm/yyyy',
-			});
+		$('#datetimepicker1').datetimepicker({
+			timePicker: false,
+			format: 'dd/mm/yyyy',
 		});
 	});
 </script>
