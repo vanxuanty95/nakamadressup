@@ -481,7 +481,9 @@ if (isset($success)) {
 
 		$('#expiration_date_time_picker').datetimepicker({
 			timepicker: false,
-			format: "dd/mm/yyyy",
+			pickTime: false,
+			timePicker: false,
+			minView : 2
 		});
 	});
 </script>
