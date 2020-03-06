@@ -480,10 +480,8 @@ if (isset($success)) {
 		});
 
 		$('#expiration_date_time_picker').datetimepicker({
-			timepicker: false,
-			pickTime: false,
-			timePicker: false,
-			minView : 2
+			minView : 2,
+			language: '<?php echo current_language_code(); ?>'
 		});
 	});
 </script>
