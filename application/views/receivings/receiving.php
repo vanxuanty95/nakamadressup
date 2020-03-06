@@ -557,14 +557,9 @@ if (isset($success)) {
 
 		$('#expiration_date_time_picker').datetimepicker({
 			minView: 2,
-			language: '<?php echo current_language_code(); ?>'
+			language: '<?php echo current_language_code(); ?>',
+			pickerPosition: "top-right",
 		});
-		$('.datetimepicker').css("left", function() {
-			var txtBoxOffset = $(this).offset();
-			var left = txtBoxOffset.left;
-			var textBoxWidth = $(this).outerWidth();
-			return left - 80
-		})
 	});
 </script>
 
