@@ -480,8 +480,8 @@ if (isset($success)) {
 		});
 
 		$('#datetimepicker1').datetimepicker({
-			timePicker: false,
-			format: 'dd/mm/yyyy',
+			"timePicker": false,
+			"format": "dd/mm/yyyy",
 		});
 	});
 </script>
