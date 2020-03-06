@@ -330,15 +330,6 @@ if (isset($success)) {
 													</span>
 												</div>
 											</div>
-
-											<script type="text/javascript">
-												$(function() {
-													$('#datetimepicker1').datetimepicker({
-														timePicker: false,
-														format: 'dd/mm/yyyy',
-													});
-												});
-											</script>
 										</td>
 									</tr>
 									<tr>
@@ -486,6 +477,13 @@ if (isset($success)) {
 			var input = $("<input>").attr("type", "hidden").attr("name", "discount_type").val(($(this).prop('checked')) ? 1 : 0);
 			$('#cart_' + $(this).attr('data-line')).append($(input));
 			$('#cart_' + $(this).attr('data-line')).submit();
+		});
+
+		$(function() {
+			$('#datetimepicker1').datetimepicker({
+				timePicker: false,
+				format: 'dd/mm/yyyy',
+			});
 		});
 	});
 </script>
