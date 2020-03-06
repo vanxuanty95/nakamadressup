@@ -323,7 +323,7 @@ if (isset($success)) {
 										<td><?php echo $this->lang->line('expiration_date'); ?></td>
 										<td>
 											<div class="form-group">
-												<div class="input-group date" id="datetimepicker1" data-date-format="dd/mm/yyyy">
+												<div class="input-group date" id="expiration_date_time_picker" data-date-format="dd/mm/yyyy">
 													<?php echo form_input(array('name' => 'expiration_date', 'class' => 'form-control')); ?>
 													<span class="input-group-addon">
 														<span class="glyphicon glyphicon-calendar"></span>
@@ -479,9 +479,9 @@ if (isset($success)) {
 			$('#cart_' + $(this).attr('data-line')).submit();
 		});
 
-		$('#datetimepicker1').datetimepicker({
-			"timePicker": false,
-			"format": "dd/mm/yyyy",
+		$('#expiration_date_time_picker').datetimepicker({
+			timePicker: false,
+			format: "dd/mm/yyyy",
 		});
 	});
 </script>
