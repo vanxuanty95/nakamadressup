@@ -559,12 +559,11 @@ if (isset($success)) {
 			minView: 2,
 			language: '<?php echo current_language_code(); ?>'
 		});
-		$('#expiration_date_time_picker').css("left", function() {
+		$('.datetimepicker').css("left", function() {
 			var txtBoxOffset = $(this).offset();
 			var left = txtBoxOffset.left;
 			var textBoxWidth = $(this).outerWidth();
-			console.log('left: ' + left);
-			return left
+			return left - 80
 		})
 	});
 </script>
