@@ -479,11 +479,6 @@ if (isset($success)) {
 			$('#cart_' + $(this).attr('data-line')).submit();
 		});
 
-		$('#expiration_date_time_picker').datetimepicker({
-			minView: 2,
-			language: '<?php echo current_language_code(); ?>'
-		});
-
 		$.fn.datetimepicker.dates['<?php echo current_language_code(); ?>'] = {
 			days: [
 				"<?php echo $this->lang->line("cal_sunday"); ?>",
@@ -559,6 +554,11 @@ if (isset($success)) {
 			?>
 			weekStart: <?php echo $this->lang->line("datepicker_weekstart"); ?>
 		};
+
+		$('#expiration_date_time_picker').datetimepicker({
+			minView: 2,
+			language: '<?php echo current_language_code(); ?>'
+		});
 	});
 </script>
 
