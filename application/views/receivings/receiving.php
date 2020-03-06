@@ -484,7 +484,7 @@ if (isset($success)) {
 			language: '<?php echo current_language_code(); ?>'
 		});
 
-		$.fn.datetimepicker.dates['<?php echo $this->config->item("language"); ?>'] = {
+		$.fn.datetimepicker.dates['<?php echo current_language_code(); ?>'] = {
 			days: [
 				"<?php echo $this->lang->line("cal_sunday"); ?>",
 				"<?php echo $this->lang->line("cal_monday"); ?>",
