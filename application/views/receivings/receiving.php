@@ -558,7 +558,7 @@ if (isset($success)) {
 		$('#expiration_date_time_picker').datetimepicker({
 			minView: 2,
 			language: '<?php echo current_language_code(); ?>',
-			pickerPosition: "top-right",
+			pickerPosition: "top-left",
 		});
 	});
 </script>
