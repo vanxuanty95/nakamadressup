@@ -324,7 +324,7 @@ if (isset($success)) {
 										<td>
 											<div class="form-group">
 												<div class="input-group date" id="expiration_date_time_picker" data-date-format="dd/mm/yyyy">
-													<?php echo form_input(array('name' => 'expiration_date', 'class' => 'form-control')); ?>
+													<?php echo form_input(array('name' => 'expiration_date', 'class' => 'form-control', 'autocomplete' => 'off')); ?>
 													<span class="input-group-addon">
 														<span class="glyphicon glyphicon-calendar"></span>
 													</span>
