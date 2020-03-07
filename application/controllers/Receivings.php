@@ -96,13 +96,14 @@ class Receivings extends Secure_Controller
 		$quantity = ($mode == 'receive' || $mode == 'requisition') ? $quantity : -$quantity;
 		$item_location = $this->receiving_lib->get_stock_source();
 		$discount = $this->config->item('default_receivings_discount');
+        $fee = $this->config->item('default_receivings_fee');
 		$discount_type = $this->config->item('default_receivings_discount_type');
 
 		if ($mode == 'return' && $this->Receiving->is_valid_receipt($item_id_or_number_or_item_kit_or_receipt)) {
 			$this->receiving_lib->return_entire_receiving($item_id_or_number_or_item_kit_or_receipt);
 		} elseif ($this->Item_kit->is_valid_item_kit($item_id_or_number_or_item_kit_or_receipt)) {
-			$this->receiving_lib->add_item_kit($item_id_or_number_or_item_kit_or_receipt, $item_location, $discount, $discount_type);
-		} elseif (!$this->receiving_lib->add_item($item_id_or_number_or_item_kit_or_receipt, $quantity, $item_location, $discount,  $discount_type)) {
+			$this->receiving_lib->add_item_kit($item_id_or_number_or_item_kit_or_receipt, $item_location, $discount, $fee, $discount_type);
+		} elseif (!$this->receiving_lib->add_item($item_id_or_number_or_item_kit_or_receipt, $quantity, $item_location, $discount, $fee,  $discount_type)) {
 			$data['error'] = $this->lang->line('receivings_unable_to_add_item');
 		}
 
@@ -122,12 +123,13 @@ class Receivings extends Secure_Controller
 		$price = parse_decimals($this->input->post('price'));
 		$quantity = parse_decimals($this->input->post('quantity'));
 		$discount = parse_decimals($this->input->post('discount'));
+        $fee = parse_decimals($this->input->post('fee'));
 		$discount_type = parse_decimals($this->input->post('discount_type'));
 		$item_location = $this->input->post('location');
 		$receiving_quantity = $this->input->post('receiving_quantity');
 
 		if ($this->form_validation->run() != FALSE) {
-			$this->receiving_lib->edit_item($item_id, $description, $serialnumber, $quantity, $discount, $discount_type, $price, $receiving_quantity);
+			$this->receiving_lib->edit_item($item_id, $description, $serialnumber, $quantity, $discount, $fee, $discount_type, $price, $receiving_quantity);
 		} else {
 			$data['error'] = $this->lang->line('receivings_error_editing_item');
 		}
