@@ -589,7 +589,7 @@ if (isset($success)) {
             } else {
                 current = new Date(now.getFullYear(), now.getMonth() + 2, 1);
             }
-            $('#expiration_date_time_picker_input').val(current);
+            $('#expiration_date_time_picker_input').val($.datepicker.formatDate('dd/mm/yyyy', current));
         });
     </script>
 
