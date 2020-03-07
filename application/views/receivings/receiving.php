@@ -559,6 +559,7 @@ if (isset($success)) {
 			minView: 2,
 			language: '<?php echo current_language_code(); ?>',
 			pickerPosition: "top-left",
+            defaultDate: new Date(),
 		});
 	});
 </script>
