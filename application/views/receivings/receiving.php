@@ -585,12 +585,12 @@ if (isset($success)) {
             var now = new Date();
             var current;
             if (now.getMonth() > 9) {
-                current = new Date(now.getFullYear() + 1, 11 - now.getMonth() + 2, 1);
+                current = new Date(now.getFullYear() + 1, 11 - now.getMonth() + 2, now.getDate());
             } else {
-                current = new Date(now.getFullYear(), now.getMonth() + 2, 1);
+                current = new Date(now.getFullYear(), now.getMonth() + 2, now.getDate());
             }
             console.log(current)
-            $('#expiration_date_time_picker_input').val($.datepicker.formatDate('dd/mm/yyyy', current));
+            $('#expiration_date_time_picker_input').val($.datepicker.formatDate('dd/mm/yy', current));
         });
     </script>
 
