@@ -373,7 +373,7 @@ class Receiving_lib
     {
         $total = 0;
         foreach ($this->get_cart() as $item) {
-            $total = bcadd($total, $this->get_item_total(($item['quantity']), $item['price'], $item['discount'], $item['discount_type'], $item['receiving_quantity']));
+            $total = bcadd($total, $this->get_item_total(($item['quantity']), $item['price'], $item['discount'], $item['fee'], $item['discount_type'], $item['receiving_quantity']));
         }
 
         return $total;
