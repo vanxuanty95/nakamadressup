@@ -96,7 +96,7 @@ class Receivings extends Secure_Controller
 		$quantity = ($mode == 'receive' || $mode == 'requisition') ? $quantity : -$quantity;
 		$item_location = $this->receiving_lib->get_stock_source();
 		$discount = $this->config->item('default_receivings_discount');
-        $fee = $this->config->item('default_receivings_fee');
+        $fee = 20;
 		$discount_type = $this->config->item('default_receivings_discount_type');
 
 		if ($mode == 'return' && $this->Receiving->is_valid_receipt($item_id_or_number_or_item_kit_or_receipt)) {
