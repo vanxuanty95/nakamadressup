@@ -100,6 +100,7 @@ if (isset($success)) {
                 <th style="width:10%;"><?php echo $this->lang->line('receivings_cost'); ?></th>
                 <th style="width:8%;"><?php echo $this->lang->line('receivings_quantity'); ?></th>
                 <th style="width:10%; display: none"><?php echo $this->lang->line('receivings_ship_pack'); ?></th>
+                <th style="width:14%;"><?php echo $this->lang->line('receivings_discount'); ?></th>
                 <th style="width:14%;"><?php echo $this->lang->line('receivings_fee'); ?></th>
                 <th style="width:10%;"><?php echo $this->lang->line('receivings_total'); ?></th>
                 <th style="width:5%;"><?php echo $this->lang->line('receivings_update'); ?></th>
@@ -152,7 +153,7 @@ if (isset($success)) {
                             ?>
                             <td>
                                 <div class="input-group">
-                                    <?php echo form_input(array('name' => 'fee', 'class' => 'form-control input-sm', 'value' => to_decimals($item['fee'], 0), 'onClick' => 'this.select();')); ?>
+                                    <?php echo form_input(array('name' => 'discount', 'class' => 'form-control input-sm', 'value' => to_decimals($item['discount'], 0), 'onClick' => 'this.select();')); ?>
                                     <span class="input-group-btn">
 										<?php echo form_checkbox(array('id' => 'discount_toggle', 'name' => 'discount_toggle', 'value' => 1, 'data-toggle' => "toggle", 'data-size' => 'small', 'data-onstyle' => 'success', 'data-on' => '<b>' . $this->config->item('currency_symbol') . '</b>', 'data-off' => '<b>%</b>', 'data-line' => $line, 'checked' => $item['discount_type'])); ?>
 									</span>
@@ -166,8 +167,9 @@ if (isset($success)) {
                             <?php
                         }
                         ?>
+                        <td><?php echo form_input(array('name' => 'fee', 'class' => 'form-control input-sm', 'value' => to_quantity_decimals($item['fee']))); ?></td>
                         <td>
-                            <?php echo to_currency(($item['discount_type'] == PERCENT) ? $item['price'] * $item['quantity'] * $item['receiving_quantity'] + $item['price'] * $item['quantity'] * $item['receiving_quantity'] * $item['fee'] / 100 : $item['price'] * $item['quantity'] * $item['receiving_quantity'] + $item['fee']); ?></td>
+                            <?php echo to_currency(($item['discount_type'] == PERCENT) ? $item['price'] * $item['quantity'] * $item['receiving_quantity'] - $item['price'] * $item['quantity'] * $item['receiving_quantity'] * $item['discount'] / 100 +  $item['price'] * $item['quantity'] * $item['receiving_quantity'] * $item['fee'] / 100 : $item['price'] * $item['quantity'] * $item['receiving_quantity'] - $item['discount'] - $item['fee']); ?></td>
                         <td><a href="javascript:$('#<?php echo 'cart_' . $line ?>').submit();"
                                title=<?php echo $this->lang->line('receivings_update') ?>><span
                                         class="glyphicon glyphicon-refresh"></span></a></td>
