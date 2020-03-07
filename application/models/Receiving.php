@@ -97,8 +97,8 @@ class Receiving extends CI_Model
 				'fee' => $item['fee'],
 				'discount' => $item['discount'],
 				'discount_type' => $item['discount_type'],
-				'item_cost_price' => $cur_item_info->cost_price,
-				'item_unit_price' => $item['price'],
+				'item_cost_price' => $item['price'],
+				'item_unit_price' => $item['total'],
 				'item_location' => $item['item_location']
 			);
 
@@ -107,9 +107,9 @@ class Receiving extends CI_Model
 			$items_received = $item['receiving_quantity'] != 0 ? $item['quantity'] * $item['receiving_quantity'] : $item['quantity'];
 
 			// update cost price, if changed AND is set in config as wanted
-			if($cur_item_info->cost_price != $item['price'] && $this->config->item('receiving_calculate_average_price') != FALSE)
+			if($cur_item_info->cost_price != $item['price'])
 			{
-				$this->Item->change_cost_price($item['item_id'], $items_received, $item['price'], $cur_item_info->cost_price);
+				$this->Item->change_cost_price($item['item_id'], $items_received, $item['price'], $cur_item_info->cost_price, $item['total']);
 			}
 
 			//Update stock quantity
