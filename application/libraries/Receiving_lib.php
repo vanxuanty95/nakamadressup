@@ -366,7 +366,7 @@ class Receiving_lib
         $fee_fraction = bcdiv($fee, 100);
         $fee_amount = bcmul($total, $fee_fraction);
 
-        return bcmul(bcsub($total, $discount_amount), $fee_amount);
+        return bcadd(bcsub($total, $discount_amount), $fee_amount);
     }
 
     public function get_total()
