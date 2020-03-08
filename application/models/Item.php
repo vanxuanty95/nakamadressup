@@ -560,6 +560,7 @@ class Item extends CI_Model
                 if($success)
                 {
                     $array_item_id[] = $item_id;
+                    log_message('debug',$item_id);
                 }
             }
         }
