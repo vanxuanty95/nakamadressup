@@ -599,23 +599,24 @@ if (isset($success)) {
         .items_consignmenter_group {
             display: none;
         }
-        .cost_price_group{
+
+        .cost_price_group {
             display: none;
         }
 
-        .items_unit_price_group{
+        .items_unit_price_group {
             display: none;
         }
 
-        .items_quantity_group{
+        .items_quantity_group {
             display: none;
         }
 
-        .items_receiving_quantity_group{
+        .items_receiving_quantity_group {
             display: none;
         }
 
-        .items_reorder_level_group{
+        .items_reorder_level_group {
             display: none;
         }
     </style>
