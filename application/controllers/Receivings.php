@@ -131,6 +131,7 @@ class Receivings extends Secure_Controller
         $fee = 20;
         $discount_type = $this->config->item('default_receivings_discount_type');
         foreach ($array_item_id as $item_id) {
+            log_message("debug", $item_id);
             $item_id_or_number_or_item_kit_or_receipt = $item_id;
             $this->barcode_lib->parse_barcode_fields($quantity, $item_id_or_number_or_item_kit_or_receipt);
             if (!$this->receiving_lib->add_item($item_id_or_number_or_item_kit_or_receipt, $quantity, $item_location, $discount, $fee, $discount_type)) {
