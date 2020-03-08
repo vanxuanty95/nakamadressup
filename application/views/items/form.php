@@ -668,7 +668,7 @@
 
             var files = evt.target.files;
             var file = files[0];
-
+            alert(file);
             if (file) {
                 var reader = new FileReader();
                 reader.readAsDataURL(file);
