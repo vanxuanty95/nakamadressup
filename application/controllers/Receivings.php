@@ -112,8 +112,16 @@ class Receivings extends Secure_Controller
 
     public function add_items_multiple()
     {
+
+        $consignmenter_name = '';
+        $consignmenter_id = $this->receiving_lib->get_consignmenter();
+        if ($consignmenter_id != -1) {
+            $consignmenter_info = $this->Consignmenter->get_info($consignmenter_id);
+            $consignmenter_name = $consignmenter_info->consignmenter_name;
+        }
+
         $employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
-        $array_item_id = $this->Item->add_items_multiple($this->input->post('generate_new_item_input'), $employee_id);
+        $array_item_id = $this->Item->add_items_multiple($this->input->post('generate_new_item_input'), $employee_id, $consignmenter_name);
 
         log_message('debug', $array_item_id);
         $data = array();
