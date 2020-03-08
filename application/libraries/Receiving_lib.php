@@ -172,7 +172,7 @@ class Receiving_lib
         if (!$this->CI->Item->exists($item_id, $include_deleted)) {
             //try to get item id given an item_number
             $item_id = $this->CI->Item->get_item_id($item_id, $include_deleted);
-
+            log_message("debug", '175'. $item_id);
             if (!$item_id) {
                 log_message("debug", '177'. $item_id);
                 return FALSE;
