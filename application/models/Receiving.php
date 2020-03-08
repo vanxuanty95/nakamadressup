@@ -104,7 +104,7 @@ class Receiving extends CI_Model
                 $this->Item->change_cost_price($item['item_id'], $items_received, $item['price'], $cur_item_info->cost_price, $item['total']);
             }
 
-            $this->Item->save_consignmenter_id_and_expiration_date($item['item_id'], $receivings_data['consignmenter_id'], $receiving_id, $receivings_data['expiration_date']);
+            $this->Item->save_consignmenter_id_and_expiration_date($item['item_id'], $this->Consignmenter->exists($consignmenter_id) ? $consignmenter_id : NULL, $receiving_id, $expiration_date);
 
             //Update stock quantity
             $item_quantity = $this->Item_quantity->get_item_quantity($item['item_id'], $item['item_location']);
