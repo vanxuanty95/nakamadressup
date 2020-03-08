@@ -1,6 +1,8 @@
 <?php $this->load->view("partial/header"); ?>
 
 <?php
+echo "<h5 class='alert alert-dismissible alert-danger'>" . 'Luôn luôn nhập người thanh lý trước khi thêm hàng' . "</h5>";
+
 if (isset($error)) {
     echo "<div class='alert alert-dismissible alert-danger'>" . $error . "</div>";
 }
@@ -12,8 +14,6 @@ if (!empty($warning)) {
 if (isset($success)) {
     echo "<div class='alert alert-dismissible alert-success'>" . $success . "</div>";
 }
-
-echo "<div class='alert alert-dismissible alert-danger'>" . 'Luôn luôn nhập người thanh lý trước khi thêm hàng' . "</div>";
 ?>
 
     <div id="register_wrapper">
