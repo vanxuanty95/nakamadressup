@@ -531,26 +531,24 @@ class Item extends CI_Model
 
             //Save item data
             $item_data = array(
-                'name' => $consignmenter_name . chr(6 + 1),
+                'name' => $consignmenter_name . chr(64 + 1),
                 'item_type' => $item_type,
                 'stock_type' => 0,
                 'cost_price' => 0,
                 'unit_price' => 0,
                 'reorder_level' => 0,
-                'receiving_quantity' => $receiving_quantity,
-                'low_sell_item_id' => -1
+                'receiving_quantity' => $receiving_quantity
             );
 
             if ($item_data['item_type'] == ITEM_TEMP) {
                 $item_data['stock_type'] = HAS_NO_STOCK;
                 $item_data['receiving_quantity'] = 0;
                 $item_data['reorder_level'] = 0;
+                $item_data['low_sell_item_id'] = -1;
             }
 
-            if ($this->Item->save($item_data, $item_id)) {
+            if ($this->Item->save($item_data, FALSE)) {
                 $success = TRUE;
-                $new_item = FALSE;
-                //New item
                 if ($item_id == -1) {
                     $item_id = $item_data['item_id'];
                 }
