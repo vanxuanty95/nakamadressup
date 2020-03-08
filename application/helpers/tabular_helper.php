@@ -323,12 +323,12 @@ function get_items_manage_table_headers()
 		array('items.item_id' => $CI->lang->line('common_id')),
 		array('name' => $CI->lang->line('items_name')),
 		array('consignmenter_name' => $CI->lang->line('consignmenters_consignmenter')),
-		array('receivings_id' => $CI->lang->line('receivings_id')),
+		array('receiving_id' => $CI->lang->line('receivings_id')),
 		array('cost_price' => $CI->lang->line('items_cost_price')),
 		array('unit_price' => $CI->lang->line('items_unit_price')),
 		array('expiration_date' => $CI->lang->line('expiration_date')),
 		array('quantity' => $CI->lang->line('items_quantity')),
-		array('items_paid' => $CI->lang->line('items_paid'))
+		array('paid' => $CI->lang->line('items_paid'))
 	);
 
 	$headers[] = array('item_pic' => $CI->lang->line('items_image'), 'sortable' => FALSE);
@@ -415,7 +415,7 @@ function get_item_data_row($item)
 		'receiving_id' => $item->receiving_id,
 		'cost_price' => to_currency($item->cost_price),
 		'unit_price' => to_currency($item->unit_price),
-		'expiration_date' => date('d:m:Y', strtotime($item->expiration_date)),
+		'expiration_date' => date('d/m/Y', strtotime($item->expiration_date)),
 		'quantity' => to_quantity_decimals($item->quantity),
 		'tax_percents' => !$tax_percents ? '-' : $tax_percents,
 		'paid' => $item->paid,
