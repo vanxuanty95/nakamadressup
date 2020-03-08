@@ -559,7 +559,7 @@ class Item extends CI_Model
 
                 if($success)
                 {
-                    array_push($array_item_id, $item_id);
+                    $array_item_id[] = $item_id;
                 }
             }
         }
