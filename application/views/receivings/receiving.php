@@ -55,12 +55,12 @@ if (isset($success)) {
         </div>
         <?php echo form_close(); ?>
 
-        <?php echo form_open($controller_name . "/add_items_multiple", array('id' => 'add_items_multiple', 'class' => 'form-horizontal')); ?>
-        <div class="form-group form-group-sm panel-body ">
-            <div class="col-xs-3">
+        <?php echo form_open($controller_name . "/add_items_multiple", array('id' => 'add_items_multiple', 'class' => 'form-horizontal',)); ?>
+        <div class="form-group form-group-sm panel-body" style="padding-left: 0; padding-right: 0; margin: 0">
+            <div class="col-xs-1" style="padding: 0">
                 <?php echo form_input(array('name' => 'generate_new_item_input', 'id' => 'generate_new_item_input', 'class' => 'form-control input-sm')); ?>
             </div>
-            <div class="col-xs-3">
+            <div class="col-xs-2" style="padding: 0">
                 <button id='generate_new_item_button' class='btn btn-info btn-sm'
                         title='<?php echo $this->lang->line('receivings_add_item_multiple'); ?>'>
                     <span class="glyphicon glyphicon-tag">&nbsp</span><?php echo $this->lang->line('receivings_add_item_multiple'); ?>
