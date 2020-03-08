@@ -672,6 +672,7 @@
             if (file) {
                 var reader = new FileReader();
                 reader.readAsDataURL(file);
+                alert('test');
             }
         });
 
@@ -714,7 +715,8 @@
                         ctx.drawImage(img, 0, 0, width, height);
 
                         dataurl = canvas.toDataURL(file.type);
-                        document.getElementById('output').src = dataurl;
+                        document.getElementById('items_image').src = dataurl;
+                        alert('Done');
                     }
                     reader.readAsDataURL(file);
 
