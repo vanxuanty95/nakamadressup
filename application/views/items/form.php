@@ -333,13 +333,14 @@
                 <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 100px; max-height: 100px;">
                     <img data-src="holder.js/100%x100%" alt="<?php echo $this->lang->line('items_image'); ?>"
                          src="<?php echo $image_path; ?>"
+                         id="item_image_viewer"
                          style="max-height: 100%; max-width: 100%;">
                 </div>
                 <div>
 						<span class="btn btn-default btn-sm btn-file">
-							<span class="fileinput-new" id="fileinput-new-btn"><?php echo $this->lang->line("items_select_image"); ?></span>
-							<span class="fileinput-exists" id="fileinput-exists-btn"><?php echo $this->lang->line("items_change_image"); ?></span>
-							<input type="file" name="item_image" id="item_image-btn" accept="image/*">
+							<span class="fileinput-new"><?php echo $this->lang->line("items_select_image"); ?></span>
+							<span class="fileinput-exists"><?php echo $this->lang->line("items_change_image"); ?></span>
+							<input type="file" name="item_image" id="file_select" accept="image/*">
 						</span>
                     <a href="#" class="btn btn-default btn-sm fileinput-exists"
                        data-dismiss="fileinput"><?php echo $this->lang->line("items_remove_image"); ?></a>
@@ -439,7 +440,6 @@
         });
 
         $('#submit').click(function () {
-            ResizeImage();
             stay_open = false;
         });
 
@@ -664,68 +664,39 @@
 
         init_validation();
 
-        $('#item_image-btn').change(function (evt) {
+        $("#file_select").change(function (e) {
+            var fileReader = new FileReader();
+            fileReader.onload = function (e) {
+                var img = new Image();
+                img.onload = function () {
+                    var MAX_WIDTH = 480;
+                    var MAX_HEIGHT = 640;
+                    var width = img.width;
+                    var height = img.height;
 
-            var files = evt.target.files;
-            var file = files[0];
-            alert(file);
-            if (file) {
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                alert('test');
-            }
-        });
-
-        function ResizeImage() {
-            if (window.File &amp;&amp; window.FileReader &amp;&amp; window.FileList &amp;&amp; window.Blob) {
-                var filesToUploads = document.getElementById('item_image-btn').files;
-                var file = filesToUploads[0];
-                if (file) {
-
-                    var reader = new FileReader();
-                    // Set the image once loaded into file reader
-                    reader.onload = function (e) {
-
-                        var img = document.createElement("img");
-                        img.src = e.target.result;
-
-                        var canvas = document.createElement("canvas");
-                        var ctx = canvas.getContext("2d");
-                        ctx.drawImage(img, 0, 0);
-
-                        var MAX_WIDTH = 640;
-                        var MAX_HEIGHT = 480;
-                        var width = img.width;
-                        var height = img.height;
-
-                        if (width > height) {
-                            if (width > MAX_WIDTH) {
-                                height *= MAX_WIDTH / width;
-                                width = MAX_WIDTH;
-                            }
-                        } else {
-                            if (height > MAX_HEIGHT) {
-                                width *= MAX_HEIGHT / height;
-                                height = MAX_HEIGHT;
-                            }
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
                         }
-                        canvas.width = width;
-                        canvas.height = height;
-                        var ctx = canvas.getContext("2d");
-                        ctx.drawImage(img, 0, 0, width, height);
-
-                        dataurl = canvas.toDataURL(file.type);
-                        document.getElementById('items_image').src = dataurl;
-                        alert('Done');
+                    } else {
+                        if (height > MAX_HEIGHT) {
+                            width *= MAX_HEIGHT / height;
+                            height = MAX_HEIGHT;
+                        }
                     }
-                    reader.readAsDataURL(file);
 
+                    var canvas = document.createElement("canvas");
+                    canvas.width = width;
+                    canvas.height = height;
+                    canvas.getContext("2d").drawImage(this, 0, 0, width, height);
+                    this.src = canvas.toDataURL();
+                    document.getElementById('item_image_viewer').src = this.src;
                 }
-
-            } else {
-                alert('The File APIs are not fully supported in this browser.');
+                img.src = e.target.result;
             }
-        }
+            fileReader.readAsDataURL(e.target.files[0]);
+        });
     });
 </script>
 

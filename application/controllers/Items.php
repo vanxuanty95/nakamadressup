@@ -665,8 +665,8 @@ class Items extends Secure_Controller
 		$config = array('upload_path' => './uploads/item_pics/',
 			'allowed_types' => 'gif|jpg|png',
 			'max_size' => '1024',
-			'max_width' => '640',
-			'max_height' => '480'
+			'max_width' => '480',
+			'max_height' => '640'
 		);
 		$this->load->library('upload', $config);
 		$this->upload->do_upload('item_image');
