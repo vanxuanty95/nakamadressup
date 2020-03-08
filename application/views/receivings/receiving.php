@@ -77,6 +77,17 @@ if (isset($success)) {
                     <?php echo form_input(array('name' => 'item', 'id' => 'item', 'class' => 'form-control input-sm', 'size' => '50', 'tabindex' => '1')); ?>
                 </li>
                 <li class="pull-right">
+                    <?php echo form_open($controller_name . "/add_items_multiple", array('id' => 'add_items_multiple')); ?>
+                    <div class="form-group">
+                        <?php echo form_input(array('name' => 'generate_new_item_input', 'id' => 'generate_new_item_input', 'class' => 'form-control input-sm')); ?>
+                        <button id='generate_new_item_button' class='btn btn-info btn-sm pull-right modal-dlg'
+                                title='<?php echo $this->lang->line('receivings_add_item_multiple'); ?>'>
+                            <span class="glyphicon glyphicon-tag">&nbsp</span><?php echo $this->lang->line('sales_new_item'); ?>
+                        </button>
+                    </div>
+                    <?php echo form_close(); ?>
+                </li>
+                <li class="pull-right">
                     <button id='new_item_button' class='btn btn-info btn-sm pull-right modal-dlg'
                             data-btn-submit='<?php echo $this->lang->line('common_submit') ?>'
                             data-btn-new='<?php echo $this->lang->line('common_new') ?>'
