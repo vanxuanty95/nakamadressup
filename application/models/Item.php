@@ -518,7 +518,6 @@ class Item extends CI_Model
 
     public function add_items_multiple($numberItem, $employee_id, $consignmenter_name)
     {
-        $item_id = -1;
         $array_item_id = array();
         for ($i = 1; $i <= $numberItem; $i++) {
             $receiving_quantity = 0;
