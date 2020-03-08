@@ -523,6 +523,7 @@ class Item extends CI_Model
         for ($i = 1; $i <= $numberItem; $i++) {
             $receiving_quantity = 0;
             $item_type = 0;
+            $item_id = -1;
 
             if ($receiving_quantity == '0' && $item_type != ITEM_TEMP) {
                 $receiving_quantity = '1';
@@ -554,11 +555,7 @@ class Item extends CI_Model
                 }
 
                 if ($success) {
-                    if ($i != 1) {
-                        $array_item_id[] = $item_id + $i - 1;
-                    } else {
-                        $array_item_id[] = $item_id;
-                    }
+                    $array_item_id[] = $item_id;
                 }
             }
         }
