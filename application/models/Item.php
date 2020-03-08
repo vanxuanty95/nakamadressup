@@ -115,6 +115,9 @@ class Item extends CI_Model
             $this->db->select('MAX(items.description) AS description');
             $this->db->select('MAX(items.cost_price) AS cost_price');
             $this->db->select('MAX(items.unit_price) AS unit_price');
+            $this->db->select('MAX(items.receiving_id) AS receiving_id');
+            $this->db->select('MAX(items.expiration_date) AS expiration_date');
+            $this->db->select('MAX(items.paid) AS paid');
             $this->db->select('MAX(items.reorder_level) AS reorder_level');
             $this->db->select('MAX(items.receiving_quantity) AS receiving_quantity');
             $this->db->select('MAX(items.pic_filename) AS pic_filename');
@@ -168,6 +171,7 @@ class Item extends CI_Model
             $this->db->or_like('item_number', $search);
             $this->db->or_like('items.item_id', $search);
             $this->db->or_like('consignmenter_name', $search);
+            $this->db->or_like('receiving_id', $search);
             $this->db->or_like('items.category', $search);
             if ($filters['search_custom'] && $attributes_enabled) {
                 $this->db->or_like('attribute_value', $search);
