@@ -635,6 +635,122 @@ class Items extends Secure_Controller
 		}
 	}
 
+	public function add_items_multiple($item_id = -1, $numberItem)
+	{
+		$array_item_id = array();
+		for ($i = 1; $i <= $numberItem; $i++) {
+			$receiving_quantity = 0;
+			$item_type = 0;
+
+			if($receiving_quantity == '0' && $item_type!= ITEM_TEMP)
+			{
+				$receiving_quantity = '1';
+			}
+			$default_pack_name = 1;
+
+			//Save item data
+			$item_data = array(
+				'item_type' => $item_type,
+				'stock_type' => 0,
+				'cost_price' => 0,
+				'unit_price' => 0,
+				'reorder_level' => 0,
+				'receiving_quantity' => $receiving_quantity,
+			);
+
+			if($item_data['item_type'] == ITEM_TEMP)
+			{
+				$item_data['stock_type'] = HAS_NO_STOCK;
+				$item_data['receiving_quantity'] = 0;
+				$item_data['reorder_level'] = 0;
+			}
+
+			$employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
+
+			if($this->Item->save($item_data, $item_id))
+			{
+				$success = TRUE;
+				$new_item = FALSE;
+				//New item
+				if($item_id == -1)
+				{
+					$item_id = $item_data['item_id'];
+					$new_item = TRUE;
+				}
+
+				$use_destination_based_tax = (boolean)$this->config->item('use_destination_based_tax');
+
+				if(!$use_destination_based_tax)
+				{
+					$items_taxes_data = array();
+					$tax_names = $this->input->post('tax_names');
+					$tax_percents = $this->input->post('tax_percents');
+					$count = count($tax_percents);
+					for ($k = 0; $k < $count; ++$k)
+					{
+						$tax_percentage = parse_decimals($tax_percents[$k]);
+						if(is_numeric($tax_percentage))
+						{
+							$items_taxes_data[] = array('name' => $tax_names[$k], 'percent' => $tax_percentage);
+						}
+					}
+					$success &= $this->Item_taxes->save($items_taxes_data, $item_id);
+				}
+
+				//Save item quantity
+				$stock_locations = $this->Stock_location->get_undeleted_all()->result_array();
+				foreach($stock_locations as $location)
+				{
+					$updated_quantity = parse_decimals($this->input->post('quantity_' . $location['location_id']));
+					if($item_data['item_type'] == ITEM_TEMP)
+					{
+						$updated_quantity = 0;
+					}
+					$location_detail = array('item_id' => $item_id,
+						'location_id' => $location['location_id'],
+						'quantity' => $updated_quantity);
+
+
+					$item_quantity = $this->Item_quantity->get_item_quantity($item_id, $location['location_id']);
+					if($item_quantity->quantity != $updated_quantity || $new_item)
+					{
+						$success &= $this->Item_quantity->save($location_detail, $item_id, $location['location_id']);
+
+						$inv_data = array(
+							'trans_date' => date('Y-m-d H:i:s'),
+							'trans_items' => $item_id,
+							'trans_user' => $employee_id,
+							'trans_location' => $location['location_id'],
+							'trans_comment' => $this->lang->line('items_manually_editing_of_quantity'),
+							'trans_inventory' => $updated_quantity - $item_quantity->quantity
+						);
+
+						$success &= $this->Inventory->insert($inv_data);
+					}
+				}
+
+				// Save item attributes
+				$attribute_links = $this->input->post('attribute_links') != NULL ? $this->input->post('attribute_links') : array();
+				$attribute_ids = $this->input->post('attribute_ids');
+				$this->Attribute->delete_link($item_id);
+				foreach($attribute_links as $definition_id => $attribute_id)
+				{
+					$definition_type = $this->Attribute->get_info($definition_id)->definition_type;
+					if($definition_type != DROPDOWN)
+					{
+						$attribute_id = $this->Attribute->save_value($attribute_id, $definition_id, $item_id, $attribute_ids[$definition_id], $definition_type);
+					}
+					$this->Attribute->save_link($item_id, $definition_id, $attribute_id);
+				}
+
+				if($success && $upload_success)
+				{
+					array_push($array_item_id, $item_id);
+				}
+			}
+		}
+	}
+
 	public function check_item_number()
 	{
 		$exists = $this->Item->item_number_exists($this->input->post('item_number'), $this->input->post('item_id'));
