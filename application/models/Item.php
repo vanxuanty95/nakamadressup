@@ -330,7 +330,7 @@ class Item extends CI_Model
     {
         $this->db->from('items');
         $this->db->join('consignmenters', 'consignmenters.person_id = items.consignmenter_id', 'left');
-        $this->db->where('item_id', $item_number);
+        $this->db->where('$item_number', $item_number);
         if ($ignore_deleted == FALSE) {
             $this->db->where('items.deleted', $deleted);
         }
