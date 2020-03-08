@@ -123,7 +123,6 @@ class Receivings extends Secure_Controller
         $employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
         $array_item_id = $this->Item->add_items_multiple($this->input->post('generate_new_item_input'), $employee_id, $consignmenter_name);
 
-        log_message('debug', $array_item_id);
         $data = array();
         $mode = $this->receiving_lib->get_mode();
         $quantity = 0;
@@ -132,7 +131,6 @@ class Receivings extends Secure_Controller
         $fee = 20;
         $discount_type = $this->config->item('default_receivings_discount_type');
         foreach ($array_item_id as $item_id) {
-            log_message('debug',$item_id);
             $item_id_or_number_or_item_kit_or_receipt = $item_id;
             $this->barcode_lib->parse_barcode_fields($quantity, $item_id_or_number_or_item_kit_or_receipt);
             if (!$this->receiving_lib->add_item($item_id_or_number_or_item_kit_or_receipt, $quantity, $item_location, $discount, $fee, $discount_type)) {
