@@ -131,6 +131,7 @@ class Receivings extends Secure_Controller
         $fee = 20;
         $discount_type = $this->config->item('default_receivings_discount_type');
         foreach ($array_item_id as $item_id) {
+            $item_id = (int)trim($item_id);
             $stock_locations = $this->Stock_location->get_undeleted_all()->result_array();
             foreach($stock_locations as $location)
             {
