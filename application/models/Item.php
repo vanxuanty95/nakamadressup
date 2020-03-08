@@ -538,7 +538,8 @@ class Item extends CI_Model
                 'unit_price' => 0,
                 'reorder_level' => 0,
                 'receiving_quantity' => $receiving_quantity,
-                'low_sell_item_id' => $item_id
+                'low_sell_item_id' => $item_id,
+                'tax_category_id' => 0,
             );
 
             if ($item_data['item_type'] == ITEM_TEMP) {

@@ -132,6 +132,33 @@ class Receivings extends Secure_Controller
         $discount_type = $this->config->item('default_receivings_discount_type');
         foreach ($array_item_id as $item_id) {
             log_message("debug", $item_id);
+            $stock_locations = $this->Stock_location->get_undeleted_all()->result_array();
+            foreach($stock_locations as $location)
+            {
+                $updated_quantity = 0;
+                $location_detail = array('item_id' => $item_id,
+                    'location_id' => $location['location_id'],
+                    'quantity' => $updated_quantity);
+
+                $new_item = TRUE;
+                $item_quantity = $this->Item_quantity->get_item_quantity($item_id, $location['location_id']);
+                if($item_quantity->quantity != $updated_quantity || $new_item)
+                {
+                    $success = $this->Item_quantity->save($location_detail, $item_id, $location['location_id']);
+
+                    $inv_data = array(
+                        'trans_date' => date('Y-m-d H:i:s'),
+                        'trans_items' => $item_id,
+                        'trans_user' => $employee_id,
+                        'trans_location' => $location['location_id'],
+                        'trans_comment' => $this->lang->line('items_manually_editing_of_quantity'),
+                        'trans_inventory' => $updated_quantity - $item_quantity->quantity
+                    );
+
+                    $success &= $this->Inventory->insert($inv_data);
+                }
+            }
+
             $item_id_or_number_or_item_kit_or_receipt = $item_id;
             $this->barcode_lib->parse_barcode_fields($quantity, $item_id_or_number_or_item_kit_or_receipt);
             if (!$this->receiving_lib->add_item($item_id_or_number_or_item_kit_or_receipt, $quantity, $item_location, $discount, $fee, $discount_type)) {
