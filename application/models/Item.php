@@ -538,6 +538,7 @@ class Item extends CI_Model
                 'unit_price' => 0,
                 'reorder_level' => 0,
                 'receiving_quantity' => $receiving_quantity,
+                'low_sell_item_id' => -1
             );
 
             if($item_data['item_type'] == ITEM_TEMP)
@@ -559,8 +560,11 @@ class Item extends CI_Model
 
                 if($success)
                 {
-                    $array_item_id[] = $item_id;
-                    log_message('debug',$item_id);
+                    if ($i != 1){
+                        $array_item_id[] = $item_id + $i - 1;
+                    }else{
+                        $array_item_id[] = $item_id;
+                    }
                 }
             }
         }
