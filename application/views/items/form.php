@@ -337,9 +337,9 @@
                 </div>
                 <div>
 						<span class="btn btn-default btn-sm btn-file">
-							<span class="fileinput-new"><?php echo $this->lang->line("items_select_image"); ?></span>
-							<span class="fileinput-exists"><?php echo $this->lang->line("items_change_image"); ?></span>
-							<input type="file" name="item_image" accept="image/*">
+							<span class="fileinput-new" id="fileinput-new-btn"><?php echo $this->lang->line("items_select_image"); ?></span>
+							<span class="fileinput-exists" id="fileinput-exists-btn"><?php echo $this->lang->line("items_change_image"); ?></span>
+							<input type="file" name="item_image" id="item_image-btn" accept="image/*">
 						</span>
                     <a href="#" class="btn btn-default btn-sm fileinput-exists"
                        data-dismiss="fileinput"><?php echo $this->lang->line("items_remove_image"); ?></a>
@@ -664,7 +664,7 @@
 
         init_validation();
 
-        $('#items_image').change(function (evt) {
+        $('#item_image-btn').change(function (evt) {
 
             var files = evt.target.files;
             var file = files[0];
@@ -678,7 +678,7 @@
 
         function ResizeImage() {
             if (window.File &amp;&amp; window.FileReader &amp;&amp; window.FileList &amp;&amp; window.Blob) {
-                var filesToUploads = document.getElementById('items_image').files;
+                var filesToUploads = document.getElementById('item_image-btn').files;
                 var file = filesToUploads[0];
                 if (file) {
 
