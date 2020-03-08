@@ -112,7 +112,9 @@ class Receivings extends Secure_Controller
 
     public function add_items_multiple()
     {
-        $array_item_id = $this->Item->add_items_multiple(-1, $this->input->post('generate_new_item_input'));
+        $employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
+        $array_item_id = $this->Item->add_items_multiple($this->input->post('generate_new_item_input'), $employee_id);
+
         $data = array();
         $mode = $this->receiving_lib->get_mode();
         $quantity = 0;

@@ -516,6 +516,55 @@ class Item extends CI_Model
         }
     }
 
+    public function add_items_multiple($numberItem, $employee_id)
+    {
+        $item_id = -1;
+        $array_item_id = array();
+        for ($i = 1; $i <= $numberItem; $i++) {
+            $receiving_quantity = 0;
+            $item_type = 0;
+
+            if($receiving_quantity == '0' && $item_type!= ITEM_TEMP)
+            {
+                $receiving_quantity = '1';
+            }
+            $default_pack_name = 1;
+
+            //Save item data
+            $item_data = array(
+                'item_type' => $item_type,
+                'stock_type' => 0,
+                'cost_price' => 0,
+                'unit_price' => 0,
+                'reorder_level' => 0,
+                'receiving_quantity' => $receiving_quantity,
+            );
+
+            if($item_data['item_type'] == ITEM_TEMP)
+            {
+                $item_data['stock_type'] = HAS_NO_STOCK;
+                $item_data['receiving_quantity'] = 0;
+                $item_data['reorder_level'] = 0;
+            }
+
+            if($this->Item->save($item_data, $item_id))
+            {
+                $success = TRUE;
+                $new_item = FALSE;
+                //New item
+                if($item_id == -1)
+                {
+                    $item_id = $item_data['item_id'];
+                }
+
+                if($success)
+                {
+                    array_push($array_item_id, $item_id);
+                }
+            }
+        }
+    }
+
     public function get_search_suggestions($search, $filters = array('is_deleted' => FALSE, 'search_custom' => FALSE), $unique = FALSE, $limit = 25)
     {
         $suggestions = array();
