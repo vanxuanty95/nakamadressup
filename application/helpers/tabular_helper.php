@@ -412,10 +412,13 @@ function get_item_data_row($item)
 		'name' => $item->name,
 		'category' => $item->category,
 		'consignmenter_name' => $item->consignmenter_name,
+		'receiving_id' => $item->receiving_id,
 		'cost_price' => to_currency($item->cost_price),
 		'unit_price' => to_currency($item->unit_price),
+		'expiration_date' => $item->expiration_date,
 		'quantity' => to_quantity_decimals($item->quantity),
 		'tax_percents' => !$tax_percents ? '-' : $tax_percents,
+		'paid' => $item->paid,
 		'item_pic' => $image
 	);
 
