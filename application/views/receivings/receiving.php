@@ -57,10 +57,8 @@ if (isset($success)) {
 
         <?php echo form_open($controller_name . "/add_items_multiple", array('id' => 'add_items_multiple', 'class' => 'form-horizontal')); ?>
         <div class="form-group form-group-sm">
-            <?php echo form_input(array('name' => 'generate_new_item_input', 'id' => 'generate_new_item_input', 'class' => 'form-control input-sm')); ?>
-        </div>
-        <div class="form-group form-group-sm">
-            <button id='generate_new_item_button' class='btn btn-info btn-sm pull-right'
+            <?php echo form_input(array('name' => 'generate_new_item_input', 'id' => 'generate_new_item_input', 'class' => 'form-control input-sm col-xs-3')); ?>
+            <button id='generate_new_item_button' class='btn btn-info btn-sm col-xs-3'
                     title='<?php echo $this->lang->line('receivings_add_item_multiple'); ?>'>
                 <span class="glyphicon glyphicon-tag">&nbsp</span><?php echo $this->lang->line('receivings_add_item_multiple'); ?>
             </button>
