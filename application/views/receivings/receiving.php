@@ -12,6 +12,8 @@ if (!empty($warning)) {
 if (isset($success)) {
     echo "<div class='alert alert-dismissible alert-success'>" . $success . "</div>";
 }
+
+echo "<div class='alert alert-dismissible alert-danger'>" . 'Luôn luôn nhập người thanh lý trước khi thêm hàng' . "</div>";
 ?>
 
     <div id="register_wrapper">
