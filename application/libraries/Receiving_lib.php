@@ -174,6 +174,7 @@ class Receiving_lib
             $item_id = $this->CI->Item->get_item_id($item_id, $include_deleted);
 
             if (!$item_id) {
+                log_message("debug", '177'. $item_id);
                 return FALSE;
             }
         }
