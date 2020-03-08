@@ -328,7 +328,7 @@ function get_items_manage_table_headers()
 		array('unit_price' => $CI->lang->line('items_unit_price')),
 		array('expiration_date' => $CI->lang->line('expiration_date')),
 		array('quantity' => $CI->lang->line('items_quantity')),
-		array('quantity' => $CI->lang->line('items_paid'))
+		array('items_paid' => $CI->lang->line('items_paid'))
 	);
 
 	$headers[] = array('item_pic' => $CI->lang->line('items_image'), 'sortable' => FALSE);
