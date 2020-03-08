@@ -894,7 +894,7 @@ class Item extends CI_Model
 
     public function save_consignmenter_id_and_expiration_date($item_id, $consignmenter_id, $receiving_id, $expiration_date)
     {
-        $data = array('$consignmenter_id' => $consignmenter_id, 'receiving_id' => $receiving_id, 'expiration_date' => $expiration_date);
+        $data = array('$consignmenter_id' => (int)$consignmenter_id, 'receiving_id' => $receiving_id, 'expiration_date' => $expiration_date);
 
         return $this->save($data, $item_id);
     }
