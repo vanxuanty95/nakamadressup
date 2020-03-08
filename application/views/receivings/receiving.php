@@ -55,6 +55,16 @@ if (isset($success)) {
         </div>
         <?php echo form_close(); ?>
 
+        <?php echo form_open($controller_name . "/add_items_multiple", array('id' => 'add_items_multiple')); ?>
+        <div class="form-group">
+            <?php echo form_input(array('name' => 'generate_new_item_input', 'id' => 'generate_new_item_input', 'class' => 'form-control input-sm')); ?>
+            <button id='generate_new_item_button' class='btn btn-info btn-sm pull-right'
+                    title='<?php echo $this->lang->line('receivings_add_item_multiple'); ?>'>
+                <span class="glyphicon glyphicon-tag">&nbsp</span><?php echo $this->lang->line('receivings_add_item_multiple'); ?>
+            </button>
+        </div>
+        <?php echo form_close(); ?>
+
         <?php echo form_open($controller_name . "/add", array('id' => 'add_item_form', 'class' => 'form-horizontal panel panel-default')); ?>
         <div class="panel-body form-group">
             <ul>
@@ -75,17 +85,6 @@ if (isset($success)) {
                 </li>
                 <li class="pull-left">
                     <?php echo form_input(array('name' => 'item', 'id' => 'item', 'class' => 'form-control input-sm', 'size' => '50', 'tabindex' => '1')); ?>
-                </li>
-                <li class="pull-right">
-                    <?php echo form_open($controller_name . "/add_items_multiple", array('id' => 'add_items_multiple')); ?>
-                    <div class="form-group">
-                        <?php echo form_input(array('name' => 'generate_new_item_input', 'id' => 'generate_new_item_input', 'class' => 'form-control input-sm')); ?>
-                        <button id='generate_new_item_button' class='btn btn-info btn-sm pull-right'
-                                title='<?php echo $this->lang->line('receivings_add_item_multiple'); ?>'>
-                            <span class="glyphicon glyphicon-tag">&nbsp</span><?php echo $this->lang->line('sales_new_item'); ?>
-                        </button>
-                    </div>
-                    <?php echo form_close(); ?>
                 </li>
                 <li class="pull-right">
                     <button id='new_item_button' class='btn btn-info btn-sm pull-right modal-dlg'
