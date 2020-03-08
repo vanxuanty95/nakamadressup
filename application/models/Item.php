@@ -38,21 +38,14 @@ class Item extends CI_Model
     {
         // check if $item_id is a number and not a string starting with 0
         // because cases like 00012345 will be seen as a number where it is a barcode
-
-        log_message("debug", '172' . $item_id);
-        log_message("debug", 'ctype_digit($item_id)' . ctype_digit($item_id));
-        log_message("debug", 'substr($item_id, 0, 1)' . substr($item_id, 0, 1));
         if (ctype_digit($item_id) && substr($item_id, 0, 1) != '0') {
             $this->db->from('items');
             $this->db->where('item_id', (int)$item_id);
             if ($ignore_deleted == FALSE) {
                 $this->db->where('deleted', $deleted);
             }
-            log_message("debug", 'co ich' . $this->db->get()->num_rows());
             return ($this->db->get()->num_rows() == 1);
         }
-        log_message("debug", 'vo ich' . $item_id);
-
         return FALSE;
     }
 
@@ -560,7 +553,7 @@ class Item extends CI_Model
                 }
 
                 if ($success) {
-                    $array_item_id[] = $item_id;
+                    $array_item_id[] = (int)trim($item_id);
                 }
             }
         }

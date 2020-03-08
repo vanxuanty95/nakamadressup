@@ -169,14 +169,10 @@ class Receiving_lib
     public function add_item($item_id, $quantity = 1, $item_location = NULL, $discount = 0, $fee = 0, $discount_type = 0, $price = NULL, $description = NULL, $serialnumber = NULL, $receiving_quantity = NULL, $receiving_id = NULL, $include_deleted = FALSE)
     {
         //make sure item exists in database.
-        log_message("debug", '172 before'. $item_id. $include_deleted);
         if (!$this->CI->Item->exists($item_id, $include_deleted)) {
-            log_message("debug", '172 into'. $item_id. $include_deleted);
             //try to get item id given an item_number
             $item_id = $this->CI->Item->get_item_id($item_id, $include_deleted);
-            log_message("debug", '175'. $item_id);
             if (!$item_id) {
-                log_message("debug", '177'. $item_id);
                 return FALSE;
             }
         }
