@@ -80,7 +80,7 @@ if (isset($success)) {
                     <?php echo form_open($controller_name . "/add_items_multiple", array('id' => 'add_items_multiple')); ?>
                     <div class="form-group">
                         <?php echo form_input(array('name' => 'generate_new_item_input', 'id' => 'generate_new_item_input', 'class' => 'form-control input-sm')); ?>
-                        <button id='generate_new_item_button' class='btn btn-info btn-sm pull-right modal-dlg'
+                        <button id='generate_new_item_button' class='btn btn-info btn-sm pull-right'
                                 title='<?php echo $this->lang->line('receivings_add_item_multiple'); ?>'>
                             <span class="glyphicon glyphicon-tag">&nbsp</span><?php echo $this->lang->line('sales_new_item'); ?>
                         </button>
