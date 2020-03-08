@@ -690,8 +690,7 @@
                     canvas.width = width;
                     canvas.height = height;
                     canvas.getContext("2d").drawImage(this, 0, 0, width, height);
-                    this.src = canvas.toDataURL();
-                    document.getElementById('item_image_viewer').src = this.src;
+                    document.getElementById('item_image_viewer').src = canvas.toDataURL();
                 }
                 img.src = e.target.result;
             }
