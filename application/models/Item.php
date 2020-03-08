@@ -563,6 +563,7 @@ class Item extends CI_Model
                 }
             }
         }
+        return $array_item_id;
     }
 
     public function get_search_suggestions($search, $filters = array('is_deleted' => FALSE, 'search_custom' => FALSE), $unique = FALSE, $limit = 25)
