@@ -677,7 +677,7 @@
 
         function ResizeImage() {
             if (window.File &amp;&amp; window.FileReader &amp;&amp; window.FileList &amp;&amp; window.Blob) {
-                var filesToUploads = document.getElementById('imageFile').files;
+                var filesToUploads = document.getElementById('items_image').files;
                 var file = filesToUploads[0];
                 if (file) {
 
