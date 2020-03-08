@@ -142,14 +142,14 @@
 			</div>
 		</div>
 
-		<div class="form-group form-group-sm">
+		<div class="form-group form-group-sm items_consignmenter_group">
 			<?php echo form_label($this->lang->line('items_consignmenter'), 'consignmenter', array('class'=>'control-label col-xs-3')); ?>
 			<div class='col-xs-8'>
 				<?php echo form_dropdown('consignmenter_id', $consignmenters, $selected_consignmenter, array('class'=>'form-control')); ?>
 			</div>
 		</div>
 
-		<div class="form-group form-group-sm">
+		<div class="form-group form-group-sm cost_price_group">
 			<?php echo form_label($this->lang->line('items_cost_price'), 'cost_price', array('class'=>'required control-label col-xs-3')); ?>
 			<div class="col-xs-4">
 				<div class="input-group input-group-sm">
@@ -169,7 +169,7 @@
 			</div>
 		</div>
 
-		<div class="form-group form-group-sm" style="display: none;">
+		<div class="form-group form-group-sm items_unit_price_group">
 			<?php echo form_label($this->lang->line('items_unit_price'), 'unit_price', array('class'=>'required control-label col-xs-3')); ?>
 			<div class='col-xs-4'>
 				<div class="input-group input-group-sm">
@@ -277,7 +277,7 @@
 		foreach($stock_locations as $key=>$location_detail)
 		{
 		?>
-			<div class="form-group form-group-sm">
+			<div class="form-group form-group-sm items_quantity_group">
 				<?php echo form_label($this->lang->line('items_quantity').' '.$location_detail['location_name'], 'quantity_' . $key, array('class'=>'required control-label col-xs-3')); ?>
 				<div class='col-xs-4'>
 					<?php echo form_input(array(
@@ -292,7 +292,7 @@
 		}
 		?>
 
-		<div class="form-group form-group-sm">
+		<div class="form-group form-group-sm items_receiving_quantity_group">
 			<?php echo form_label($this->lang->line('items_receiving_quantity'), 'receiving_quantity', array('class'=>'required control-label col-xs-3')); ?>
 			<div class='col-xs-4'>
 				<?php echo form_input(array(
@@ -304,7 +304,7 @@
 			</div>
 		</div>
 
-		<div class="form-group form-group-sm">
+		<div class="form-group form-group-sm items_reorder_level_group">
 			<?php echo form_label($this->lang->line('items_reorder_level'), 'reorder_level', array('class'=>'required control-label col-xs-3')); ?>
 			<div class='col-xs-4'>
 				<?php echo form_input(array(
