@@ -158,7 +158,7 @@ class Receivings extends Secure_Controller
                 }
             }
 
-            $item_id_or_number_or_item_kit_or_receipt = $item_id;
+            $item_id_or_number_or_item_kit_or_receipt = (int)trim($item_id);
             $this->barcode_lib->parse_barcode_fields($quantity, $item_id_or_number_or_item_kit_or_receipt);
             if (!$this->receiving_lib->add_item($item_id_or_number_or_item_kit_or_receipt, $quantity, $item_location, $discount, $fee, $discount_type)) {
                 $data['error'] = $this->lang->line('receivings_unable_to_add_item');
