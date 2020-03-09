@@ -112,6 +112,7 @@ class Receivings extends Secure_Controller
 
     public function add_items_multiple()
     {
+        $data = array();
 
         $consignmenter_name = '';
         $consignmenter_id = $this->receiving_lib->get_consignmenter();
@@ -120,10 +121,14 @@ class Receivings extends Secure_Controller
             $consignmenter_name = $consignmenter_info->consignmenter_name;
         }
 
+        if (!isset($consignmenter_id) || trim($consignmenter_id) === ''){
+            $data['error'] = $this->lang->line('receivings_consignmenter_unavailable');
+            $this->_reload($data);
+        }
+
         $employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
         $array_item_id = $this->Item->add_items_multiple($this->input->post('generate_new_item_input'), $employee_id, $consignmenter_name);
 
-        $data = array();
         $mode = $this->receiving_lib->get_mode();
         $quantity = 0;
         $item_location = $this->receiving_lib->get_stock_source();

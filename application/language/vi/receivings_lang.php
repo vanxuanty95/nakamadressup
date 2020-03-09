@@ -52,6 +52,7 @@ $lang["receivings_consignmenter_location"] = "Vị trí";
 $lang["receivings_total"] = "Tổng cộng";
 $lang["receivings_transaction_failed"] = "Nhận các giao dịch gặp lỗi.";
 $lang["receivings_unable_to_add_item"] = "Hàng hóa thêm vào Nhập hàng gặp lỗi.";
+$lang["receivings_consignmenter_unavailable"] = "Chưa nhập người thanh lý.";
 $lang["receivings_unsuccessfully_updated"] = "Gặp lỗi khi cập nhật nhập hàng.";
 $lang["receivings_update"] = "Cập nhật";
 $lang["receivings_fee"] = "Phí %";
