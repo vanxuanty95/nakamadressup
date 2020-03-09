@@ -236,7 +236,7 @@ class Receivings extends Secure_Controller
     public function delete_item($item_number)
     {
         $item = $this->receiving_lib->delete_item($item_number);
-        if (!isset($item['consignmenter_id']) || trim($item['consignmenter_id']) === ''){
+        if (!isset($item['consignmenter_id']) || trim($item['consignmenter_id']) === '') {
             $this->Item->delete($item['item_id']);
         }
         $this->_reload();
@@ -445,8 +445,12 @@ class Receivings extends Secure_Controller
 
     public function cancel_receiving()
     {
-        $this->receiving_lib->clear_all();
-
+        $items = $this->receiving_lib->clear_all();
+        foreach ($items as $item) {
+            if (!isset($item['consignmenter_id']) || trim($item['consignmenter_id']) === '') {
+                $this->Item->delete($item['item_id']);
+            }
+        }
         $this->_reload();
     }
 }

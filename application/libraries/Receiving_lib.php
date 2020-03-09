@@ -347,11 +347,13 @@ class Receiving_lib
 
     public function clear_all()
     {
+        $items = $this->get_cart();
         $this->clear_mode();
         $this->empty_cart();
         $this->remove_consignmenter();
         $this->clear_comment();
         $this->clear_reference();
+        return $items;
     }
 
     public function get_item_total($quantity, $price, $discount, $fee, $discount_type, $receiving_quantity)
