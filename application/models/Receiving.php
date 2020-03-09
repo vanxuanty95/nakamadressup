@@ -276,6 +276,14 @@ class Receiving extends CI_Model
 			)'
         );
     }
+
+    public function get_number_reviving_today()
+    {
+        $this->db->from('receivings');
+        $this->db->where('DATE_FORMAT(receiving_time, "%Y-%m-%d") >= DATE_FORMAT(NOW(), "%Y-%m-%d")');
+        $number = $this->db->get()->num_rows();
+        return $number + 1;
+    }
 }
 
 ?>
