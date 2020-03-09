@@ -514,7 +514,7 @@ class Item extends CI_Model
         }
     }
 
-    public function add_items_multiple($numberItem, $employee_id, $consignmenter_name)
+    public function add_items_multiple($numberItem, $employee_id, $consignmenter_name, $latest_alphabet)
     {
         $array_item_id = array();
         for ($i = 1; $i <= $numberItem; $i++) {
@@ -529,7 +529,7 @@ class Item extends CI_Model
 
             //Save item data
             $item_data = array(
-                'name' => $consignmenter_name . chr(64 + $i),
+                'name' => $consignmenter_name . chr(64 + $i + $latest_alphabet),
                 'item_type' => $item_type,
                 'stock_type' => 0,
                 'cost_price' => 0,

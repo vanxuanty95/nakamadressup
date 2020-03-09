@@ -125,7 +125,7 @@ class Receivings extends Secure_Controller
             $data['error'] = $this->lang->line('receivings_consignmenter_unavailable');
         } else {
             $employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
-            $array_item_id = $this->Item->add_items_multiple($this->input->post('generate_new_item_input'), $employee_id, $consignmenter_name);
+            $array_item_id = $this->Item->add_items_multiple($this->input->post('generate_new_item_input'), $employee_id, $consignmenter_name, $this->get_latest_alphabet());
 
             $mode = $this->receiving_lib->get_mode();
             $quantity = 0;
@@ -167,6 +167,21 @@ class Receivings extends Secure_Controller
         }
 
         $this->_reload($data);
+    }
+
+    public function get_latest_alphabet()
+    {
+        $latest_character_by_int = 0;
+        $latest_character = "A";
+        $list_items = $this->receiving_lib->get_cart();
+        foreach ($list_items as $item) {
+            $latest_character_temp = substr(trim($item->name), strlen(trim($item->name)) - 1);
+            if (ord($latest_character_temp) >= ord($latest_character) && ord($latest_character_temp) <= 90) {
+                $latest_character = $latest_character_temp;
+                $latest_character_by_int = ord($latest_character_temp) - 65;
+            }
+        }
+        return $latest_character_by_int;
     }
 
     public function edit_item($item_id)
