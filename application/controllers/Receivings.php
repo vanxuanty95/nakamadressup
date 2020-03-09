@@ -235,8 +235,10 @@ class Receivings extends Secure_Controller
 
     public function delete_item($item_number)
     {
-        $this->receiving_lib->delete_item($item_number);
-
+        $item = $this->receiving_lib->delete_item($item_number);
+        if ((!isset($item->name) || trim($item->name) === '')){
+            $this->Item->delete($item->item_id);
+        }
         $this->_reload();
     }
 

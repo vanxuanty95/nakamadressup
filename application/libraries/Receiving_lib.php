@@ -293,8 +293,10 @@ class Receiving_lib
     public function delete_item($line)
     {
         $items = $this->get_cart();
+        $item = $items[$line];
         unset($items[$line]);
         $this->set_cart($items);
+        return $item;
     }
 
     public function return_entire_receiving($receipt_receiving_id)
