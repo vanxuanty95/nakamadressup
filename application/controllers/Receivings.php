@@ -174,12 +174,11 @@ class Receivings extends Secure_Controller
         $latest_character_by_int = 0;
         $latest_character = "A";
         $list_items = $this->receiving_lib->get_cart();
-        log_message("debug", print_r($list_items));
         foreach ($list_items as $item) {
             $latest_character_temp = substr(trim($item['name']), strlen(trim($item['name'])) - 1);
-            if (ord($latest_character_temp) >= ord($latest_character) && ord($latest_character_temp) <= 90) {
+            if (ord($latest_character_temp) > ord($latest_character) && ord($latest_character_temp) <= 90) {
                 $latest_character = $latest_character_temp;
-                $latest_character_by_int = ord($latest_character_temp) - 65;
+                $latest_character_by_int = ord($latest_character_temp) - 64;
             }
         }
         return $latest_character_by_int;
