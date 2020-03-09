@@ -1,7 +1,7 @@
 <?php $this->load->view("partial/header"); ?>
 
 <?php
-echo "<h5 class='alert alert-dismissible alert-danger'>" . 'Luôn luôn nhập người thanh lý trước khi thêm hàng' . "</h5>";
+echo "<h5 class='alert alert-dismissible alert-danger'>" . 'Luôn luôn nhập mã thanh lý trước khi thêm hàng' . "</h5>";
 
 if (isset($error)) {
     echo "<div class='alert alert-dismissible alert-danger'>" . $error . "</div>";
@@ -186,7 +186,7 @@ if (isset($success)) {
                         ?>
                         <td><?php echo form_input(array('name' => 'fee', 'class' => 'form-control input-sm', 'value' => to_decimals($item['fee'], 0))); ?></td>
                         <td>
-                            <?php echo to_currency(($item['discount_type'] == PERCENT) ? $item['price'] * $item['quantity'] * $item['receiving_quantity'] - $item['price'] * $item['quantity'] * $item['receiving_quantity'] * $item['discount'] / 100 + $item['price'] * $item['quantity'] * $item['receiving_quantity'] * $item['fee'] / 100 : $item['price'] * $item['quantity'] * $item['receiving_quantity'] - $item['discount'] + $item['price'] * $item['quantity'] * $item['receiving_quantity'] * $item['fee'] / 100); ?></td>
+                            <?php echo to_currency(($item['discount_type'] == PERCENT) ? $item['price'] * $item['quantity'] * $item['receiving_quantity'] - $item['price'] * $item['quantity'] * $item['receiving_quantity'] * $item['discount'] / 100 - $item['price'] * $item['quantity'] * $item['receiving_quantity'] * $item['fee'] / 100 : $item['price'] * $item['quantity'] * $item['receiving_quantity'] - $item['discount'] - $item['price'] * $item['quantity'] * $item['receiving_quantity'] * $item['fee'] / 100); ?></td>
                         <td><a href="javascript:$('#<?php echo 'cart_' . $line ?>').submit();"
                                title=<?php echo $this->lang->line('receivings_update') ?>><span
                                         class="glyphicon glyphicon-refresh"></span></a></td>
