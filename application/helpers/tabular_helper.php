@@ -415,10 +415,10 @@ function get_item_data_row($item)
 		'receiving_id' => $item->receiving_id,
 		'cost_price' => to_currency($item->cost_price),
 		'unit_price' => to_currency($item->unit_price),
-		'expiration_date' => date('d/m/Y', strtotime($item->expiration_date)),
+		'expiration_date' => to_datetime(strtotime($item->expiration_date)),
 		'quantity' => to_quantity_decimals($item->quantity),
 		'tax_percents' => !$tax_percents ? '-' : $tax_percents,
-		'paid' => $item->paid,
+		'paid' => binary_to_icon($item->paid),
 		'item_pic' => $image
 	);
 
