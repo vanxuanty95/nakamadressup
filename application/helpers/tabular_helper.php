@@ -296,7 +296,7 @@ function get_consignmenter_data_row($consignmenter)
 
 	return array (
 		'people.person_id' => $consignmenter->person_id,
-		'consignmenter_name' => $consignmenter->name,
+		'consignmenter_name' => $consignmenter->consignmenter_name,
 		'agency_name' => $consignmenter->agency_name,
 		'category' => $consignmenter->category,
 		'name' => $consignmenter->name,
