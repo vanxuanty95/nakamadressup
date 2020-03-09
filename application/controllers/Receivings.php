@@ -121,53 +121,51 @@ class Receivings extends Secure_Controller
             $consignmenter_name = $consignmenter_info->consignmenter_name;
         }
 
-        if ($consignmenter_id == -1 || (!isset($consignmenter_id) || trim($consignmenter_id) === '')){
+        if ($consignmenter_id == -1 || (!isset($consignmenter_id) || trim($consignmenter_id) === '')) {
             $data['error'] = $this->lang->line('receivings_consignmenter_unavailable');
-            $this->_reload($data);
-        }
+        } else {
+            $employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
+            $array_item_id = $this->Item->add_items_multiple($this->input->post('generate_new_item_input'), $employee_id, $consignmenter_name);
 
-        $employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
-        $array_item_id = $this->Item->add_items_multiple($this->input->post('generate_new_item_input'), $employee_id, $consignmenter_name);
+            $mode = $this->receiving_lib->get_mode();
+            $quantity = 0;
+            $item_location = $this->receiving_lib->get_stock_source();
+            $discount = $this->config->item('default_receivings_discount');
+            $fee = 20;
+            $discount_type = $this->config->item('default_receivings_discount_type');
+            foreach ($array_item_id as $item_id) {
+                $item_id = (int)trim($item_id);
+                $stock_locations = $this->Stock_location->get_undeleted_all()->result_array();
+                foreach ($stock_locations as $location) {
+                    $updated_quantity = 0;
+                    $location_detail = array('item_id' => $item_id,
+                        'location_id' => $location['location_id'],
+                        'quantity' => $updated_quantity);
 
-        $mode = $this->receiving_lib->get_mode();
-        $quantity = 0;
-        $item_location = $this->receiving_lib->get_stock_source();
-        $discount = $this->config->item('default_receivings_discount');
-        $fee = 20;
-        $discount_type = $this->config->item('default_receivings_discount_type');
-        foreach ($array_item_id as $item_id) {
-            $item_id = (int)trim($item_id);
-            $stock_locations = $this->Stock_location->get_undeleted_all()->result_array();
-            foreach($stock_locations as $location)
-            {
-                $updated_quantity = 0;
-                $location_detail = array('item_id' => $item_id,
-                    'location_id' => $location['location_id'],
-                    'quantity' => $updated_quantity);
+                    $new_item = TRUE;
+                    $item_quantity = $this->Item_quantity->get_item_quantity($item_id, $location['location_id']);
+                    if ($item_quantity->quantity != $updated_quantity || $new_item) {
+                        $success = $this->Item_quantity->save($location_detail, $item_id, $location['location_id']);
 
-                $new_item = TRUE;
-                $item_quantity = $this->Item_quantity->get_item_quantity($item_id, $location['location_id']);
-                if($item_quantity->quantity != $updated_quantity || $new_item)
-                {
-                    $success = $this->Item_quantity->save($location_detail, $item_id, $location['location_id']);
+                        $inv_data = array(
+                            'trans_date' => date('Y-m-d H:i:s'),
+                            'trans_items' => $item_id,
+                            'trans_user' => $employee_id,
+                            'trans_location' => $location['location_id'],
+                            'trans_comment' => $this->lang->line('items_manually_editing_of_quantity'),
+                            'trans_inventory' => $updated_quantity - $item_quantity->quantity
+                        );
 
-                    $inv_data = array(
-                        'trans_date' => date('Y-m-d H:i:s'),
-                        'trans_items' => $item_id,
-                        'trans_user' => $employee_id,
-                        'trans_location' => $location['location_id'],
-                        'trans_comment' => $this->lang->line('items_manually_editing_of_quantity'),
-                        'trans_inventory' => $updated_quantity - $item_quantity->quantity
-                    );
-
-                    $success &= $this->Inventory->insert($inv_data);
+                        $success &= $this->Inventory->insert($inv_data);
+                    }
+                }
+                $this->barcode_lib->parse_barcode_fields($quantity, $item_id);
+                if (!$this->receiving_lib->add_item($item_id, $quantity, $item_location, $discount, $fee, $discount_type)) {
+                    $data['error'] = $this->lang->line('receivings_unable_to_add_item');
                 }
             }
-            $this->barcode_lib->parse_barcode_fields($quantity, $item_id);
-            if (!$this->receiving_lib->add_item($item_id, $quantity, $item_location, $discount, $fee, $discount_type)) {
-                $data['error'] = $this->lang->line('receivings_unable_to_add_item');
-            }
         }
+
         $this->_reload($data);
     }
 
