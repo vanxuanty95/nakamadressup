@@ -78,7 +78,7 @@ class Consignmenter extends Person
             foreach ($this->db->list_fields('consignmenters') as $field) {
                 $person_obj->$field = '';
             }
-            $person_obj['consignmenter_name'] = $this->generate_consignmenter_name();
+            $person_obj->consignmenter_name = $this->generate_consignmenter_name();
             return $person_obj;
         }
     }
