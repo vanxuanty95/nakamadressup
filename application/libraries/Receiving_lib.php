@@ -250,7 +250,8 @@ class Receiving_lib
             'price' => $price,
             'receiving_quantity' => $receiving_quantity,
             'receiving_quantity_choices' => $receiving_quantity_choices,
-            'total' => $this->get_item_total($quantity, $price, $discount, $fee, $discount_type, $receiving_quantity)
+            'total' => $this->get_item_total($quantity, $price, $discount, $fee, $discount_type, $receiving_quantity),
+            'consignmenter_id' => $item_info->consignmenter_id
         )
         );
 
