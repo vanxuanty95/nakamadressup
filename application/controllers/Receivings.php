@@ -121,7 +121,7 @@ class Receivings extends Secure_Controller
             $consignmenter_name = $consignmenter_info->consignmenter_name;
         }
 
-        if (!isset($consignmenter_id) || trim($consignmenter_id) === ''){
+        if ($consignmenter_id == -1 || (!isset($consignmenter_id) || trim($consignmenter_id) === '')){
             $data['error'] = $this->lang->line('receivings_consignmenter_unavailable');
             $this->_reload($data);
         }
