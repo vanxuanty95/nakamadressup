@@ -546,7 +546,7 @@ class Item extends CI_Model
                 $item_data['reorder_level'] = 0;
             }
 
-            if ($this->Item->save($item_data, FALSE)) {
+            if ($this->save($item_data, FALSE)) {
                 $success = TRUE;
                 if ($item_id == -1) {
                     $item_id = $item_data['item_id'];
