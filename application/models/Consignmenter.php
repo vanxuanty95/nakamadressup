@@ -291,7 +291,7 @@ class Consignmenter extends Person
     public function generate_consignmenter_name()
     {
         $date = new DateTime('now');
-        $date_str = $date->format('dmy');
+        $date_str = $date->format('dm');
         $number = $this->Receiving->get_number_reviving_today();
         $not_done = true;
         $consignmenter_name = '';
