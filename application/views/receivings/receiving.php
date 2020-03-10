@@ -98,7 +98,7 @@ if (isset($success)) {
                             data-btn-new='<?php echo $this->lang->line('common_new') ?>'
                             data-href='<?php echo site_url("items/view"); ?>'
                             title='<?php echo $this->lang->line('sales_new_item'); ?>'>
-                        <span class="glyphicon glyphicon-tag">&nbsp</span><?php echo $this->lang->line('sales_new_item'); ?>
+                        <span class="glyphicon glyphicon-tag">&nbsp</span><?php echo $this->lang->line('sales_new_item_manual'); ?>
                     </button>
                 </li>
             </ul>

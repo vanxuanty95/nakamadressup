@@ -92,6 +92,7 @@ $lang["sales_must_enter_numeric"] = "Tổng thanh toán phải là dạng số."
 $lang["sales_must_enter_numeric_giftcard"] = "Số Thẻ quà tặng phải là dạng số.";
 $lang["sales_new_customer"] = "Khách hàng mới";
 $lang["sales_new_item"] = "Hàng hóa mới";
+$lang["sales_new_item_manual"] = "Tạo hàng thủ công";
 $lang["sales_no_description"] = "Không";
 $lang["sales_no_filter"] = "Tất cả";
 $lang["sales_no_items_in_cart"] = "Không có Hàng hóa trong rổ hàng.";
