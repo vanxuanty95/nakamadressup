@@ -280,7 +280,8 @@ class Receiving extends CI_Model
     public function get_number_reviving_today()
     {
         $this->db->from('receivings');
-        $this->db->where('DATE_FORMAT(receiving_time, "%Y-%m-%d") >= DATE_FORMAT(NOW(), "%Y-%m-%d")');
+        $this->db->join('ospos_consignmenters', 'receivings.consignmenter_id = ospos_consignmenters.person_id', 'left');
+        $this->db->where('DATE_FORMAT(receiving_time, "%Y-%m-%d") >= DATE_FORMAT(NOW(), "%Y-%m-%d") AND consignmenter_name like CONCAT(DATE_FORMAT(NOW(), "%d%m"), \'%\')');
         $number = $this->db->get()->num_rows();
         return $number + 1;
     }
