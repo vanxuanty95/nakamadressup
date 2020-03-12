@@ -356,6 +356,14 @@ class Receiving_lib
         return $items;
     }
 
+    public function clear_all_withount_consignmenter()
+    {
+        $items = $this->get_cart();
+        $this->empty_cart();
+        $this->clear_comment();
+        $this->clear_reference();
+        return $items;
+    }
     public function get_item_total($quantity, $price, $discount, $fee, $discount_type, $receiving_quantity)
     {
         $extended_quantity = bcmul($quantity, $receiving_quantity);

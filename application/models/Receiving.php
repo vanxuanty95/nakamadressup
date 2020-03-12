@@ -285,6 +285,20 @@ class Receiving extends CI_Model
         $number = $this->db->get()->num_rows();
         return $number + 1;
     }
+
+    public function get_receiving_by_consignmenter_id($consignmenter_id)
+    {
+        $temp = (string)trim($consignmenter_id);
+        $this->db->from('receivings');
+        $this->db->where('consignmenter_id', $temp);
+        $query = $this->db->get();
+
+        if($query->num_rows() === 1)
+        {
+            return $query->row();
+        }
+        return null;
+    }
 }
 
 ?>

@@ -52,6 +52,10 @@ class Receivings extends Secure_Controller
         $stock_destination = $this->input->post('stock_destination');
         $stock_source = $this->input->post('stock_source');
 
+        if ($this->receiving_lib->get_mode() == 'edit_with_item'){
+            $this->receiving_lib->clear_all();
+        }
+
         if ((!$stock_source || $stock_source == $this->receiving_lib->get_stock_source()) &&
             (!$stock_destination || $stock_destination == $this->receiving_lib->get_stock_destination())
         ) {
@@ -63,7 +67,11 @@ class Receivings extends Secure_Controller
             $this->receiving_lib->set_stock_destination($stock_destination);
         }
 
-        $this->_reload();
+        if ($mode == 'edit_with_item'){
+            $this->edit_with_item();
+        }else{
+            $this->_reload();
+        }
     }
 
     public function set_expiration_date()
@@ -381,7 +389,7 @@ class Receivings extends Secure_Controller
     private function _reload($data = array())
     {
         $data['cart'] = $this->receiving_lib->get_cart();
-        $data['modes'] = array('receive' => $this->lang->line('receivings_receiving'), 'return' => $this->lang->line('receivings_return'));
+        $data['modes'] = array('receive' => $this->lang->line('receivings_receiving'), 'return' => $this->lang->line('receivings_return'), 'edit_with_item' => $this->lang->line('receivings_edit_with_item'));
         $data['mode'] = $this->receiving_lib->get_mode();
         $data['stock_locations'] = $this->Stock_location->get_allowed_locations('receivings');
         $data['show_stock_locations'] = count($data['stock_locations']) > 1;
@@ -452,5 +460,48 @@ class Receivings extends Secure_Controller
             }
         }
         $this->_reload();
+    }
+
+    public function edit_with_item()
+    {
+        $data = array();
+        $this->receiving_lib->clear_all_withount_consignmenter();
+
+        $consignmenter_id = $this->receiving_lib->get_consignmenter();
+        if ($consignmenter_id != -1) {
+            $consignmenter_info = $this->Consignmenter->get_info($consignmenter_id);
+        }
+
+        if ($consignmenter_id == -1 || (!isset($consignmenter_id) || trim($consignmenter_id) === '')) {
+            $data['error'] = $this->lang->line('receivings_consignmenter_unavailable');
+        } else {
+            $employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
+            $receiving_info = $this->Receiving->get_receiving_by_consignmenter_id($consignmenter_id);
+
+            if ($receiving_info == NULL){
+                $data['error'] = $this->lang->line('receivings_unavailable');
+                return $this->_reload($data);
+            }
+            $items = $this->Receiving->get_receiving_items($receiving_info->receiving_id)->result_array();
+            log_message("debug", print_r($items));
+            $i = 1;
+            foreach ($items as $item) {
+                $mode = $this->receiving_lib->get_mode();
+                $item_id = $item['item_id'];
+                $quantity = $item['quantity_purchased'];
+                $item_location = $item['item_location'];
+                $discount = $item['discount'];
+                $fee = $item['fee'];
+                $discount_type = $item['discount_type'];
+                $price = $item['item_cost_price'];
+                log_message("debug", $quantity);
+                if (!$this->receiving_lib->add_item($item_id, $quantity, $item_location, $discount, $fee, $discount_type, $price)) {
+                    $data['error'] = $this->lang->line('receivings_unable_to_add_item');
+                }
+                $this->receiving_lib->edit_item($items['line'], $items['description'], $items['serialnumber'], 0, $discount, $fee, $discount_type, $price, 1);
+                $i = $i + 1;
+            }
+        }
+        $this->_reload($data);
     }
 }
