@@ -1161,7 +1161,6 @@ class Sale extends CI_Model
 					MAX(sales.quote_number) AS quote_number,
 					MAX(sales.customer_id) AS customer_id,
 					MAX(CONCAT(customer_p.name)) AS customer_name,
-					MAX(customer_p.name) AS customer_name,
 					MAX(customer_p.email) AS customer_email,
 					MAX(customer_p.comments) AS customer_comments,
 					MAX(customer.consignmenter_name) AS customer_consignmenter_name,
