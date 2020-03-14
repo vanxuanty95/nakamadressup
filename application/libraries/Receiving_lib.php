@@ -33,6 +33,46 @@ class Receiving_lib
         $this->CI->session->unset_userdata('recv_cart');
     }
 
+    public function get_receiving_id()
+    {
+        if (!$this->CI->session->userdata('recv_receiving_id_edit')) {
+            $this->set_receiving_id(-1);
+        }
+        return $this->CI->session->userdata('recv_receiving_id_edit');
+    }
+
+    public function set_receiving_id($receiving_id)
+    {
+        $this->CI->session->set_userdata('recv_receiving_id_edit', $receiving_id);
+    }
+
+    public function get_cart_item_deleted()
+    {
+        return $this->CI->session->userdata('recv_cart_items_deleted');
+    }
+
+    public function init_cart_item_deleted()
+    {
+        $list_deleted = array();
+        $this->CI->session->set_userdata('recv_cart_items_deleted', $list_deleted);
+    }
+
+    public function add_cart_item_deleted($item_id)
+    {
+        if (!$this->CI->session->userdata('recv_cart_items_deleted')) {
+            $this->init_cart_item_deleted();
+        }
+        $temp_list = $this->get_cart_item_deleted();
+        $temp_list[] = $item_id;
+
+        $this->CI->session->set_userdata('recv_cart_items_deleted', $temp_list);
+    }
+
+    public function remove_cart_item_deleted()
+    {
+        $this->CI->session->unset_userdata('recv_cart_items_deleted');
+    }
+
     public function get_consignmenter()
     {
         if (!$this->CI->session->userdata('recv_consignmenter')) {
@@ -353,6 +393,7 @@ class Receiving_lib
         $this->remove_consignmenter();
         $this->clear_comment();
         $this->clear_reference();
+        $this->remove_cart_item_deleted();
         return $items;
     }
 
@@ -362,6 +403,7 @@ class Receiving_lib
         $this->empty_cart();
         $this->clear_comment();
         $this->clear_reference();
+        $this->remove_cart_item_deleted();
         return $items;
     }
     public function get_item_total($quantity, $price, $discount, $fee, $discount_type, $receiving_quantity)

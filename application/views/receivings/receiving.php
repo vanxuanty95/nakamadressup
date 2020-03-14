@@ -279,16 +279,39 @@ if (isset($success)) {
                 ?>
                 <?php echo form_open($controller_name . "/select_consignmenter", array('id' => 'select_consignmenter_form', 'class' => 'form-horizontal')); ?>
                 <div class="form-group" id="select_customer">
-                    <label id="consignmenter_label" for="consignmenter" class="control-label"
-                           style="margin-bottom: 1em; margin-top: -1em;"><?php echo $this->lang->line('receivings_select_consignmenter'); ?></label>
-                    <?php echo form_input(array('name' => 'consignmenter', 'id' => 'consignmenter', 'class' => 'form-control input-sm', 'value' => $this->lang->line('receivings_start_typing_consignmenter_name'))); ?>
 
-                    <button id='new_consignmenter_button' class='btn btn-info btn-sm modal-dlg'
-                            data-btn-submit='<?php echo $this->lang->line('common_submit') ?>'
-                            data-href='<?php echo site_url("consignmenters/view"); ?>'
-                            title='<?php echo $this->lang->line('receivings_new_consignmenter'); ?>'>
-                        <span class="glyphicon glyphicon-user">&nbsp</span><?php echo $this->lang->line('receivings_new_consignmenter'); ?>
-                    </button>
+                    <?php
+                    if ($mode == "edit_with_item") {
+                        ?>
+                        <label id="consignmenter_label" for="consignmenter" class="control-label"
+                               style="margin-bottom: 1em; margin-top: -1em;"><?php echo $this->lang->line('receivings_select_consignmenter'); ?></label>
+                        <?php
+                        echo form_input(array('name' => 'consignmenter', 'id' => 'consignmenter', 'class' => 'form-control input-sm', 'value' => $this->lang->line('receivings_start_typing_consignmenter_name')));
+                        ?>
+                        <button id='new_consignmenter_button' class='btn btn-info btn-sm modal-dlg'
+                                data-btn-submit='<?php echo $this->lang->line('common_submit') ?>'
+                                data-href='<?php echo site_url("consignmenters/view"); ?>'
+                                style="display: none;"
+                                title='<?php echo $this->lang->line('receivings_new_consignmenter'); ?>'>
+                            <span class="glyphicon glyphicon-user">&nbsp</span><?php echo $this->lang->line('receivings_new_consignmenter'); ?>
+                        </button>
+                        <?php
+                    } else {
+                        ?>
+                        <label id="consignmenter_label" for="consignmenter" class="control-label"
+                               style="margin-bottom: 1em; margin-top: -1em; display: none"><?php echo $this->lang->line('receivings_select_consignmenter'); ?></label>
+                        <?php
+                        echo form_input(array('name' => 'consignmenter', 'id' => 'consignmenter', 'class' => 'form-control input-sm', 'value' => $this->lang->line('receivings_start_typing_consignmenter_name'), 'style' => 'display:none;'));
+                        ?>
+                        <button id='new_consignmenter_button' class='btn btn-info btn-sm modal-dlg'
+                                data-btn-submit='<?php echo $this->lang->line('common_submit') ?>'
+                                data-href='<?php echo site_url("consignmenters/view"); ?>'
+                                title='<?php echo $this->lang->line('receivings_new_consignmenter'); ?>'>
+                            <span class="glyphicon glyphicon-user">&nbsp</span><?php echo $this->lang->line('receivings_new_consignmenter'); ?>
+                        </button>
+                        <?php
+                    }
+                    ?>
 
                 </div>
                 <?php echo form_close(); ?>
@@ -353,7 +376,7 @@ if (isset($success)) {
                                         </td>
                                     </tr>
                                     <?php
-                                    if ($mode == "receive") {
+                                    if ($mode == "receive" || $mode == "edit_with_item") {
                                         ?>
                                         <tr>
                                             <td><?php echo $this->lang->line('expiration_date'); ?></td>
@@ -607,7 +630,18 @@ if (isset($success)) {
             } else {
                 now = new Date(now.getFullYear(), now.getMonth() + 2, now.getDate())
             }
+            <?php
+            if ($mode == "edit_with_item"){
+            ?>
+            let dateCurrent = new Date('<?php echo $expiration_date?>');
+            $('#expiration_date_time_picker_input').val($.datepicker.formatDate('dd/mm/yy', dateCurrent));
+            <?php
+            }else{
+            ?>
             $('#expiration_date_time_picker_input').val($.datepicker.formatDate('dd/mm/yy', now));
+            <?php
+            }
+            ?>
         });
     </script>
 

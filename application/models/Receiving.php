@@ -47,11 +47,101 @@ class Receiving extends CI_Model
         return ($this->db->get()->num_rows() == 1);
     }
 
-    public function update($receiving_data, $receiving_id)
+    public function update_edited($receiving_id, $items, $consignmenter_id, $employee_id, $comment, $reference, $payment_type, $stock_location, $expiration_date, $list_deleted)
     {
-        $this->db->where('receiving_id', $receiving_id);
+        if (count($items) == 0) {
+            return -1;
+        }
 
-        return $this->db->update('receivings', $receiving_data);
+        $receivings_data = array(
+            'receiving_time' => date('Y-m-d H:i:s'),
+            'consignmenter_id' => $consignmenter_id,
+            'employee_id' => $employee_id,
+            'payment_type' => $payment_type,
+            'comment' => $comment,
+            'reference' => $reference,
+            'expiration_date' => $expiration_date,
+        );
+
+        //Run these queries as a transaction, we want to make sure we do all or nothing
+        $this->db->trans_start();
+
+        $this->db->where('receiving_id', $receiving_id);
+        $this->db->update('receivings', $receivings_data);
+
+        foreach ($items as $line => $item) {
+            $cur_item_info = $this->Item->get_info($item['item_id']);
+
+            $receivings_items_data = array(
+                'description' => $item['description'],
+                'serialnumber' => $item['serialnumber'],
+                'quantity_purchased' => $item['quantity'],
+                'receiving_quantity' => $item['receiving_quantity'],
+                'fee' => $item['fee'],
+                'discount' => $item['discount'],
+                'discount_type' => $item['discount_type'],
+                'item_cost_price' => $item['price'],
+                'item_unit_price' => $item['total'],
+                'item_location' => $item['item_location']
+            );
+
+            //make sure item exists in database.
+            if ($this->get_receiving_item_exits($receiving_id, $item['item_id'], $item['line'])) {
+                $this->db->where('receiving_id', $receiving_id);
+                $this->db->where('item_id', $item['item_id']);
+                $this->db->where('line', $item['line']);
+                $this->db->update('receivings_items', $receivings_items_data);
+            } else {
+                $receivings_items_data['receiving_id'] = $receiving_id;
+                $receivings_items_data['item_id'] = $item['item_id'];
+                $receivings_items_data['line'] = $item['line'];
+                $this->db->insert('receivings_items', $receivings_items_data);
+            }
+
+            $items_received = $item['receiving_quantity'] != 0 ? $item['quantity'] * $item['receiving_quantity'] : $item['quantity'];
+
+            // update cost price, if changed AND is set in config as wanted
+            if ($cur_item_info->cost_price != $item['price']) {
+                $this->Item->change_cost_price($item['item_id'], $items_received, $item['price'], $cur_item_info->cost_price, $item['total']);
+            }
+
+            $this->Item->save_consignmenter_id_and_expiration_date($item['item_id'], $this->Consignmenter->exists($consignmenter_id) ? $consignmenter_id : NULL, $receiving_id, $expiration_date);
+
+            //Update stock quantity
+            $item_quantity = $this->Item_quantity->get_item_quantity($item['item_id'], $item['item_location']);
+            $this->Item_quantity->save(array('quantity' => $items_received, 'item_id' => $item['item_id'],
+                'location_id' => $item['item_location']), $item['item_id'], $item['item_location']);
+
+            $recv_remarks = 'sửa đơn nhập bằng tay';
+            $inv_data = array(
+                'trans_date' => date('Y-m-d H:i:s'),
+                'trans_items' => $item['item_id'],
+                'trans_user' => $employee_id,
+                'trans_location' => $item['item_location'],
+                'trans_comment' => $recv_remarks,
+                'trans_inventory' => $items_received - $item_quantity->quantity
+            );
+
+            $this->Inventory->insert($inv_data);
+
+            $this->Attribute->copy_attribute_links($item['item_id'], 'receiving_id', $receiving_id);
+        }
+
+        foreach ($list_deleted as $line2 => $item_id) {
+            $this->db->where('receiving_id', $receiving_id);
+            $this->db->where('item_id', $item_id);
+            $this->db->delete('receivings_items');
+
+            $this->Item->delete($item_id);
+        }
+
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        }
+
+        return $receiving_id;
     }
 
     public function save($items, $consignmenter_id, $employee_id, $comment, $reference, $payment_type, $receiving_id = FALSE, $expiration_date)
@@ -202,6 +292,18 @@ class Receiving extends CI_Model
         return $this->db->get();
     }
 
+    public function get_receiving_item_exits($receiving_id, $item_id, $line)
+    {
+        $this->db->from('receivings_items');
+        $this->db->where('receiving_id', $receiving_id);
+        $this->db->where('item_id', $item_id);
+        $this->db->where('line', $line);
+        if ($this->db->get()->num_rows() == 1){
+            return true;
+        }
+        return false;
+    }
+
     public function get_consignmenter($receiving_id)
     {
         $this->db->from('receivings');
@@ -293,8 +395,7 @@ class Receiving extends CI_Model
         $this->db->where('consignmenter_id', $temp);
         $query = $this->db->get();
 
-        if($query->num_rows() === 1)
-        {
+        if ($query->num_rows() === 1) {
             return $query->row();
         }
         return null;
