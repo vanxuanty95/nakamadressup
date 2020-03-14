@@ -206,7 +206,7 @@ class Receiving_lib
         $this->CI->session->unset_userdata('recv_stock_destination');
     }
 
-    public function add_item($item_id, $quantity = 1, $item_location = NULL, $discount = 0, $fee = 0, $discount_type = 0, $price = NULL, $description = NULL, $serialnumber = NULL, $receiving_quantity = NULL, $receiving_id = NULL, $include_deleted = FALSE)
+    public function add_item($item_id, $item_line, $quantity = 1, $item_location = NULL, $discount = 0, $fee = 0, $discount_type = 0, $price = NULL, $description = NULL, $serialnumber = NULL, $receiving_quantity = NULL, $receiving_id = NULL, $include_deleted = FALSE)
     {
         //make sure item exists in database.
         if (!$this->CI->Item->exists($item_id, $include_deleted)) {
@@ -246,7 +246,12 @@ class Receiving_lib
             }
         }
 
-        $insertkey = $maxkey + 1;
+        if ($item_line == -1) {
+            $insertkey = $maxkey + 1;
+        } else {
+            $insertkey = $item_line;
+        }
+
         $item_info = $this->CI->Item->get_info($item_id, $item_location);
         //array records are identified by $insertkey and item_id is just another field.
         $price = $price != NULL ? $price : $item_info->cost_price;
@@ -355,7 +360,7 @@ class Receiving_lib
         $this->clear_comment();
 
         foreach ($this->CI->Receiving->get_receiving_items($receiving_id)->result() as $row) {
-            $this->add_item($row->item_id, -$row->quantity_purchased, $row->item_location, $row->discount, $row->discount_type, $row->item_unit_price, $row->description, $row->serialnumber, $receiving_id, $row->receiving_quantity, TRUE);
+            $this->add_item($row->item_id, -1, -$row->quantity_purchased, $row->item_location, $row->discount, $row->discount_type, $row->item_unit_price, $row->description, $row->serialnumber, $receiving_id, $row->receiving_quantity, TRUE);
         }
 
         $this->set_consignmenter($this->CI->Receiving->get_consignmenter($receiving_id)->person_id);
@@ -368,7 +373,7 @@ class Receiving_lib
         $item_kit_id = $pieces[1];
 
         foreach ($this->CI->Item_kit_items->get_info($item_kit_id) as $item_kit_item) {
-            $this->add_item($item_kit_item['item_id'], $item_kit_item['quantity'], $item_location, $discount, $fee, $discount_type);
+            $this->add_item($item_kit_item['item_id'], -1, $item_kit_item['quantity'], $item_location, $discount, $fee, $discount_type);
         }
     }
 
@@ -378,7 +383,7 @@ class Receiving_lib
         $this->remove_consignmenter();
 
         foreach ($this->CI->Receiving->get_receiving_items($receiving_id)->result() as $row) {
-            $this->add_item($row->item_id, $row->quantity_purchased, $row->item_location, $row->discount, $row->fee, $row->discount_type, $row->item_unit_price, $row->description, $row->serialnumber, $row->receiving_quantity, $receiving_id, TRUE);
+            $this->add_item($row->item_id, -1, $row->quantity_purchased, $row->item_location, $row->discount, $row->fee, $row->discount_type, $row->item_unit_price, $row->description, $row->serialnumber, $row->receiving_quantity, $receiving_id, TRUE);
         }
 
         $this->set_consignmenter($this->CI->Receiving->get_consignmenter($receiving_id)->person_id);
@@ -406,6 +411,7 @@ class Receiving_lib
         $this->remove_cart_item_deleted();
         return $items;
     }
+
     public function get_item_total($quantity, $price, $discount, $fee, $discount_type, $receiving_quantity)
     {
         $extended_quantity = bcmul($quantity, $receiving_quantity);
