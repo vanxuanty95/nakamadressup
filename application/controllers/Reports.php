@@ -1455,8 +1455,8 @@ class Reports extends Secure_Controller
                     $drow['quantity'],
                     $drow['sold_quantity'],
                     $drow['remaining_quantity'],
-                    $drow['consignmenter_total'],
                     $drow['sold_total'],
+                    $drow['consignmenter_total'],
                     $drow['profit_total'],
                 ));
             }
