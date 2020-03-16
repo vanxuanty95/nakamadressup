@@ -1451,7 +1451,6 @@ class Reports extends Secure_Controller
 
             foreach ($report_data['details'][$key] as $drow) {
                 $details_data[$row['person_id']][] = $this->xss_clean(array(
-                    $drow['item_id'],
                     $drow['name'],
                     $drow['quantity'],
                     $drow['sold_quantity'],
