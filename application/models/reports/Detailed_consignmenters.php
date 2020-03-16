@@ -17,18 +17,19 @@ class Detailed_consignmenters extends Report
                 array('consignmenter_name' => $this->lang->line('reports_consignmenter_name')),
                 array('name' => $this->lang->line('reports_person_name')),
                 array('quantity' => $this->lang->line('reports_quantity'), 'sorter' => 'number_sorter'),
+                array('sold_quantity' => $this->lang->line('reports_sold_quantity'), 'sorter' => 'number_sorter'),
                 array('remaining_quantity' => $this->lang->line('reports_remaining_quantity'), 'sorter' => 'number_sorter'),
-                array('consignmenter_total' => $this->lang->line('reports_consignmenter_total'), 'sorter' => 'number_sorter'),
                 array('sold_total' => $this->lang->line('reports_sold_quantity'), 'sorter' => 'number_sorter'),
+                array('consignmenter_total' => $this->lang->line('reports_consignmenter_total'), 'sorter' => 'number_sorter'),
                 array('profit_total' => $this->lang->line('reports_profit_total'), 'sorter' => 'number_sorter'),),
             'details' => array(
                 $this->lang->line('reports_name'),
-                $this->lang->line('reports_price'),
                 $this->lang->line('reports_quantity'),
                 $this->lang->line('reports_sold_quantity'),
                 $this->lang->line('reports_remaining_quantity'),
                 $this->lang->line('reports_sold_total'),
                 $this->lang->line('reports_consignmenter_total'),
+                $this->lang->line('reports_profit_total'),
             )
         );
     }
@@ -75,6 +76,7 @@ class Detailed_consignmenters extends Report
         foreach ($data['summary'] as $key => $value) {
             $query2 = $this->db->query("SELECT ospos_items.consignmenter_id AS person_id,
             ospos_items.item_id,
+            ospos_items.name,
             ospos_items.name,
             SUM(receivings.receivings_quantity)                        AS quantity,
             SUM(sales.sales_quantity)                                  AS sold_quantity,
