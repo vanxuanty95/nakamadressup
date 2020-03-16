@@ -56,7 +56,8 @@ class Detailed_consignmenters extends Report
                             GROUP BY item_id) AS receivings ON receivings.item_id = ospos_items.item_id
                  LEFT JOIN (SELECT SUM(ospos_sales_items.quantity_purchased) AS sales_quantity,
                                    item_id,
-                                   SUM(ospos_sales_items.item_unit_price)    AS sold_total
+                                   SUM(ospos_sales_items.item_unit_price  -
+                               (ospos_sales_items.item_unit_price / 100 * ospos_sales_items.discount))    AS sold_total
                             FROM ospos_sales_items
                             GROUP BY item_id) AS sales ON sales.item_id = ospos_items.item_id
         WHERE ospos_items.deleted = 0
@@ -93,7 +94,8 @@ class Detailed_consignmenters extends Report
                                 GROUP BY item_id) AS receivings ON receivings.item_id = ospos_items.item_id
                      LEFT JOIN (SELECT SUM(ospos_sales_items.quantity_purchased) AS sales_quantity,
                                        item_id,
-                                       SUM(ospos_sales_items.item_unit_price)    AS sold_total
+                                       SUM(ospos_sales_items.item_unit_price  -
+                               (ospos_sales_items.item_unit_price / 100 * ospos_sales_items.discount))    AS sold_total
                                 FROM ospos_sales_items
                                 GROUP BY item_id) AS sales ON sales.item_id = ospos_items.item_id
             WHERE ospos_items.deleted = 0 AND ospos_items.consignmenter_id = ?
