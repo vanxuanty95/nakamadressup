@@ -19,7 +19,7 @@ class Detailed_consignmenters extends Report
                 array('quantity' => $this->lang->line('reports_quantity'), 'sorter' => 'number_sorter'),
                 array('sold_quantity' => $this->lang->line('reports_sold_quantity'), 'sorter' => 'number_sorter'),
                 array('remaining_quantity' => $this->lang->line('reports_remaining_quantity'), 'sorter' => 'number_sorter'),
-                array('sold_total' => $this->lang->line('reports_sold_quantity'), 'sorter' => 'number_sorter'),
+                array('sold_total' => $this->lang->line('reports_sold_total'), 'sorter' => 'number_sorter'),
                 array('consignmenter_total' => $this->lang->line('reports_consignmenter_total'), 'sorter' => 'number_sorter'),
                 array('profit_total' => $this->lang->line('reports_profit_total'), 'sorter' => 'number_sorter'),),
             'details' => array(
