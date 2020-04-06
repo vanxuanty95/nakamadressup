@@ -111,8 +111,7 @@ if (isset($success)) {
             <thead>
             <tr>
                 <th style="width:5%;"><?php echo $this->lang->line('common_delete'); ?></th>
-                <th style="width:15%; display: none"
-                "><?php echo $this->lang->line('sales_item_number'); ?></th>
+                <th style="width:15%; display: none"><?php echo $this->lang->line('sales_item_number'); ?></th>
                 <th style="width:23%;"><?php echo $this->lang->line('receivings_item_name'); ?></th>
                 <th style="width:10%;"><?php echo $this->lang->line('receivings_cost'); ?></th>
                 <th style="width:8%;"><?php echo $this->lang->line('receivings_quantity'); ?></th>
@@ -135,7 +134,7 @@ if (isset($success)) {
                 </tr>
                 <?php
             } else {
-                foreach (array_reverse($cart, TRUE) as $line => $item) {
+                foreach ($cart as $line => $item) {
                     ?>
                     <?php echo form_open($controller_name . "/edit_item/$line", array('class' => 'form-horizontal', 'id' => 'cart_' . $line)); ?>
                     <tr>
