@@ -149,7 +149,7 @@ if (isset($success)) {
                         <?php
                         if ($items_module_allowed && $mode != 'requisition') {
                             ?>
-                            <td><?php echo form_input(array('name' => 'price', 'class' => 'form-control input-sm', 'value' => to_currency_no_money($item['price']))); ?></td>
+                            <td><?php echo form_input(array('name' => 'price', 'class' => 'form-control input-sm inputPrice', 'value' => to_currency_no_money($item['price']))); ?></td>
                             <?php
                         } else {
                             ?>
@@ -436,6 +436,13 @@ if (isset($success)) {
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+            $(".inputPrice").on('keyup', function(){
+                var n = parseInt($(this).val().replace(/\D/g,''),10);
+                if ($(this).val() === "NaN" || $(this).val() === "") n = 0;
+                $(this).val(n.toLocaleString());
+            });
+
             $("#item").autocomplete({
                 source: '<?php echo site_url($controller_name . "/stock_item_search"); ?>',
                 minChars: 0,
@@ -533,6 +540,11 @@ if (isset($success)) {
             }
 
             $('[name="price"],[name="quantity"],[name="receiving_quantity"],[name="discount"],[name="description"],[name="serialnumber"]').change(function () {
+                if ($(this).attr("name") ===  "price"){
+                    let price = $(this).val();
+                    price = price.toLocaleString().replace(/\D/g,'');
+                    $(this).val(price);
+                }
                 $(this).parents("tr").prevAll("form:first").submit()
             });
 
