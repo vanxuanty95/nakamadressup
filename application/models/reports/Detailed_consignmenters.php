@@ -20,6 +20,7 @@ class Detailed_consignmenters extends Report
                 array('sold_quantity' => $this->lang->line('reports_sold_quantity'), 'sorter' => 'number_sorter'),
                 array('remaining_quantity' => $this->lang->line('reports_remaining_quantity'), 'sorter' => 'number_sorter'),
                 array('sold_total' => $this->lang->line('reports_sold_total'), 'sorter' => 'number_sorter'),
+                array('consignmenter_each' => $this->lang->line('reports_consignmenter_each'), 'sorter' => 'number_sorter'),
                 array('consignmenter_total' => $this->lang->line('reports_consignmenter_total'), 'sorter' => 'number_sorter'),
                 array('profit_total' => $this->lang->line('reports_profit_total'), 'sorter' => 'number_sorter'),),
             'details' => array(
@@ -28,6 +29,7 @@ class Detailed_consignmenters extends Report
                 $this->lang->line('reports_sold_quantity'),
                 $this->lang->line('reports_remaining_quantity'),
                 $this->lang->line('reports_sold_total'),
+                $this->lang->line('reports_consignmenter_each'),
                 $this->lang->line('reports_consignmenter_total'),
                 $this->lang->line('reports_profit_total'),
             )
@@ -43,6 +45,7 @@ class Detailed_consignmenters extends Report
        SUM(sales.sales_quantity)                                  AS sold_quantity,
        SUM(remaining_quantity.remaining_quantity)                 AS remaining_quantity,
        ROUND(SUM(ospos_items.cost_price))                         AS consignmenter_total,
+       ROUND(SUM(sales.consignmenter_each))                       AS consignmenter_each,
        ROUND(SUM(sales.sold_total))                               AS sold_total,
        ROUND(SUM(sales.sold_total) - SUM(ospos_items.cost_price)) AS profit_total
         FROM ospos_consignmenters
@@ -57,7 +60,8 @@ class Detailed_consignmenters extends Report
                  LEFT JOIN (SELECT SUM(ospos_sales_items.quantity_purchased) AS sales_quantity,
                                    item_id,
                                    SUM(ospos_sales_items.item_unit_price  -
-                               (ospos_sales_items.item_unit_price / 100 * ospos_sales_items.discount))    AS sold_total
+                               (ospos_sales_items.item_unit_price / 100 * ospos_sales_items.discount))    AS sold_total,
+                               SUM(ospos_sales_items.item_cost_price)    AS consignmenter_each
                             FROM ospos_sales_items
                             GROUP BY item_id) AS sales ON sales.item_id = ospos_items.item_id
         WHERE ospos_items.deleted = 0
@@ -83,6 +87,7 @@ class Detailed_consignmenters extends Report
             SUM(sales.sales_quantity)                                  AS sold_quantity,
             SUM(remaining_quantity.remaining_quantity)                 AS remaining_quantity,
             ROUND(SUM(ospos_items.cost_price))                         AS consignmenter_total,
+            ROUND(SUM(sales.consignmenter_each))                       AS consignmenter_each,
             ROUND(SUM(sales.sold_total))                               AS sold_total,
             ROUND(SUM(sales.sold_total) - SUM(ospos_items.cost_price)) AS profit_total
             FROM ospos_items
@@ -95,7 +100,8 @@ class Detailed_consignmenters extends Report
                      LEFT JOIN (SELECT SUM(ospos_sales_items.quantity_purchased) AS sales_quantity,
                                        item_id,
                                        SUM(ospos_sales_items.item_unit_price  -
-                               (ospos_sales_items.item_unit_price / 100 * ospos_sales_items.discount))    AS sold_total
+                               (ospos_sales_items.item_unit_price / 100 * ospos_sales_items.discount))    AS sold_total,
+                               SUM(ospos_sales_items.item_cost_price)    AS consignmenter_each
                                 FROM ospos_sales_items
                                 GROUP BY item_id) AS sales ON sales.item_id = ospos_items.item_id
             WHERE ospos_items.deleted = 0 AND ospos_items.consignmenter_id = ?

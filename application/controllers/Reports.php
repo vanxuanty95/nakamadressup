@@ -1444,6 +1444,7 @@ class Reports extends Secure_Controller
                 'quantity' => to_quantity_decimals($row['quantity']),
                 'sold_quantity' => to_quantity_decimals($row['sold_quantity']),
                 'remaining_quantity' => to_quantity_decimals($row['remaining_quantity']),
+                'consignmenter_each' => to_currency($row['consignmenter_each']),
                 'consignmenter_total' => to_currency($row['consignmenter_total']),
                 'sold_total' => to_currency($row['sold_total']),
                 'profit_total' => to_currency($row['profit_total']),
@@ -1456,6 +1457,7 @@ class Reports extends Secure_Controller
                     $drow['sold_quantity'],
                     $drow['remaining_quantity'],
                     $drow['sold_total'],
+                    $drow['consignmenter_each'],
                     $drow['consignmenter_total'],
                     $drow['profit_total'],
                 ));
