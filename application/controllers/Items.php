@@ -1112,5 +1112,26 @@ class Items extends Secure_Controller
 			}
 		}
 	}
+
+	public function store_image() {
+		$config['upload_path'] = './uploads/item_pics/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size'] = 5000;
+		$config['max_width'] = 3000;
+		$config['max_height'] = 3000;
+
+		$this->load->library('upload', $config);
+
+		$this->upload->do_upload('item_image');
+
+		if(strlen($this->upload->display_errors()) == 0 || !strcmp($this->upload->display_errors(), '<p>'.$this->lang->line('upload_no_file_selected').'</p>')){
+			$item_id = $this->input->post('item_id');
+			$upload_data = $this->upload->data();
+			$image_name = $upload_data['file_name'];
+			$this->Item->save_image($image_name, $item_id);
+			return json_encode(array('success' => TRUE));
+		}
+		return json_encode(array('success' => FALSE));;
+	}
 }
 ?>

@@ -21,3 +21,7 @@ $lang["consignmenters_consignmenter"] = "Mã ký gửi";
 $lang["consignmenters_consignmenter_id"] = "Mã số";
 $lang["consignmenters_tax_id"] = "";
 $lang["consignmenters_update"] = "Cập nhật Mã ký gửi";
+$lang["consignmenters_images"] = "Ảnh";
+$lang["consignmenters_missing_images"] = "Thiếu ảnh";
+$lang["consignmenters_failed_upload_image"] = "Upload ảnh thất bại";
+$lang["consignmenters_upload_image"] = "Tải ảnh lên";

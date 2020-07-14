@@ -4194,3 +4194,24 @@ input#amount_tendered:disabled {
     stroke-opacity: .2;
     stroke-width: 20px
 }
+
+.frontpage_square{
+    position:relative;
+    overflow:hidden;
+    padding-bottom:100%;
+}
+.frontpage_square img{
+    position:absolute;
+    width: 100%;
+}
+.padding-sm { padding: .5em; }
+.padding-md { padding: 1em; }
+.padding-lg { padding: 1.5em; }
+.padding-xl { padding: 3em; }
+
+.margin-y-zero { margin: 0; }
+.margin-y-xs { margin: 0 .25em; }
+.margin-y-sm { margin: 0 .5em; }
+.margin-y-md { margin: 0 1em; }
+.margin-y-lg { margin: 0 1.5em; }
+.margin-y-xl { margin: 0 3em; }

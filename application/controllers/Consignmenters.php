@@ -83,6 +83,23 @@ class Consignmenters extends Persons
 
 		$this->load->view("consignmenters/form", $data);
 	}
+
+	/*
+	Loads the consignmenter edit form
+	*/
+	public function view_images($consignmenter_id = -1)
+	{
+		$info = $this->Consignmenter->get_info($consignmenter_id);
+		$images = $this->Consignmenter->get_items_images($consignmenter_id);
+		foreach(get_object_vars($info) as $property => $value)
+		{
+			$info->$property = $this->xss_clean($value);
+		}
+		$data['person_info'] = $info;
+		$data['images'] = $images->result_array();
+
+		$this->load->view("consignmenters/images", $data);
+	}
 	
 	/*
 	Inserts/updates a consignmenter

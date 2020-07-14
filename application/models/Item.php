@@ -985,6 +985,15 @@ class Item extends CI_Model
         }
         return $item_name;
     }
+
+    function save_image($image_name, $item_id)
+    {
+        if ($image_name != NULL) {
+            log_message("debug", $item_id. " " . $image_name);
+            $this->db->where('item_id', (int)$item_id);
+            $this->db->update('items', array('pic_filename' => $image_name));
+        }
+    }
 }
 
 ?>

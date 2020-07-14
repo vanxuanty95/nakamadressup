@@ -306,6 +306,16 @@ class Consignmenter extends Person
         }
         return $consignmenter_name;
     }
+
+    /*
+    Return consignmenter categories
+    */
+    public function get_items_images($consignmenter_id)
+    {
+        $this->db->from('items');
+        $this->db->where('consignmenter_id', $consignmenter_id);
+        return $this->db->get();
+    }
 }
 
 ?>

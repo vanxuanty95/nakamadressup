@@ -262,7 +262,8 @@ function get_consignmenters_manage_table_headers()
         array('people.person_id' => $CI->lang->line('common_id')),
         array('consignmenter_name' => $CI->lang->line('consignmenters_consignmenter')),
         array('name' => $CI->lang->line('common_name')),
-        array('phone_number' => $CI->lang->line('common_phone_number'))
+        array('phone_number' => $CI->lang->line('common_phone_number')),
+        array('images' => $CI->lang->line('consignmenters_images'))
     );
 
     if ($CI->Employee->has_grant('messages', $CI->session->userdata('person_id'))) {
@@ -291,6 +292,8 @@ function get_consignmenter_data_row($consignmenter)
         'phone_number' => $consignmenter->phone_number,
         'messages' => empty($consignmenter->phone_number) ? '' : anchor("Messages/view/$consignmenter->person_id", '<span class="glyphicon glyphicon-phone"></span>',
             array('class' => "modal-dlg", 'data-btn-submit' => $CI->lang->line('common_submit'), 'title' => $CI->lang->line('messages_sms_send'))),
+        'images' => anchor($controller_name . "/view_images/$consignmenter->person_id", $CI->lang->line('consignmenters_images'),
+            array('class' => "btn btn-info btn-sm", 'target' => '_blank', 'title' => $CI->lang->line($controller_name . '_images'))),
         'edit' => anchor($controller_name . "/view/$consignmenter->person_id", '<span class="glyphicon glyphicon-edit"></span>',
             array('class' => "modal-dlg", 'data-btn-submit' => $CI->lang->line('common_submit'), 'title' => $CI->lang->line($controller_name . '_update')))
     );
