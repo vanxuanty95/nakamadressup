@@ -142,7 +142,8 @@ class Receivings extends Secure_Controller
             $data['error'] = $this->lang->line('receivings_consignmenter_unavailable');
         } else {
             $employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
-            $array_item_id = $this->Item->add_items_multiple($this->input->post('generate_new_item_input'), $employee_id, $consignmenter_name, $this->get_latest_alphabet());
+            list($level, $latest_character_by_int) = $this->get_latest_alphabet();
+            $array_item_id = $this->Item->add_items_multiple($this->input->post('generate_new_item_input'), $employee_id, $consignmenter_name, $level, $latest_character_by_int);
 
             $mode = $this->receiving_lib->get_mode();
             $quantity = 0;
@@ -189,16 +190,19 @@ class Receivings extends Secure_Controller
     public function get_latest_alphabet()
     {
         $latest_character_by_int = 0;
-        $latest_character = "A";
         $list_items = $this->receiving_lib->get_cart();
+        $current_level= 0;
+        $length_name = 6;
+        $level = 0;
         foreach ($list_items as $item) {
-            $latest_character_temp = substr(trim($item['name']), strlen(trim($item['name'])) - 1);
-            if (ord($latest_character_temp) >= ord($latest_character) && ord($latest_character_temp) <= 90) {
-                $latest_character = $latest_character_temp;
-                $latest_character_by_int = ord($latest_character_temp) - 64;
+            $level = strlen(trim($item['name'])) - 1 - $length_name;
+            if($current_level < $level){
+                $current_level = $level;
             }
+            $latest_character_temp = substr(trim($item['name']), strlen(trim($item['name'])) - 1);
+            $latest_character_by_int = ord($latest_character_temp) - 64;
         }
-        return $latest_character_by_int;
+        return array($level, $latest_character_by_int);
     }
 
     public function edit_item($item_id)

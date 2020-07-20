@@ -514,8 +514,9 @@ class Item extends CI_Model
         }
     }
 
-    public function add_items_multiple($numberItem, $employee_id, $consignmenter_name, $latest_alphabet)
+    public function add_items_multiple($numberItem, $employee_id, $consignmenter_name, $level, $latest_alphabet)
     {
+        $current_level = $level;
         $array_item_id = array();
         for ($i = 1; $i <= $numberItem; $i++) {
             $receiving_quantity = 0;
@@ -528,8 +529,28 @@ class Item extends CI_Model
             $default_pack_name = 1;
 
             //Save item data
+            $alphabet_name_int = $i + $latest_alphabet;
+
+            if ($alphabet_name_int % 26 == 0){
+                $ratio = floor($alphabet_name_int / 26) - 1;
+            }else{
+                $ratio = floor($alphabet_name_int / 26);
+            }
+
+            $alphabet_name_int = $alphabet_name_int - (26 * $ratio);
+            $temp = $ratio + $level;
+            if ($temp > $current_level) {
+                $current_level = $temp;
+            }
+
+            $second_alphabet = "";
+            for ($j = 0; $j < $current_level; $j++) {
+                $second_alphabet = $second_alphabet . chr(90);
+            }
+            $alphabet_name = $consignmenter_name . $second_alphabet . chr(64 + $alphabet_name_int);
+
             $item_data = array(
-                'name' => $consignmenter_name . chr(64 + $i + $latest_alphabet),
+                'name' => $alphabet_name,
                 'item_type' => $item_type,
                 'stock_type' => 0,
                 'cost_price' => 0,
@@ -989,7 +1010,7 @@ class Item extends CI_Model
     function save_image($image_name, $item_id)
     {
         if ($image_name != NULL) {
-            log_message("debug", $item_id. " " . $image_name);
+            log_message("debug", $item_id . " " . $image_name);
             $this->db->where('item_id', (int)$item_id);
             $this->db->update('items', array('pic_filename' => $image_name));
         }
