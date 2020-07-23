@@ -113,7 +113,7 @@ class Receivings extends Secure_Controller
         $quantity = ($mode == 'receive' || $mode == 'requisition') ? $quantity : -$quantity;
         $item_location = $this->receiving_lib->get_stock_source();
         $discount = $this->config->item('default_receivings_discount');
-        $fee = 20;
+        $fee = 25;
         $discount_type = $this->config->item('default_receivings_discount_type');
 
         if ($mode == 'return' && $this->Receiving->is_valid_receipt($item_id_or_number_or_item_kit_or_receipt)) {
@@ -149,7 +149,7 @@ class Receivings extends Secure_Controller
             $quantity = 0;
             $item_location = $this->receiving_lib->get_stock_source();
             $discount = $this->config->item('default_receivings_discount');
-            $fee = 20;
+            $fee = 25;
             $discount_type = $this->config->item('default_receivings_discount_type');
             foreach ($array_item_id as $item_id) {
                 $item_id = (int)trim($item_id);
