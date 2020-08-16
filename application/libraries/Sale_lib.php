@@ -719,6 +719,18 @@ class Sale_lib
 			return FALSE;
 		}
 
+		if($item_info->stock_type == HAS_STOCK)
+		{
+			$item_quantity = $this->CI->Item_quantity->get_item_quantity($item_id, $item_location)->quantity;
+			$quantity_added = $this->get_quantity_already_added($item_id, $item_location);
+
+			if($item_quantity - $quantity_added <= 0)
+			{
+				return FALSE;
+			}
+		}
+
+
 		$price = 0.00;
 		$cost_price = 0.00;
 		$item_id = $item_info->item_id;

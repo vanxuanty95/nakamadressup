@@ -175,3 +175,4 @@ $lang["sales_work_order_number"] = "Số giấy giao việc";
 $lang["sales_work_order_number_duplicate"] = "Số giấy giao việc phải là duy nhất.";
 $lang["sales_work_order_sent"] = "Gửi Giấy giao việc cho";
 $lang["sales_work_order_unsent"] = "Gặp lỗi khi gửi Giấy giao việc cho";
+$lang["sales_quantity_less_than_zero_can_not_sale"] = "Số lượng đã hết!";

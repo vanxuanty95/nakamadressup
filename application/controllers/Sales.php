@@ -453,7 +453,7 @@ class Sales extends Secure_Controller
 		{
 			if(!$this->sale_lib->add_item($item_id_or_number_or_item_kit_or_receipt, $quantity, $item_location, $discount, $discount_type, PRICE_MODE_STANDARD))
 			{
-				$data['error'] = $this->lang->line('sales_unable_to_add_item');
+				$data['error'] = $this->lang->line('sales_quantity_less_than_zero_can_not_sale');
 			}
 			else
 			{
